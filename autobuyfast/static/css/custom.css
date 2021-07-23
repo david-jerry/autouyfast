@@ -1,0 +1,35 @@
+label {
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #222;
+}
+#navBarSearch .btn-default {
+    background: #d13f1b;
+    font-size: 16px;
+    border: none;
+    border-color: none;
+    text-align: center;
+    font-weight: 800 !important;
+    max-height: 44px !important;
+}
+
+#navBarSearch .form-control {
+    font-size: 12px;
+    color:#222;
+    min-width: 100%;
+    font-family: "Hind" !important;
+    font-weight: 800 !important;
+    max-height: 44px !important;    
+}
+
+#id_remember,
+#id_is_buyer {
+    margin-right: 1.5rem;
+}
+
+#hint_id_password1,
+#hint_id_username {
+    display: none;
+}

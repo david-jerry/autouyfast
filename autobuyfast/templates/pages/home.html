@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+{% block slider %}
+  {{ block.super }}
+{% endblock slider %}
+
+{% block content %}
+<section class="section-filter">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-center">
+                    <h2 class="ui-title-block">Find Your Dream Car</h2>
+                    <div class="ui-subtitle-block">Tempor incididunt labore dolore magna aliqua sed ipsum</div>
+                    <div class="ui-decor"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="b-filter" method="GET" action="{% url 'cars:search' %}">
+        <div class="b-filter__inner bg-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        {{form.car_title__icontains|as_crispy_field}}
+                        {{form.car_dealer_name__icontains|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        {{form.car_mileage__lt|as_crispy_field}}
+                        {{form.car_year__lt|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        {{form.car_price__lt|as_crispy_field}}
+                        {{form.car_stock__icontains|as_crispy_field}}
+                        <br>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">search vehicle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- end .b-filter-->
+</section>
+<!-- end .section-filter-->
+{% endblock content %}

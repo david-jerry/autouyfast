@@ -1,0 +1,21 @@
+{% load static i18n %}
+
+<!-- ==========================-->
+<!-- MOBILE MENU-->
+<!-- ==========================-->
+<div data-off-canvas="mobile-slidebar left overlay">
+    <a class="navbar-brand scroll" href="{% url 'home' %}">
+        <img class="normal-logo img-resonsive visible-xs visible-sm" src="{% static 'images/logo.jpg' %}" width="120px" alt="logo" />
+        <img class="scroll-logo img-resonsive hidden-xs hidden-sm" src="{% static 'images/logo.jpg' %}" width="120px" alt="logo" />
+    </a>
+    <ul class="nav navbar-nav">
+        <li>
+            <h4><a href="">Mobile sidebar</a></h4>
+        </li>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a>
+        </li>
+        <li><a href="{% url 'cars:list' %}">Show Room</a>
+        </li>
+    </ul>
+</div>

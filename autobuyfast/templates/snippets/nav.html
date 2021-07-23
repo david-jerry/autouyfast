@@ -1,0 +1,128 @@
+{% load static i18n %}
+
+<!-- <div data-off-canvas="slidebar-1 left overlay">
+    <ul class="nav navbar-nav">
+        <li><a class="scrollTo" href="#features-section">features</a>
+        </li>
+        <li><a class="scrollTo" href="#services-section">Services</a>
+        </li>
+        <li><a class="scrollTo" href="#works-section">Works</a>
+        </li>
+        <li><a class="scrollTo" href="#about-section">About</a>
+        </li>
+        <li><a class="scrollTo" href="#team-section">Team</a>
+        </li>
+        <li><a href="#">News</a>
+            <div class="wrap-inside-nav">
+                <div class="inside-col">
+                    <ul class="inside-nav">
+                        <li><a href="blog.html">Blog 1</a>
+                        </li>
+                        <li><a href="blog-2.html">Blog 2</a>
+                        </li>
+                        <li><a href="blog-single.html">Blog single</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li><a href="#">Portfolio</a>
+            <div class="wrap-inside-nav">
+                <div class="inside-col">
+                    <ul class="inside-nav">
+                        <li><a href="portfolio.html">Portfolio</a>
+                        </li>
+                        <li><a href="portfolio-single.html">Portfolio single</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li><a href="#">Contact</a>
+            <div class="wrap-inside-nav">
+                <div class="inside-col">
+                    <ul class="inside-nav">
+                        <li><a href="contact.html">Contact 1</a>
+                        </li>
+                        <li><a href="contact-2.html">Contact 2</a>
+                        </li>
+                        <li><a href="contact-3.html">Contact 3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div> -->
+<header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
+    <div class="container container-boxed-width">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="header-topbarbox-1">
+                            <form method="GET" action="{% url 'cars:search' %}" role="/search/?car_title__icontains=" >
+                                <div class="input-group" id="navBarSearch">
+                                    <input type="text" name="car_title__icontains" placeholder="Type to search make and year" class="form-control">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 hidden-xs">
+                        <div class="header-topbarbox-2" style="top: 15px !important; position: inherit !important;">
+                            <ul class="social-links">
+                                {% if not request.user.is_authenticated %}
+                                <li><a href="{% url 'account_login' %}"><small class="" style="font-size:10px">Login</small> <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                                </li>
+                                <li><a href="{% url 'account_signup' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> <small style="font-size:10px"  class="">Signup</small></a>
+                                </li>
+                                {% else %}
+                                <li><a href="{% url 'account_logout' %}">Signout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar" id="nav">
+            <div class="container">
+                <div class="header-navibox-1">
+                    <!-- Mobile Trigger Start-->
+                    <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
+                    </button>
+                    <!-- Mobile Trigger End-->
+                    <a class="navbar-brand scroll" href="{% url 'home' %}">
+                        <img class="normal-logo img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
+                        <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
+                    </a>
+                </div>
+                <div class="header-navibox-3">
+                    <ul class="nav navbar-nav hidden-xs clearfix vcenter">
+                        <li>
+                            <div class="header-cart"><a href="#"><i class="icon fa fa-shopping-basket" aria-hidden="true"></i><span class="header-cart-count bg-primary">3</span></a>
+                            </div>
+                        </li>
+                        <li><a class="btn_header_search" href="#"><i class="icon fa fa-search"></i></a>
+                        </li>
+                    </ul><a class="btn btn-primary" href="{% if not request.user.is_authenticated %}{% url 'account_signup' %}{% else %}{% url 'request.user.get_absolute_url' %}e{% endif %}"> {% if not request.user.is_authenticated %}GET STARTED{% else %}request.user.username{% endif %}</a>
+                </div>
+                <div class="header-navibox-2">
+                    <ul class="yamm main-menu nav navbar-nav">
+                        <li><a href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li><a href="{% url 'about' %}">About</a>
+                        </li>
+                        <li><a href="{% url 'cars:list' %}">ShowRoom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- end .header-->

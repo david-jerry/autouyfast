@@ -1,7 +1,36 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}{{ user.username|upper }} Change Form - {{ block.super }}{% endblock %}
+{% block slider %}
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="b-title-page bg-primary_a">Update {{ object.username|upper }} Information</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .b-title-page-->
+<div class="bg-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
+                    </li>
+                    <li class="active">Update {{ object.username|upper }} Information</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb-->
+
+{% endblock slider %}
 
 {% block content %}
   <h1>{{ user.username }}</h1>

@@ -79,21 +79,9 @@ class Command(BaseCommand):
                         car_dealer_phone = car_dealer_phone,
                         car_title = car_title
                     )
-                    print(f'{car_title} already exists')
-                except ObjectDoesNotExist:
-                    AutoSearch.objects.get_or_create(
-                        car_image = car_image,
-                        car_stock = car_stock,
-                        car_year = int(car_year),
-                        car_url = car_url,
-                        car_mileage = float(car_mileage),
-                        car_price = float(car_price),
-                        car_history = car_history_report_url,
-                        car_dealer_name = car_dealer_name,
-                        car_dealer_phone = car_dealer_phone,
-                        car_title = car_title
-                    )
                     print(f'{car_title} was added')
+                except:
+                    print(f'{car_title} already exists')
 
 
                     

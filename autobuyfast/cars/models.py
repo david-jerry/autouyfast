@@ -184,7 +184,7 @@ CAR_BODY = (
 
 
 class AutoSearch(TimeStampedModel):
-    car_image = URLField(_("Car Image Url"), max_length=700, blank=True, null=True, unique=False)
+    car_image = URLField(_("Car Image Url"), max_length=700, blank=True, null=True, unique=True)
     car_stock = CharField(_("Used or New Stock"), max_length=700, blank=True, null=True) 
     car_year = PositiveSmallIntegerField(_("Production Year"), blank=True, null=True) 
     car_title = CharField(_("Car Title"), max_length=700, blank=True, null=True, unique=False) 

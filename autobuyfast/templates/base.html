@@ -54,6 +54,7 @@
   {% include "snippets/js.html" %}
 
   <!-- place project specific Javascript in this file -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="{% static 'js/iziToast.min.js' %}"></script>
   {% compress js inline %}
   <script defer src="{% static 'js/project.js' %}"></script>

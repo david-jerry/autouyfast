@@ -109,7 +109,7 @@
                         </li>
                         <li><a class="btn_header_search" href="#"><i class="icon fa fa-search"></i></a>
                         </li>
-                    </ul><a class="btn btn-primary" href="{% if not request.user.is_authenticated %}{% url 'account_signup' %}{% else %}{% url 'request.user.get_absolute_url' %}e{% endif %}"> {% if not request.user.is_authenticated %}GET STARTED{% else %}request.user.username{% endif %}</a>
+                    </ul><a class="btn btn-primary" href="{% if not request.user.is_authenticated %}{% url 'account_signup' %}{% else %}{% 'request.user.get_absolute_url' %}{% endif %}"> {% if not request.user.is_authenticated %}GET STARTED{% else %}request.user.username{% endif %}</a>
                 </div>
                 <div class="header-navibox-2">
                     <ul class="yamm main-menu nav navbar-nav">

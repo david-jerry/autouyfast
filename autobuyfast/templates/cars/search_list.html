@@ -42,7 +42,7 @@
             <main class="l-main-content">
                 <div class="filter-goods">
                     {% if is_paginated %}
-                    <div class="filter-goods__info">Showing <strong>{{cars.count}}</strong> results <strong> Page {{page_obj.number}} of </strong> <strong> {{paginator.num_pages}} Pages</strong>
+                    <div class="filter-goods__info">Showing <strong>{{cars_total.count}}</strong> results <strong> Page {{page_obj.number}} of </strong> <strong> {{paginator.num_pages}} Pages</strong>
                     </div>
                     {% endif %}
                     <div class="filter-goods__select">

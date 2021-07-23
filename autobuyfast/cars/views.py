@@ -56,6 +56,7 @@ class CarsSearchListview(ListView):
     def get_context_data(self, **kwargs):
         request = self.request
         context = super().get_context_data(**kwargs)
+        context["cars_total"] = self.get_queryset().count()
         context["filter"] = CarFilter(request.GET, queryset=self.get_queryset())
         return context
     

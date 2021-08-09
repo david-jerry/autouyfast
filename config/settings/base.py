@@ -117,12 +117,20 @@ THIRD_PARTY_APPS = [
     "countries_plus",
     # Django dynamic filtering based on model fields
     'django_filters',
+    # django tables 2
+    'django_tables2',
+    # Category settings https://pypi.org/project/django-category/
+    "category",
+    # comments app
+    "comment",
+
 ]
 
 LOCAL_APPS = [
     "autobuyfast.users.apps.UsersConfig",
     # Your stuff: custom apps go here
     "autobuyfast.cars.apps.CarsConfig",
+    "autobuyfast.blog.apps.BlogConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_ADMIN + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -474,3 +482,18 @@ TINYMCE_COMPRESSOR = True
 
 # Whether to append trailing slashes to URLs.
 APPEND_SLASH = True
+
+
+PROFILE_APP_NAME = 'users'
+PROFILE_MODEL_NAME = 'Profile' # letter case insensitive
+COMMENT_FLAGS_ALLOWED = 3
+COMMENT_SHOW_FLAGGED=True
+COMMENT_FLAG_REASONS = [
+    (1, 'Spam | Exists only to promote a service'),
+    (2, 'Abusive | Intended at promoting hatred'),
+    (3, 'Racist | Sick mentality'),
+    (4, 'Whatever | Your reason'),
+]
+COMMENT_ALLOW_ANONYMOUS = True
+COMMENT_ALLOW_MODERATOR_TO_BLOCK = True
+COMMENT_ALLOW_BLOCKING_USERS = True

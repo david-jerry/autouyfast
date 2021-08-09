@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block user_title %}Profile{% endblock %}
+{% block user_page_title %}Profile{% endblock %}
+{% block user_breadcrum %}profile{% endblock %}
+{% block user_section_title %}Profile{% endblock %}
+{% block user_section_title_desc %}View and edit your profile informations{% endblock %}
+
+
+{% block user_content %}
+<div class="b-car-details__section" style="margin-left: 10px;">
+    <form class="form-horizontal" method="post" action="{% url 'users:update_seller' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+    </form>    
+</div>
+{% endblock user_content %}

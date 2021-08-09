@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Blog Stories {% block blog_title %}{% endblock blog_title %} - {{ block.super }}
+{% endblock title %}
+
+{% block slider %}
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="b-title-page bg-primary_a">
+                        {% block blog_page_title %}{% endblock blog_page_title %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .b-title-page-->
+<div class="bg-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
+                    </li>
+                    <li class="active"><a href="{% url 'blogs:list' %}">blog</a></li>
+                    {% block blog_breadcrum %}
+                    {% endblock blog_breadcrum %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb-->
+{% endblock slider %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% block blog_content %}
+          
+        {% endblock blog_content %}
+    </div>
+</div>
+{% endblock %}

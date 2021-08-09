@@ -1,63 +1,35 @@
-{% extends "base.html" %}
+{% extends "users/base.html" %}
 {% load static %}
 
-{% block title %}{{ object.username|upper }} - {{ block.super }}{% endblock %}
-{% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70">
-    <div class="area-bg__inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="b-title-page bg-primary_a">{{ object.username|upper }}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+{% block user_title %}Dashboard{% endblock %}
+{% block user_page_title %}Dashboard{% endblock %}
+{% block user_breadcrum %}dashboard{% endblock %}
+{% block user_section_title %}Dashboard{% endblock %}
+{% block user_section_title_desc %}Manage all searches and saved car listings here{% endblock %}
+
+
+{% block user_content %}
+{% if request.user.is_seller %}
+<div class="b-car-details__section">
+  <h3 class="b-car-details__section-title ui-title-inner">My Ads</h3>
+  <div class="b-car-details__section-subtitle"><a href="">See all ads (4)</a></div>
+  <!-- add ads table below here -->
 </div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-                    </li>
-                    <li class="active">{{ object.username|upper }}</li>
-                </ol>
-            </div>
-        </div>
-    </div>
+
+<br>
+{% endif %}
+
+<div class="b-car-details__section">
+  <h3 class="b-car-details__section-title ui-title-inner">Saved Cars</h3>
+  <div class="b-car-details__section-subtitle"><a href="">See all saved cars (4)</a></div>
+  <!-- add ads table below here -->
 </div>
-<!-- end breadcrumb-->
 
-{% endblock slider %}
+<br>
 
-{% block content %}
-<div class="container">
-
-  <div class="row">
-    <div class="col-sm-12">
-
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
-    </div>
-  </div>
-
-  {% if object == request.user %}
-  <!-- Action buttons -->
-  <div class="row">
-
-    <div class="col-sm-12">
-      <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-      <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-      <!-- Your Stuff: Custom user template urls -->
-    </div>
-
-  </div>
-  <!-- End Action buttons -->
-  {% endif %}
-
+<div class="b-car-details__section">
+  <h3 class="b-car-details__section-title ui-title-inner">Saved Search</h3>
+  <div class="b-car-details__section-subtitle"><a href="">See all saved search (4)</a></div>
+  <!-- add ads table below here -->
 </div>
-{% endblock content %}
+{% endblock user_content %}

@@ -4,31 +4,30 @@ from django.core.mail import EmailMessage, send_mail, send_mass_mail
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse_lazy
 
-from .models import Buyer, Dealer
+from .models import AlertSetting, Profile
 
 User = get_user_model()
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-	print('****', created)
-	if instance.is_buyer:
-		Buyer.objects.get_or_create(user = instance)
-	else:
-		Dealer.objects.get_or_create(user = instance)
+def create_user_profile(sender, instance, created, *args, **kwargs):
+	if created:
+		Profile.objects.get_or_create(user = instance)
+		AlertSetting.objects.get_or_create(user = instance)
+		print('****', "creating user profile works")
 	
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-	print('_-----')	
-	# print(instance.internprofile.bio, instance.internprofile.location)
-	if instance.is_buyer:
-		instance.buyerprofile.save()
-	else:
-		Dealer.objects.get_or_create(user = instance)
+def save_user_profile(sender, instance, created, *args, **kwargs):
+	if created:
+		instance.userprofile.save()
+		instance.useralerts.save()
+		print('_-----', "saving users profiles working")	
 
 
-@receiver(user_signed_up)
-def user_signed_up(request, user, *args, **kwargs):
-    send_mail(
+# @receiver(user_signed_up)
+# def user_signed_up(request, user, *args, **kwargs):
+#     send_mail(
         
-    )
+#     )

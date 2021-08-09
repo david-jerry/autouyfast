@@ -1,22 +1,35 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load static i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Select a Signup Option" %}{% endblock %}
 
 {% block inner %}
-<h1>{% trans "Sign Up" %}</h1>
+<h1>{% trans "Choose Your Preferred Account Type" %}</h1>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+<br>
+<br>
+
+<div class="info-group block-table block-table_md">
+  <div class="info-group__section col-md-6">
+      <section class="b-info b-info_mod-a area-bg area-bg_op_80 area-bg_prim parallax" style="background-image: url(assets/media/content/bg/bg-4.jpg)">
+          <div class="area-bg__inner">
+              <h2 class="b-info__title">Are You Looking<strong class="b-info__title_lg">TO BUY A CAR?</strong></h2>
+              <div class="b-info__desc">We have car listing from multiple vendors all over the world. Feel free to have a look at our showroom.</div><a class="btn btn-white" href="{% url 'account_signup' %}">SIGNUP HERE</a>
+          </div>
+      </section>
+  </div>
+  <div class="info-group__section col-md-6">
+      <section class="b-info b-info_mod-b area-bg area-bg_op_80 area-bg_dark-2 parallax" style="background-image: url( {% static 'images/bg-3.jpg' %} )">
+          <div class="area-bg__inner">
+              <h2 class="b-info__title">Do You Want To<strong class="b-info__title_lg">SELL YOUR CAR?</strong></h2>
+              <div class="b-info__desc">For those interested in selling their cars, our large community of car buyers will enable you make more relible sales.</div><a class="btn btn-white" href="{% url 'seller_signup' %}">SIGNUP HERE</a>
+          </div>
+      </section>
+  </div>
+</div>
 
 {% endblock %}

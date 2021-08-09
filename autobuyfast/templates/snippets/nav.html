@@ -54,75 +54,61 @@
         </li>
     </ul>
 </div> -->
-<header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
-    <div class="container container-boxed-width">
-        <div class="top-bar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8">
-                        <div class="header-topbarbox-1">
-                            <form method="GET" action="{% url 'cars:search' %}" role="/search/?car_title__icontains=" >
-                                <div class="input-group" id="navBarSearch">
-                                    <input type="text" name="car_title__icontains" placeholder="Type to search make and year" class="form-control">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 hidden-xs">
-                        <div class="header-topbarbox-2" style="top: 15px !important; position: inherit !important;">
-                            <ul class="social-links">
-                                {% if not request.user.is_authenticated %}
-                                <li><a href="{% url 'account_login' %}"><small class="" style="font-size:10px">Login</small> <i class="fa fa-sign-in" aria-hidden="true"></i></a>
-                                </li>
-                                <li><a href="{% url 'account_signup' %}"><i class="fa fa-user-plus" aria-hidden="true"></i> <small style="font-size:10px"  class="">Signup</small></a>
-                                </li>
-                                {% else %}
-                                <li><a href="{% url 'account_logout' %}">Signout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>        
-                    </div>
-                </div>
-            </div>
+<nav class="navbar" id="nav">
+    <div class="container">
+        <div class="header-navibox-1">
+            <!-- Mobile Trigger Start-->
+            <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
+            </button>
+            <!-- Mobile Trigger End-->
+            <a class="navbar-brand scroll" href="{% url 'home' %}">
+                <img class="normal-logo img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
+                <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
+            </a>
         </div>
-        <nav class="navbar" id="nav">
-            <div class="container">
-                <div class="header-navibox-1">
-                    <!-- Mobile Trigger Start-->
-                    <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
-                    </button>
-                    <!-- Mobile Trigger End-->
-                    <a class="navbar-brand scroll" href="{% url 'home' %}">
-                        <img class="normal-logo img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
-                        <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
-                    </a>
-                </div>
-                <div class="header-navibox-3">
-                    <ul class="nav navbar-nav hidden-xs clearfix vcenter">
-                        <li>
-                            <div class="header-cart"><a href="#"><i class="icon fa fa-shopping-basket" aria-hidden="true"></i><span class="header-cart-count bg-primary">3</span></a>
-                            </div>
-                        </li>
-                        <li><a class="btn_header_search" href="#"><i class="icon fa fa-search"></i></a>
-                        </li>
-                    </ul><a class="btn btn-primary" href="{% if not request.user.is_authenticated %}{% url 'account_signup' %}{% else %}{% url 'users:detail' request.user.username %}{% endif %}"> {% if not request.user.is_authenticated %}GET STARTED{% else %}{{request.user.username}}{% endif %}</a>
-                </div>
-                <div class="header-navibox-2">
-                    <ul class="yamm main-menu nav navbar-nav">
-                        <li><a href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li><a href="{% url 'about' %}">About</a>
-                        </li>
-                        <li><a href="{% url 'cars:list' %}">ShowRoom</a>
-                        </li>
+        <div class="header-navibox-3" style="z-index: 10000;">
+            <!-- {% if request.user.is_seller %}
+            <a class="btn btn-primary" style="margin-top: -1.2rem;" href="{% url 'users:detail' request.user.username %}">SELL CARS</a>              
+            {% endif %} -->
+            <ul class="yamm nav navbar-nav hidden-xs clearfix vcenter">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -1.2rem;"> <span style="margin-top: -1.2rem;">{{request.user.fullname}}</span> <i class="icon fa fa-user-circle fa-2x" style="font-size: 25px; padding-top: 1rem; margin-bottom: 0.6rem;"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'users:detail' request.user.username %}" tabindex="1">DASHBOARD</a></li>
+                        <li><a href="{% url 'users:update' %}" tabindex="1">Saved Cars</a></li>
+                        <hr style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                        {% if request.user.is_seller %}
+                        <li><a href="{% url 'users:update_seller' %}" tabindex="1">My profile</a></li>
+                        <li><a href="{% url 'users:update' %}" tabindex="1">Manage Ads</a></li>
+                        {% elif not request.user.is_seller %}
+                        <li><a href="{% url 'users:update_buyer' %}" tabindex="1">My profile</a></li>
+                        {% endif %}
+                        <hr style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                        <li><a href="{% url 'users:update_notification' %}" tabindex="1">Alert Settings</a></li>
+                        <li><a href="{% url 'account_change_password' %}" tabindex="1">Password Settings</a></li>
+                        <hr style="margin-top: 0 !important; margin-bottom: 0 !important;">
+                        <li><a href="{% url 'account_logout' %}" tabindex="1">Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'account_login' %}" tabindex="1">Login</a></li>
+                        <li><a href="{% url 'signup_select' %}" tabindex="1">Signup</a></li>
+                        {% endif %}
                     </ul>
-                </div>
-            </div>
-        </nav>
+                </li>
+            </ul>
+        </div>
+        <div class="header-navibox-2">
+            <ul class="yamm main-menu nav navbar-nav">
+                <li><a href="{% url 'home' %}">Home</a>
+                </li>
+                <li><a href="{% url 'about' %}">About</a>
+                </li>
+                <li><a href="{% url 'blogs:list' %}">Blog</a>
+                </li>
+                <li><a href="{% url 'cars:list' %}">ShowRoom</a>
+                </li>
+            </ul>
+        </div>
     </div>
-</header>
+</nav>
 <!-- end .header-->

@@ -12932,6 +12932,16 @@ html [data-off-canvas*=open] {
     transition: all 0.3s;
 }
 
+.header-search-global__btn {
+    position: relative;
+    right: 0;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
 .search-global__note {
     margin-top: 10px;
     font-family: Montserrat;
@@ -30630,7 +30640,7 @@ a, .text-primary, .text-primary_h:hover, .text-primary_b:before, .text-primary_a
     }
     .b-goods-1__choose {}
     .section-title-page {
-        margin-top: 100px;
+        margin-top: 200px;
         height: auto;
     }
     .b-title-page {
@@ -30714,7 +30724,7 @@ a, .text-primary, .text-primary_h:hover, .text-primary_b:before, .text-primary_a
         height: 550px !important;
     }
     .header .top-bar {
-        display: none;
+        display: inline-block;
     }
     .navbar-brand {
         padding-left: 0;

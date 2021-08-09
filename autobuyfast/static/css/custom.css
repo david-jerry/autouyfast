@@ -5,14 +5,14 @@ label {
     text-transform: uppercase;
     color: #222;
 }
-#navBarSearch .btn-default {
+#navBarSearch .btn-primary {
     background: #d13f1b;
     font-size: 16px;
     border: none;
     border-color: none;
     text-align: center;
     font-weight: 800 !important;
-    max-height: 44px !important;
+    max-height: 32px !important;
 }
 
 #navBarSearch .form-control {
@@ -20,8 +20,9 @@ label {
     color:#222;
     min-width: 100%;
     font-family: "Hind" !important;
-    font-weight: 800 !important;
-    max-height: 44px !important;    
+    font-weight: 400 !important;
+    max-height: 32px !important;  
+    letter-spacing: 1.5px  
 }
 
 #id_remember,

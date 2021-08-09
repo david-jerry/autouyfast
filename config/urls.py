@@ -8,10 +8,11 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from filebrowser.sites import site
-from config.sitemaps import StaticViewSitemap
-
 
 from autobuyfast.cars.views import home
+from autobuyfast.users.views import buyer_signup, seller_signup
+from config.sitemaps import StaticViewSitemap
+
 sitemaps = {
     "static": StaticViewSitemap,
 }
@@ -35,11 +36,22 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    # Custom users registration
+    path("accounts/signup/", buyer_signup, name="account_signup"),
+    path("accounts/signup-dealer/", seller_signup, name="seller_signup"),
+    path("signup/", TemplateView.as_view(template_name="account/signup.html"), name="signup_select"),
+
     # User management
     path("users/", include("autobuyfast.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+
     # Your stuff: custom urls includes go here
     path("cars/", include("autobuyfast.cars.urls", namespace="cars")),
+]
+
+urlpatterns += [
+    path("blog/", include("autobuyfast.blog.urls", namespace="blogs")),
+    path('comment/', include('comment.urls')),
 ]
 
 # SEO url settings

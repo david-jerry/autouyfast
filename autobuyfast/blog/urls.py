@@ -1,0 +1,12 @@
+from django.urls import path
+
+from .views import PostDetail, PostList, cat_posts, post_share, tag_posts
+
+app_name = "blogs"
+urlpatterns = [
+    path('', PostList.as_view(), name='list'),
+    path('<slug>/', PostDetail, name='detail'),
+    path('<slug>/share/', post_share, name='share'),
+    path('tag/<slug:tag_slug>/', tag_posts, name='posts_by_tag'),
+    path('category/<slug:cat_slug>/', cat_posts, name='posts_by_cat'),
+]

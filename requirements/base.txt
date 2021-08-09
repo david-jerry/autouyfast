@@ -24,11 +24,21 @@ django-redis==5.0.0  # https://github.com/jazzband/django-redis
 # ------------------------------------------------------------------------------
 beautifulsoup4==4.9.3
 
+
+# SEARCH INDEX IMPORTS & PLUGINS
+# ------------------------------------------------------------------------------
+django-haystack==3.0
+whoosh==2.7.4
+
+
 # Admin
 # ------------------------------------------------------------------------------
 django-jet2==1.0.12
 FeedParser==5.2.1
-python-magic==0.4.24
+python-magic==0.4.15
+filemagic==1.6
+libmagic==1.0
+pyxlsb==1.0.3
 django-ipware==3.0.1
 django-autocomplete-light==3.8.2
 django-tinymce==3.3.0
@@ -93,3 +103,12 @@ requests-html==0.10.0
 django-filter==2.4.0 
 
 #Todo: Django Filter Search, Ajax Commenting, Language Integration, Cookie Consent
+# --extra-index-url https://dl.fontawesome.com/TOKEN/fontawesome-pro/python/simple/
+fontawesome-free==5.15
+django-tables2==2.4.0
+
+
+# Blog requirements
+django-category==2.0.1 #
+django-comments-dab==2.6.0
+django-next-prev==1.1.0

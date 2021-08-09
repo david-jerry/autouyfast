@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ request.user.username|title }} {% block user_title %}{% endblock user_title %} - {{ block.super }}{% endblock title %}
+
+{% block slider %}
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
+  <div class="area-bg__inner">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 class="b-title-page bg-primary_a">{{ request.user.username|upper }} {% block user_page_title %}{% endblock %}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end .b-title-page-->
+<div class="bg-grey">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
+          </li>
+          <li class="active"><a href="{% url 'users:detail' request.user.username %}">dashboard</a></li>
+          <li>{% block user_breadcrum %}{% endblock user_breadcrum %}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end breadcrumb-->
+{% endblock slider %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <!-- Action buttons -->
+
+    <div class="col-md-2">
+      {% if request.user.username %}
+      <a class="btn btn-primary btn-block" href="{% url 'users:detail' request.user.username %}" role="button">Dashboard</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Saved Cars</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Saved Search</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Update E-Mail</a>
+      {% if request.user.is_seller %}
+      <a class="btn btn-primary btn-block" href="{% url 'users:update_seller' %}" role="button">Profile</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Manage Ads</a>
+      {% elif not request.user.is_seller %}
+      <a class="btn btn-primary btn-block" href="{% url 'users:update_buyer' %}" role="button">Profile</a>
+      {% endif %}
+      <!-- Your Stuff: Custom user template urls -->
+      <a class="btn btn-primary btn-block" href="{% url 'users:update_notification' %}" role="button">Alert Settings</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_change_password' %}" role="button">Password Settings</a>
+      <a class="btn btn-primary btn-block" href="{% url 'account_logout' %}" role="button">Logout</a>
+      {% endif %}
+    </div>
+
+    <!-- End Action buttons -->
+    <div class="col-md-10">
+      <section class="b-car-details">
+        <div class="b-car-details__header">
+          <h2 class="b-car-details__title">{% block user_section_title %}{% endblock user_section_title %}</h2>
+          <div class="b-car-details__subtitle">{% block user_section_title_desc %}{% endblock user_section_title_desc %}</div>
+          <div class="b-car-details__address"><i class="icon fa fa-map-marker text-primary"></i> {% if request.user.userprofile.address %} {{ request.user.userprofile.address }} {% else %} <a href="{% url 'users:update' %}">Update Your Address</a> {% endif %}</div>
+          <div class="b-car-details__links">
+            <!-- <a class="b-car-details__link" href="car-details.html"><i class="icon fa fa-exchange text-primary"></i> Add to Compare</a> -->
+            <a class="b-car-details__link" href="{% url 'cars:list' %}"><i class="icon fa fa-car text-primary"></i> Car Brochure</a>
+            <!-- <a class="b-car-details__link" href="car-details.html"><i class="icon fa fa-share-alt text-primary"></i> Share</a> -->
+          </div>
+        </div>
+        {% block user_content %}
+        {% endblock user_content %}
+      </section>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

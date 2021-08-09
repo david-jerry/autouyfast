@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70">
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
     <div class="area-bg__inner">
         <div class="container">
             <div class="row">
@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="b-goods-1__img">
                                 <a class="js-zoom-images" href="{{car.car_url}}">
-                                    <img class="img-responsive" loading="lazy" src="{{car.car_image}}" alt="{{car.car_title}} Image" />
+                                    <img loading="lazy"  class="img-responsive" loading="lazy" src="{{car.car_image}}" alt="{{car.car_title}} Image" />
                                 <!-- </a><span class="b-goods-1__price hidden-th">{{car.car_price}}<span class="b-goods-1__price-msrp">MSRP $27,000</span></span> -->
                                 </a><span class="b-goods-1__price hidden-th">$ {{car.car_price}}</span>
                             </div>

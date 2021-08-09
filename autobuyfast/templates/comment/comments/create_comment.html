@@ -1,0 +1,10 @@
+{% extends "comment/comments/create_comment.html" %}
+
+{% block submit_button_cls %}
+btn btn-primary btn-block ui-form__btn
+{% endblock submit_button_cls %}
+
+{# override pagination style: #}
+{% block pagination %}
+{% include 'comment/comments/pagination.html' with active_btn='bg-danger' text_style='text-dark' li_cls='page-item rounded mx-1' %}
+{% endblock pagination %}

@@ -141,15 +141,21 @@
       <button class="search-close close" type="button"><i class="fa fa-times"></i>
       </button>
     </div>
-
-    {% include "snippets/nav.html" %}
+    <header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
+      <div class="container container-boxed-width">
+        {% include "snippets/header.html" %}
+        {% include "snippets/nav.html" %}
+      </div>
+    </div>
 
     {% block slider %}
     {% include "snippets/slider.html" %}
     {% endblock slider %}
   
+    <main class="l-main-content" style="padding: 16px 0;">
     {% block content %}
     {% endblock content %}
+    </main>
 
     {% include "snippets/footer.html" %}
 

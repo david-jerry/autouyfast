@@ -103,7 +103,6 @@ class AlertSettingsForm(forms.ModelForm):
         model = AlertSetting
         fields = [
             "newsletter_notif", 
-            "search_notif", 
             "car_sold_notif", 
             "car_price_notif"
         ]

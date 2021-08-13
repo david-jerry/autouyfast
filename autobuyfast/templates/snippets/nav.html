@@ -54,7 +54,7 @@
         </li>
     </ul>
 </div> -->
-<nav class="navbar" id="nav">
+<nav class="navbar" id="nav" style="z-index: 1000 !important;">
     <div class="container">
         <div class="header-navibox-1">
             <!-- Mobile Trigger Start-->
@@ -66,7 +66,7 @@
                 <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
             </a>
         </div>
-        <div class="header-navibox-3" style="z-index: 10000;">
+        <div class="header-navibox-3">
             <!-- {% if request.user.is_seller %}
             <a class="btn btn-primary" style="margin-top: -1.2rem;" href="{% url 'users:detail' request.user.username %}">SELL CARS</a>              
             {% endif %} -->
@@ -76,11 +76,11 @@
                     <ul class="dropdown-menu" role="menu">
                         {% if request.user.is_authenticated %}
                         <li><a href="{% url 'users:detail' request.user.username %}" tabindex="1">DASHBOARD</a></li>
-                        <li><a href="{% url 'users:update' %}" tabindex="1">Saved Cars</a></li>
+                        <li><a href="{% url 'users:watch_list' %}" tabindex="1">Saved Cars</a></li>
                         <hr style="margin-top: 0 !important; margin-bottom: 0 !important;">
                         {% if request.user.is_seller %}
                         <li><a href="{% url 'users:update_seller' %}" tabindex="1">My profile</a></li>
-                        <li><a href="{% url 'users:update' %}" tabindex="1">Manage Ads</a></li>
+                        <li><a href="{% url 'users:ads' %}" tabindex="1">Manage Ads</a></li>
                         {% elif not request.user.is_seller %}
                         <li><a href="{% url 'users:update_buyer' %}" tabindex="1">My profile</a></li>
                         {% endif %}

@@ -21,17 +21,24 @@
         <div class="b-filter__inner bg-grey">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        {{form.car_title__icontains|as_crispy_field}}
-                        {{form.car_dealer_name__icontains|as_crispy_field}}
+                   <div class="col-md-6 col-sm-6">
+                        {{form.title|as_crispy_field}}
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        {{form.car_mileage__lt|as_crispy_field}}
-                        {{form.car_year__lt|as_crispy_field}}
+                    <div class="col-md-6 col-sm-6">
+                        {{form.car_dealer_name|as_crispy_field}}
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        {{form.car_price__lt|as_crispy_field}}
-                        {{form.car_stock__icontains|as_crispy_field}}
+                    <div class="col-md-3 col-sm-6">
+                        {{form.car_mileage|as_crispy_field}}
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        {{form.car_year|as_crispy_field}}
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        {{form.car_price|as_crispy_field}}
+                        <br>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        {{form.car_stock|as_crispy_field}}
                         <br>
                     </div>
                     <div class="col-md-12 col-sm-12">

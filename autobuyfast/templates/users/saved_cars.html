@@ -1,0 +1,46 @@
+{% extends "users/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block user_title %}Saved Car List{% endblock %}
+{% block user_page_title %}Saved Car List{% endblock %}
+{% block user_breadcrum %}Saved Car List{% endblock %}
+{% block user_section_title %}Saved Car List{% endblock %}
+{% block user_section_title_desc %}Saved Car List{% endblock %}
+
+
+{% block user_content %}
+{% if request.user %}
+<!-- <div class="rtd typography-page"> -->
+    <div class="typography-section typography-section-border" style="margin-top: -70px;">
+        <div class="table-container">
+            <table class="table table_primary table-type-2 table-striped typography-last-elem">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Car Name</th>
+                        <th>Car Dealer</th>
+                        <th>Saved Date</th>
+                        <th>Stop Watching</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for car in cars %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{car.car.title}}</td>
+                        <td>{{car.car.car_dealer_name}}</td>
+                        <td>{{car.created}}</td>
+                        <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">No Saved car</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<!-- </div> -->
+{% endif %}
+{% endblock user_content %}

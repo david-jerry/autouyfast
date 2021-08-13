@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+Create Car Ad - {{ block.super }}
+{% endblock title %}
+
+{% block slider %}
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="b-title-page bg-primary_a">Create Car Ad</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .b-title-page-->
+<div class="bg-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
+                    </li>
+                    <li class="active">Create AD</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb-->
+
+{% endblock slider %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            {% if request.user.username %}
+            <a class="btn btn-primary btn-block" href="{% url 'users:detail' request.user.username %}"
+                role="button">Dashboard</a>
+            <a class="btn btn-primary btn-block" href="{% url 'users:watch_list' %}" role="button">Saved Cars</a>
+            <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Update E-Mail</a>
+            {% if request.user.is_seller %}
+            <a class="btn btn-primary btn-block" href="{% url 'users:update_seller' %}" role="button">Profile</a>
+            <a class="btn btn-primary btn-block" href="{% url 'users:ads' %}" role="button">Manage Ads</a>
+            {% else %}
+            <a class="btn btn-primary btn-block" href="{% url 'users:update_buyer' %}" role="button">Profile</a>
+            {% endif %}
+            <!-- Your Stuff: Custom user template urls -->
+            <a class="btn btn-primary btn-block" href="{% url 'users:update_notification' %}" role="button">Alert
+                Settings</a>
+            <a class="btn btn-primary btn-block" href="{% url 'account_change_password' %}" role="button">Password
+                Settings</a>
+            <a class="btn btn-primary btn-block" href="{% url 'account_logout' %}" role="button">Logout</a>
+            {% endif %}
+        </div>
+        <div class="col-md-10">
+            <section class="b-car-details" style="margin-top: 10px;">
+                <div class="b-car-details__header">
+                    <h2 class="b-car-details__title">Create A Car Ad
+                    </h2>
+                    <div class="b-car-details__subtitle">Please do leave a dealership summary for the car to help others find it easy to understand what this listing has as its specific features.</div>
+                    <div class="b-car-details__address"><i class="icon fa fa-map-marker text-primary"></i> 
+                        {% if request.user.userprofile.address %} {{ request.user.userprofile.address }} {% else %} <a
+                            href="{% url 'users:update' %}">Update Your Address</a> {% endif %}</div>
+                    <div class="b-car-details__links">
+                        {% if request.user.is_seller %}
+                        <a class="b-car-details__link" href="{% url 'cars:create' %}"><i
+                                class="icon fa fa-exchange text-primary"></i> Create Ad</a>
+                        {% endif %}
+                        <a class="b-car-details__link" href="{% url 'cars:list' %}"><i
+                                class="icon fa fa-car text-primary"></i> Car Brochure</a>
+                        <!-- <a class="b-car-details__link" href="car-details.html"><i class="icon fa fa-share-alt text-primary"></i> Share</a> -->
+                    </div>
+                </div>
+                <div class="b-car-details__section" style="margin-left: 10px;">
+                    <form class="form-horizontal" method="post" action="{% url 'cars:create' %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary btn-block">Create</button>
+                    </form>    
+                </div>                
+            </section>
+        </div>
+
+
+    </div>
+</div>
+{% endblock content %}

@@ -6,7 +6,7 @@
 {% endblock title %}
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
     <div class="area-bg__inner">
         <div class="container">
             <div class="row">
@@ -56,14 +56,15 @@
                     <section class="b-goods-1 b-goods-1_mod-a">
                         <div class="row">
                             <div class="b-goods-1__img">
-                                <a class="js-zoom-images" href="{{car.car_url}}">
-                                    <img class="img-responsive" loading="lazy" src="{{car.car_image}}" alt="{{car.car_title}} Image" />
+                                <a class="js-zoom-images" href="{{car.car_def_image}}">
+                                    <img class="img-responsive" loading="lazy" src="{{car.car_def_image}}" alt="{{car.title}} Image" />
                                 <!-- </a><span class="b-goods-1__price hidden-th">{{car.car_price}}<span class="b-goods-1__price-msrp">MSRP $27,000</span></span> -->
                                 </a><span class="b-goods-1__price hidden-th">$ {{car.car_price}}</span>
                             </div>
                             <div class="b-goods-1__inner">
-                                <div class="b-goods-1__header"><a class="b-goods-1__choose hidden-th" href=""><i class="icon fa fa-heart-o"></i></a>
-                                    <h2 class="b-goods-1__name"><a href="{{car.car_url}}">{{car.car_title|upper}}</a></h2>
+                                <div class="b-goods-1__header">
+                                    <h2 class="b-goods-1__name"><a href="{{car.get_absolute_url}}">{{car.title|upper}}</a></h2>
+                                    <!-- <a class="b-goods-1__choose hidden-th" href=""><i class="icon fa fa-heart-o"></i></a> -->
                                 </div>
                                 <span class="b-goods-1__price_th text-primary visible-th">$ {{car.car_price}}<a class="b-goods-1__choose" href=""><i class="icon fa fa-heart-o"></i></a>
                                 </span>
@@ -71,7 +72,7 @@
                                     <h3 class="b-goods-1__title" data-toggle="collapse" data-target="#desc-1">Highlights</h3>
                                     <div class="collapse in" id="desc-1">
                                         <ul class="b-goods-1__desc list-unstyled">
-                                            <li class="b-goods-1__desc-item"><span class="hidden-th"></span> {{car.car_mileage|upper}} MI</li>
+                                            <li class="b-goods-1__desc-item"><span class="hidden-th"></span> {{car.car_mileage|upper}} MI </li>
                                             <li class="b-goods-1__desc-item"><span class="hidden-th">Model:</span> {{car.car_year}}</li>
                                             <li class="b-goods-1__desc-item hidden-th"><span class="hidden-th">Stock:</span> {{car.car_stock}}</li>
                                         </ul>
@@ -93,7 +94,7 @@
                     </section>
                     <!-- end .b-goods-1-->    
                     {% empty %}
-                    <h2 class="b-goods-1__title">No listing yet</h2>                  
+                    <h2 class="">No listing yet</h2>                  
                     {% endfor %}
                 </div>
                 <!-- end .goods-group-2-->
@@ -142,26 +143,12 @@
                 <form class="b-filter-2 bg-grey" method="GET">
                     <h3 class="b-filter-2__title">VEHICLE FILTER</h3>
                     <div class="b-filter-2__inner">
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_title__icontains|as_crispy_field}}
-                        </div>
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_dealer_name__icontains|as_crispy_field}}
-                        </div>
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_stock__icontains|as_crispy_field}}
-                        </div>
-                        <h3 class="b-filter-2__title">KEY FILTER</h3>
-                        <br>
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_mileage__lt|as_crispy_field}}
-                        </div>
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_year__lt|as_crispy_field}}
-                        </div>
-                        <div class="b-filter-2__group">
-                            {{filter.form.car_price__lt|as_crispy_field}}
-                        </div>
+                        {{filter.form.title|as_crispy_field}}
+                        {{filter.form.car_dealer_name|as_crispy_field}}
+                        {{filter.form.car_stock|as_crispy_field}}
+                        {{filter.form.car_mileage|as_crispy_field}}
+                        {{filter.form.car_year|as_crispy_field}}
+                        {{filter.form.car_price|as_crispy_field}}
                     </div>
                     <div class=>
                         <button type="submit" class="btn btn-lg btn-primary btn-block">Filter vehicle</button>

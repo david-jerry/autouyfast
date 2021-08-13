@@ -20,7 +20,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import transaction
-from django.db.models import Count, F, Sum
+from django.db.models import Count, F, Q, Sum
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -62,6 +62,37 @@ class PostList(ListView):
         context["categories"] = categories
         context["recent_posts"] = recent_posts
         return context
+
+
+class SearchPostList(ListView):
+    model = Post
+    template_name = "blog/search_list.html"
+    ordering = ["title", "-pub_date"]
+    context_object_name = "posts"
+    allow_empty = True
+    paginate_by = 5
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        return Post.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query)
+        ).distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        request = self.request
+        tags = Tag.objects.all()
+        categories = Category.objects.all()
+        recent_posts = Post.objects.recent_posts()[:5]
+        context["tags"] = tags
+        context["categories"] = categories
+        context["recent_posts"] = recent_posts
+        return context
+
+
 
 def tag_posts(request, tag_slug=None):
     object_list = Post.objects.all()

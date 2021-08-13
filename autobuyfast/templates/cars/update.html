@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+  Update Car Ad - {{ block.super }}
+{% endblock title %}
+
+{% block slider %}
+<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="b-title-page bg-primary_a">Update Car Ad</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .b-title-page-->
+<div class="bg-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
+                    </li>
+                    <li class="active">Update AD</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb-->
+
+{% endblock slider %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    </div>
+</div>
+{% endblock content %}

@@ -456,6 +456,8 @@ HTML_MINIFY = True
 EXCLUDE_FROM_MINIFYING = ("/admin/*", "/jet/*", "/jet/dashboard/*")
 KEEP_COMMENTS_ON_MINIFYING = True
 
+TINYMCE_JS_URL = "https://bizwallet-bucket.s3.amazonaws.com/static/tinymce/tinymce.min.js" #str(APPS_DIR / "/static/tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = "https://bizwallet-bucket.s3.amazonaws.com/static/tinymce" #str(APPS_DIR / "/static/tinymce")
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "width": "100%",

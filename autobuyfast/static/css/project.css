@@ -5607,6 +5607,7 @@ input[type="checkbox"], input[type="radio"] {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0;
+    margin-right: 1rem;
 }
 
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
@@ -7112,6 +7113,7 @@ input[type="radio"], input[type="checkbox"] {
     margin: 4px 0 0;
     margin-top: 1px \9;
     line-height: normal;
+    margin-right: 1rem;
 }
 
 input[type="file"] {

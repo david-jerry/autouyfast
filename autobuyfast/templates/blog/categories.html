@@ -109,13 +109,13 @@ Posts categoriezed by {{tag.title|title}}
 <div class="col-md-4">
     <aside class="l-sidebar-3">
         <div class="widget widget-searce">
-            <form class="form-sidebar" id="search-global-form">
-                <input class="form-sidebar__input form-control" type="search" placeholder="Search News ..." />
+            <form class="form-sidebar" id="search-global-form" method="GET" action="{% url 'blogs:search' %}">
+                <input class="form-sidebar__input form-control" name="q" type="search" placeholder="Search News ..." />
                 <button class="form-sidebar__btn"><i class="icon fa fa-search text-primary"></i>
                 </button>
             </form>
-        </div>
-        <!-- end .widget-->
+          </div>
+              <!-- end .widget-->
         <section class="widget section-sidebar">
             <h3 class="widget-title ui-title-inner">categories</h3>
             <div class="widget-content">

@@ -145,10 +145,10 @@ class Post(TimeStampedModel):
         ordering = ["-created", "-modified"]
 
     def get_absolute_url(self):
-        """Get url for user's detail view.
+        """Get url for blog's detail view.
 
         Returns:
-            str: URL for user detail.
+            str: URL for blog detail.
 
         """
         return reverse("blogs:detail", kwargs={"slug": self.slug})

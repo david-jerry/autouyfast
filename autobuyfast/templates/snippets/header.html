@@ -2,19 +2,15 @@
 
 <div class="top-bar">
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12, col-lg-12">
-                <div class="header-topbarbox-1">
-                    <form method="GET" action="{% url 'cars:search' %}" role="/search/?car_title__icontains=" >
-                        <div class="input-group" id="navBarSearch">
-                            <input  style="font-family: Poppins; font-weight: 300;" autocomplete="off" type="text" name="car_title__icontains" placeholder="Search for cars by make, ventor or year" class="form-control search-global__input">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" type="submit"><i class="stroke icon-Search"></i></button>
-                            </div>
-                        </div>
-                    </form>
+        <div class="header-topbarbox-1">
+            <form method="GET" action="{% url 'cars:search' %}" role="/search/?title=" >
+                <div class="input-group" id="navBarSearch">
+                    <input  style="font-family: Poppins; font-weight: 300;" autocomplete="off" type="text" name="title" placeholder="Search for cars by make & year" class="form-control search-global__input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><i class="stroke icon-Search"></i></button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

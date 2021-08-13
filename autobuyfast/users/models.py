@@ -76,6 +76,9 @@ class User(AbstractUser):
     phone_no = CharField(_("Phone Number"), blank=True, max_length=13)
     is_seller = BooleanField(_('Are you a dealer?'), default=True)
     has_testified = BooleanField(_("Has this user testified to our service?"), default=False)
+    newsletter_notif = BooleanField(_("Subscribe to Newsletter?"), default=False)
+    car_sold_notif = BooleanField(_("Send Email When Saved car is sold?"), default=False)
+    car_price_notif = BooleanField(_("Send Email When Saved car price has been reduced?"), default=False)
 
     def initials(self):
         if self.first_name and self.last_name:

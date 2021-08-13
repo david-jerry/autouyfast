@@ -1,27 +1,26 @@
 {% load static i18n %}
 
 
-<div class="main-slider main-slider-2">
-    <div class="slider-pro" id="main-slider" data-slider-width="100%" data-slider-height="700px"
-        data-slider-arrows="true" data-slider-buttons="false">
+<div class="main-slider main-slider-3">
+    <div class="slider-pro" id="main-slider" data-slider-width="100%" data-slider-height="750px" data-slider-arrows="true" data-slider-buttons="false">
         <div class="sp-slides">
             <!-- Slide 1-->
             <div class="sp-slide">
-                <img class="sp-image" src="{% static 'media/components/b-main-slider/2.jpg' %}" alt="slider" />
-                <div class="main-slider__wrap sp-layer" data-width="40%" data-position="centerLeft" data-horizontal="0"
-                    data-show-transition="left" data-hide-transition="left" data-show-duration="2000"
-                    data-show-delay="1200" data-hide-delay="400">
-                    <div class="main-slider__title">AUTOBUYFAST
+                <img class="sp-image" src="{% static 'media/components/b-main-slider/3.jpg' %}" alt="slider" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="sp-layer" data-show-transition="left" data-hide-transition="left" data-show-duration="2000" data-show-delay="1200" data-hide-delay="400">
+                                <div class="main-slider__title"><strong>we ship all your<br></strong>automotive desires</div><a class="main-slider__btn btn btn-lg btn-white" href="{% url 'about' %}">learn more</a><a class="main-slider__btn btn btn-lg btn-primary" href="{% url 'cars:list' %}">Showroom</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="main-slider__price"><span class="main-slider__price-currency">ENJOY</span><span class="main-slider__price-inner"><span
-                                class="main-slider__price-title">Convenient Shopping</span><span
-                                class="main-slider__price-title">Convenient Shipping</span></span>
-                    </div><a class="main-slider__btn btn btn-lg btn-primary" href="{% url 'cars:list' %}">Visit our Showroom</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">

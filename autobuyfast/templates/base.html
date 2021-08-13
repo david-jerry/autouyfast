@@ -48,7 +48,7 @@
   <!-- Bootstrap JS and its dependencies-->
 
   {# vue js 3 package for frontend ajaxing must be in the header section #}
-  <script defer src="https://unpkg.com/vue@next"></script>
+  <!-- <script defer src="https://unpkg.com/vue@next"></script> -->
 
   <!-- Your stuff: Third-party javascript libraries go here -->
   {% include "snippets/js.html" %}
@@ -57,7 +57,65 @@
   <script defer src="{% static 'js/iziToast.min.js' %}"></script>
   {% compress js inline %}
   <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+  {% endblock javascript %}
 
+  {{ form.media }}
+
+</head>
+
+<body>
+  <!-- Loader-->
+  <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span>
+  </div>
+
+  {% include "snippets/mobile_menu.html" %}
+
+  <div class="l-theme animated-css" data-header="sticky" data-header-top="200" data-canvas="container">
+    <!-- ==========================-->
+    <!-- SEARCH MODAL-->
+    <!-- ==========================-->
+    <!-- <div class="header-search open-search">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+            <div class="navbar-search">
+              <form class="search-global" action="{% url 'cars:search' %}" method="get">
+                <input class="search-global__input" type="text" placeholder="Type to search make and year" autocomplete="off" name="car_title__icontains"
+                  value="" />
+                <button class="search-global__btn"><i class="icon stroke icon-Search"></i>
+                </button>
+                <div class="search-global__note">Begin typing your search above and press return to search.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="search-close close" type="button"><i class="fa fa-times"></i>
+      </button>
+    </div> -->
+    
+    <header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
+      <div class="container container-boxed-width">
+        {% include "snippets/header.html" %}
+        {% include "snippets/nav.html" %}
+      </div>
+    </div>
+
+    {% block slider %}
+    {% include "snippets/slider.html" %}
+    {% endblock slider %}
+  
+    <main class="l-main-content" style="padding: 16px 0;">
+    {% block content %}
+    {% endblock content %}
+    </main>
+
+    {% include "snippets/footer.html" %}
+
+  </div> <!-- /container -->
+
+  {% block modal %}{% endblock modal %}
   {# izi message signals for django #}
   {% for message in messages %}
   <script type=text/javascript>
@@ -87,83 +145,25 @@
   {% endfor %}
 
   {# tiny mce settings configuration #}
-  <script>
-      tinymce.init({
-        selector: 'textarea',
-        menubar: false,
-        plugins: [
-          "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-          "searchreplace wordcount visualblocks visualchars code fullscreen",
-          "insertdatetime media nonbreaking save table contextmenu directionality",
-          "emoticons template paste textcolor colorpicker textpattern"
-        ],
-        setup: function (editor) {
-          editor.on('change', function (e) {
-            editor.save();
-          });
-        }
-      });
-  </script>
-  {% endcompress %}
-  {% endblock javascript %}
-
-  {{ form.media }}
-
-</head>
-
-<body>
-  <!-- Loader-->
-  <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span>
-  </div>
-
-  {% include "snippets/mobile_menu.html" %}
-
-  <div class="l-theme animated-css" data-header="sticky" data-header-top="200" data-canvas="container">
-    <!-- ==========================-->
-    <!-- SEARCH MODAL-->
-    <!-- ==========================-->
-    <div class="header-search open-search">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-            <div class="navbar-search">
-              <form class="search-global" action="{% url 'cars:search' %}" method="get">
-                <input class="search-global__input" type="text" placeholder="Type to search make and year" autocomplete="off" name="car_title__icontains"
-                  value="" />
-                <button class="search-global__btn"><i class="icon stroke icon-Search"></i>
-                </button>
-                <div class="search-global__note">Begin typing your search above and press return to search.</div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="search-close close" type="button"><i class="fa fa-times"></i>
-      </button>
-    </div>
-    <header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
-      <div class="container container-boxed-width">
-        {% include "snippets/header.html" %}
-        {% include "snippets/nav.html" %}
-      </div>
-    </div>
-
-    {% block slider %}
-    {% include "snippets/slider.html" %}
-    {% endblock slider %}
   
-    <main class="l-main-content" style="padding: 16px 0;">
-    {% block content %}
-    {% endblock content %}
-    </main>
-
-    {% include "snippets/footer.html" %}
-
-  </div> <!-- /container -->
-
-  {% block modal %}{% endblock modal %}
-
   {% block inline_javascript %}
+  <script >
+    tinymce.init({
+      selector: 'textarea',
+      menubar: false,
+      plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+      ],
+      setup: function (editor) {
+        editor.on('change', function (e) {
+          editor.save();
+        });
+      }
+    });
+</script>
   {# Script tags with only code, no src (defer by default) #}
   {% endblock inline_javascript %}
 </body>

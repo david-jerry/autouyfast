@@ -1,0 +1,48 @@
+{% extends "users/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block user_title %}Manage Car Ads{% endblock %}
+{% block user_page_title %}Manage Car Ads{% endblock %}
+{% block user_breadcrum %}Manage Car Ads{% endblock %}
+{% block user_section_title %}Manage Car Ads{% endblock %}
+{% block user_section_title_desc %}Manage Car Ads{% endblock %}
+
+
+{% block user_content %}
+{% if request.user %}
+<!-- <div class="rtd typography-page"> -->
+<div class="typography-section typography-section-border" style="margin-top: -70px;">
+    <div class="table-container">
+        <table class="table table_primary table-type-2 table-striped typography-last-elem">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Car Name</th>
+                    <th>Car Price</th>
+                    <th>Mark Sold</th>
+                    <th>Delete Ad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{car.title}}</td>
+                    <td>{{car.car_price}}</td>
+                    <td>{% if car.available %}<a class="b-car-details__link" href="{% url 'cars:sold' car.slug %}"><i
+                        class="icon fa fa-cart-plus text-primary"></i></a>{% else %}<span class="text-primary" style="font-weight: 800;">SOLD</span>{% endif %}</td>
+                    <td><a class="b-car-details__link" href="{% url 'cars:delete' car.slug %}"><i
+                                class="icon fa fa-trash text-primary"></i></a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No Saved car</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- </div> -->
+{% endif %}
+{% endblock user_content %}

@@ -14,22 +14,82 @@
   <h3 class="b-car-details__section-title ui-title-inner">My Ads</h3>
   <div class="b-car-details__section-subtitle"><a href="">See all ads (4)</a></div>
   <!-- add ads table below here -->
+  <!-- <div class="rtd typography-page"> -->
+    <div class="typography-section typography-section-border" style="margin-top: -70px;">
+      <div class="table-container">
+          <table class="table table_primary table-type-2 table-striped typography-last-elem">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Car Name</th>
+                      <th>Car Price</th>
+                      <th>Mark Sold</th>
+                      <th>Delete Ad</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for car in cars %}
+                  <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{car.car.title}}</td>
+                      <td>{{car.car.car_dealer_name}}</td>
+                      <td>{{car.created}}</td>
+                      <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="5" style="text-align: center;">No Saved car</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+<!-- </div> -->
+
 </div>
 
 <br>
 {% endif %}
 
+{% if request.user %}
 <div class="b-car-details__section">
   <h3 class="b-car-details__section-title ui-title-inner">Saved Cars</h3>
-  <div class="b-car-details__section-subtitle"><a href="">See all saved cars (4)</a></div>
+  <div class="b-car-details__section-subtitle"><a href="{% url 'users:watch_list' %}">See all saved cars ({{cars_count}})</a></div>
   <!-- add ads table below here -->
-</div>
+  <!-- <div class="rtd typography-page"> -->
+    <div class="typography-section typography-section-border" style="margin-top: -70px;">
+      <div class="table-container">
+          <table class="table table_primary table-type-2 table-striped typography-last-elem">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Car Name</th>
+                      <th>Car Dealer</th>
+                      <th>Saved Date</th>
+                      <th>Stop Watching</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for car in cars %}
+                  <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{car.car.title}}</td>
+                      <td>{{car.car.car_dealer_name}}</td>
+                      <td>{{car.created}}</td>
+                      <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="5" style="text-align: center;">No Saved car</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+<!-- </div> -->
 
-<br>
-
-<div class="b-car-details__section">
-  <h3 class="b-car-details__section-title ui-title-inner">Saved Search</h3>
-  <div class="b-car-details__section-subtitle"><a href="">See all saved search (4)</a></div>
-  <!-- add ads table below here -->
 </div>
+{% endif %}
 {% endblock user_content %}

@@ -1,6 +1,8 @@
 from django.urls import path
 
 from autobuyfast.users.views import (
+    CarAdListView,
+    SavedCars,
     buyer_update_view,
     notification_setting_view,
     seller_update_view,
@@ -13,6 +15,8 @@ from autobuyfast.users.views import (
 app_name = "users"
 urlpatterns = [
     path("~redirect/", view=user_redirect_view, name="redirect"),
+    path("~saved-cars/", view=SavedCars.as_view(), name="watch_list"),
+    path("~manage-car-ads/", view=CarAdListView.as_view(), name="ads"),
     path("~update/", view=user_update_view, name="update"),
     path("~update/buyer-profile/", view=buyer_update_view, name="update_buyer"),
     path("~update/seller-profile/", view=seller_update_view, name="update_seller"),

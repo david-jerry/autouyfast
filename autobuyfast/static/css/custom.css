@@ -34,3 +34,24 @@ label {
 #hint_id_username {
     display: none;
 }
+
+.fancy-description-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    overflow-wrap: break-word;
+}
+.fancy-description-list dt {
+    font-weight: 700;
+    border-bottom: 1px solid #e6e6e6;
+    width: 50%;
+    padding: 9px 9px 9px 0;
+}
+
+.fancy-description-list dd {
+    width: 50%;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 9px 0;
+}

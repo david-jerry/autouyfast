@@ -1,8 +1,9 @@
+from datetime import timedelta
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from datetime import timedelta
 
 
 class CarManager(models.Manager):
@@ -24,7 +25,7 @@ class CarManager(models.Manager):
 class WatchCarsEmailSend(models.query.QuerySet):
     def notifiable(self):
         now = timezone.now()
-        start_range = now - timedelta(days=)
+        start_range = now - timedelta(days=60)
 
 class WatchCarManager(models.Manager):
     def get_queryset(self):

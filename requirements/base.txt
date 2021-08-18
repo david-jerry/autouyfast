@@ -112,3 +112,7 @@ django-tables2==2.4.0
 django-category==2.0.1 #
 django-comments-dab==2.6.0
 django-next-prev==1.1.0
+
+
+# White noise for static files
+whitenoise==5.3.0

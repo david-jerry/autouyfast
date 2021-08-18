@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -11,7 +12,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, FormMixin, UpdateView
 
 from .filters import CarFilter, CarSearchFilter
-from .forms import AutoSearchForm
+from .forms import AutoSearchForm, CarImageFormset
 from .models import AutoSearch, WatchCars
 
 User = get_user_model()
@@ -20,44 +21,39 @@ User = get_user_model()
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AutoSearch
     template_name = 'cars/create.html'
-    fields = [
-        "car_vin",
-        "car_stock",
-        "car_year",
-        "title",
-        "car_mileage",
-        "car_price",
-        "car_sub_price",
-        "car_def_image",
-        "car_transmission",
-        "car_ext_color",
-        "car_int_color",
-        "car_drive_train",
-        "car_fuel_type",
-        "car_engine",
-        "seller_note",
-    ]
+    form_class = AutoSearchForm
     success_message = _("Successfully created your car ad")
 
-    def get_success_url(self):
-        car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
-        return car.get_absolute_url()
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context["images"] = CarImageFormset(self.request.POST, self.request.FILES)
+        else:
+            context["images"] = CarImageFormset()
+        return context
+    
     # def get_object(self):
     #     car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
     #     return car
 
     def form_valid(self, form):
-        form.instance.dealer = self.request.user
-        form.instance.car_dealer_name = self.request.user.full_name
-        form.instance.car_dealer_phone = self.request.user.phone_no
-        form.instance.save()
+        context = self.get_context_data()
+        images = context['images']
+        with transaction.atomic():
+            form.instance.dealer = self.request.user
+            form.instance.car_dealer_name = self.request.user.full_name
+            form.instance.car_dealer_phone = self.request.user.phone_no
+            self.object = form.instance.save()
+            if images.is_valid():
+                images.instance.car = self.object
+                images.instance.save()
         return super().form_valid(form)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["testimony_form"] = self.form_class
-    #     return context
+    def get_success_url(self):
+        # car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
+        # return car.get_absolute_url()
+        return reverse_lazy('cars:detail', kwargs={'slug':self.object.slug})
+
         
 
 
@@ -69,30 +65,41 @@ class CarUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'cars/update.html'
     slug_field = "slug"
     slug_url_kwarg = "slug"
-    fields = [
-        "car_stock",
-        "car_year",
-        "car_mileage",
-        "car_price",
-        "car_sub_price",
-        "car_def_image",
-        "car_transmission",
-        "car_ext_color",
-        "car_int_color",
-        "car_drive_train",
-        "car_fuel_type",
-        "car_engine",
-        "seller_note",
-    ]
+    form_class = AutoSearchForm
     success_message = _("Successfully updated your car ad")
 
-    def get_success_url(self):
-        car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
-        return car.get_absolute_url()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context["images"] = CarImageFormset(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            context["images"] = CarImageFormset(instance=self.object)
+        return context
+    
+    # def get_object(self):
+    #     car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
+    #     return car
 
-    def get_object(self):
-        car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
-        return car
+    def form_valid(self, form):
+        context = self.get_context_data()
+        images = context['images']
+        with transaction.atomic():
+            form.instance.dealer = self.request.user
+            form.instance.car_dealer_name = self.request.user.full_name
+            form.instance.car_dealer_phone = self.request.user.phone_no
+            self.object = form.instance.save()
+            if images.is_valid():
+                images.instance.car = self.object
+                images.instance.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # car = get_object_or_404(AutoSearch, slug=self.kwargs['slug'])
+        # return car.get_absolute_url()
+        return reverse_lazy('cars:detail', kwargs={'slug':self.object.slug})
+
+
+
 
 def CarDeleteView(request, slug):
     car = AutoSearch.objects.filter(available=True).get(slug=slug)

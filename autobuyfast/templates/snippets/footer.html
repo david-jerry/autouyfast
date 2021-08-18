@@ -1,8 +1,14 @@
 {% load static i18n %}
 
+
+{% url 'account_login' as login_url %}
+{% url 'signup_select' as select_url %}
+{% url 'account_signup' as buyer_url %}
+{% url 'seller_signup' as seller_url %}
 <!-- end .section-default-->
 <footer class="footer area-bg">
     <div class="area-bg__inner">
+        {% if not request.path == login_url or not request.path == buyer_url or not request.path == seller_url or not request.path == select_url %}
         <div class="footer__main">
             <div class="container">
                 <div class="row">
@@ -11,8 +17,7 @@
                             <a class="footer__logo" href="{% url 'home' %}">
                                 <img class="img-responsive" src="{% static 'images/logo.jpg' %}" alt="Logo" />
                             </a>
-                            <div class="footer__info">Duis aute irure reprehend voluptate velit ese acium fugiat nula
-                                pariatur exceptus ipsum dolor sit amet consectetur adipisic elita sed eiusmod tempor.
+                            <div class="footer__info">We exist to ensure a safe and legal shipping route for Foreign cars to the global market.
                             </div>
                             <ul class="social-net list-inline">
                                 <li class="social-net__item"><a class="social-net__link text-primary_h"
@@ -38,56 +43,49 @@
                         <section class="footer-section footer-section_list-columns">
                             <h3 class="footer-section__title ui-title-inner">Top Brands</h3>
                             <ul class="footer-list footer-list_columns list-unstyled">
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Alfa
-                                        Romeo</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=bmw">BMW</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Ferrari</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">BMW
-                                        Series</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=ferrari">Ferrari</a>
                                 </li>
                                 <li class="footer-list__item"><a class="footer-list__link"
-                                        href="about.html">Mercedes</a>
+                                        href="/cars/search/?title=benz">Mercedes</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Aston
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=aston">Aston
                                         Martin</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Toyota</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=toyota">Toyota</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Opel</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Land
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=rover">Land
                                         Rover</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Mclaren</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=mclaren">Mclaren</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Peogeot</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=peogeot">Peogeot</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Renault</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=renault">Renault</a>
                                 </li>
                             </ul>
                         </section>
                     </div>
                     <div class="col-md-2">
                         <section class="footer-section footer-section_list-one">
-                            <h3 class="footer-section__title ui-title-inner">Categories</h3>
+                            <h3 class="footer-section__title ui-title-inner">Useful Links</h3>
                             <ul class="footer-list list-unstyled">
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Trucks</a>
+                                {% if request.user.is_seller %}
+                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'cars:create' %}">Create Ads</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Sports
-                                        Cars</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'users:ads' %}">Manage Ads</a>
                                 </li>
+                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'seller_signup' %}">Dealer Signup</a>
+                                </li>
+                                {% else %}
+                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'account_signup' %}">Buyer Signup</a>
+                                </li>
+                                {% endif %}
                                 <li class="footer-list__item"><a class="footer-list__link"
-                                        href="about.html">Crossovers</a>
+                                        href="{% url 'users:watch_list' %}">Watch List</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Hybrid
-                                        Cars</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Hybrid
-                                        SUVs</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Future
-                                        Cars</a>
+                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'users:detail' request.user %}">Dashboard</a>
                                 </li>
                             </ul>
                         </section>
@@ -109,10 +107,11 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         <div class="copyright">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12">Copyrights 2017<a class="copyright__brand" href="home.html"> MOTORLAND</a>
+                    <div class="col-xs-12">Copyrights 2021 <a class="copyright__brand" href="{% url 'home' %}"> AUTOBUYFAST</a>
                         All Rights Reserved<a class="copyright__link" href="privacy-policy.html">Privacy Policy</a><a
                             class="copyright__link" href="terms-of-use.html">Terms & Conditions</a>
                     </div>

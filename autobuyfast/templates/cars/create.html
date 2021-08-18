@@ -80,8 +80,8 @@ Create Car Ad - {{ block.super }}
                 <div class="b-car-details__section" style="margin-left: 10px;">
                     <form class="form-horizontal" method="post" action="{% url 'cars:create' %}">
                         {% csrf_token %}
-                        {{ form|crispy }}
-                        <button type="submit" class="btn btn-primary btn-block">Create</button>
+                        {% crispy form %}
+                        <!-- <button type="submit" class="btn btn-primary btn-block">Create</button> -->
                     </form>    
                 </div>                
             </section>

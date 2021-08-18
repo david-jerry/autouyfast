@@ -1,0 +1,3 @@
+[submodule "autobuyfast/static/django-dynamic-formset"]
+	path = autobuyfast/static/django-dynamic-formset
+	url = https://github.com/elo80ka/django-dynamic-formset

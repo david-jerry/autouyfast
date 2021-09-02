@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block user_title %}Leave Testimony{% endblock %}
+{% block user_page_title %}Testimonial{% endblock %}
+{% block user_breadcrum %}Testimonial{% endblock %}
+{% block user_section_title %}Testimonial{% endblock %}
+{% block user_section_title_desc %}Please, leave a testimony for us to build our reputation{% endblock %}
+
+
+{% block user_content %}
+<div class="b-car-details__section" style="margin-left: 10px;">
+    <form class="form-horizontal" method="post" action="{% url 'users:create_testimony' %}">
+        {% csrf_token %}
+        {{ testimony_form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Create Testimony</button>
+    </form>    
+</div>
+{% endblock user_content %}

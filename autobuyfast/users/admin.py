@@ -65,6 +65,7 @@ class TestimonialAdmin(admin.ModelAdmin, ExportCsvMixin):
     ]
 
 admin.site.register(Testimonial, TestimonialAdmin)
+
 admin.site.register(CarRequest)
 
 class ProfileAdmin(admin.ModelAdmin, ExportCsvMixin):

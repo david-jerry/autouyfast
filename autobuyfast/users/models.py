@@ -11,6 +11,7 @@ from decimal import Decimal
 from countries_plus.models import Country
 # django imports
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -184,3 +185,28 @@ class Testimonial(TimeStampedModel):
         verbose_name = "Testimonial"
         verbose_name_plural = "Testimonials"
         ordering = [ "-created", "-modified"]
+
+
+
+class CarRequest(models.Model):
+    CHOICES = (
+        ("International", "International Delivery"),
+        ("US Delivery", "US Delivery"),
+        ("Delivery Quote", "Delivery Quote"),
+    )
+    name = CharField(_("Your fullname"), max_length=200, null=True, blank=True)
+    email = EmailField(_("Your email"), blank=True, null=True)
+    phone = CharField(_("Your phone"), max_length=15, null=True, blank=True)
+    pickup = DateField(
+        _("Pickup Date"),         
+        auto_now=False,
+        auto_now_add=False,
+        null=True,
+        blank=False,
+        default=datetime.datetime.now()
+    )
+    services = CharField(_("Services"), max_length=50, null=True, blank=True, choices=CHOICES)
+    message = HTMLField(help_text="Tell us more information about your shippment, where from and where to")
+
+    def __str__(self):
+        return f"{self.name} inquires after this service {self.services}"

@@ -1,16 +1,30 @@
 {% load static i18n %}
 
+{% if not request.path == '/' %}
 <div class="top-bar">
     <div class="container">
-        <div class="header-topbarbox-1">
-            <form method="GET" action="{% url 'cars:search' %}" role="/search/?title=" >
-                <div class="input-group" id="navBarSearch">
-                    <input  style="font-family: Poppins; font-weight: 300;" autocomplete="off" type="text" name="title" placeholder="Search for cars by make & year" class="form-control search-global__input">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary" type="submit"><i class="stroke icon-Search"></i></button>
-                    </div>
+        <div class="header-topbarbox-1 p-2" style="width: 100%;">
+            <div class="row header-form">
+                <div class="col-md-9 text-left" style="text-align: left">
+                    <form action="{% url 'cars:search' %}" method="get" role="/search/?title=">
+                        <div class="input-group">
+                            <input class="form-control" id="title" autocomplete="off" type="text" name="title"
+                                placeholder="Search Inventory by Make, Model, Year" required="required" style="padding:9px; color: #292929"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Search Inventory</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+
+                <div class="col-md-3 text-right header-account" style="text-align: right;">
+                    <a href="{% url 'signup_select' %}" class="btn btn-white" style="margin-right: 20px;" >Register</a>
+                    <a href="{% url 'account_login' %}" class="btn btn-white">Login</a>                                    
+                </div>
+
+            </div>
         </div>
+
     </div>
 </div>
+{% endif %}

@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from filebrowser.sites import site
 
 from autobuyfast.cars.views import home
-from autobuyfast.users.views import buyer_signup, seller_signup
+from autobuyfast.users.views import buyer_signup, car_request_view, seller_signup
 from config.sitemaps import StaticViewSitemap
 
 sitemaps = {
@@ -20,7 +20,7 @@ sitemaps = {
 urlpatterns = [
     path("", view=home, name="home"),
     path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
+        "about/", view=car_request_view, name="about"
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

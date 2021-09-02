@@ -16,7 +16,7 @@ from .forms import (
     UserChangeForm,
     UserCreationForm,
 )
-from .models import AlertSetting, Profile, Testimonial
+from .models import AlertSetting, CarRequest, Profile, Testimonial
 
 User = get_user_model()
 
@@ -65,7 +65,7 @@ class TestimonialAdmin(admin.ModelAdmin, ExportCsvMixin):
     ]
 
 admin.site.register(Testimonial, TestimonialAdmin)
-
+admin.site.register(CarRequest)
 
 class ProfileAdmin(admin.ModelAdmin, ExportCsvMixin):
     model = Profile

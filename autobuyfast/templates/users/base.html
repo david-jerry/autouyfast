@@ -42,6 +42,9 @@
     <div class="col-md-2">
       {% if request.user.username %}
       <a class="btn btn-primary btn-block" href="{% url 'users:detail' request.user.username %}" role="button">Dashboard</a>
+      {% if not request.user.has_testified %}
+      <a class="btn btn-primary btn-block" href="{% url 'users:create_testimony' %}" role="button">Leave Testimony</a>
+      {% endif %}
       <a class="btn btn-primary btn-block" href="{% url 'users:watch_list' %}" role="button">Saved Cars</a>
       <!-- <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Saved Search</a> -->
       <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Update E-Mail</a>

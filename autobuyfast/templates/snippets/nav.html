@@ -62,8 +62,8 @@
             </button>
             <!-- Mobile Trigger End-->
             <a class="navbar-brand scroll" href="{% url 'home' %}">
-                <img class="normal-logo img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
-                <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo.jpg' %}" width="60px" alt="logo" />
+                <img class="normal-logo img-responsive" src="{% static 'images/logo.png' %}" alt="logo" />
+                <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo-dark.png' %}" alt="logo" />
             </a>
         </div>
         <div class="header-navibox-3">
@@ -99,13 +99,15 @@
         </div>
         <div class="header-navibox-2">
             <ul class="yamm main-menu nav navbar-nav">
-                <li><a href="{% url 'home' %}">Home</a>
+                <li><a href="{% url 'home' %}">How it works</a>
                 </li>
-                <li><a href="{% url 'about' %}">About</a>
+                <li><a href="{% url 'cars:list' %}">Cars for sale</a>
                 </li>
-                <li><a href="{% url 'blogs:list' %}">Blog</a>
+                <li><a href="{% url 'about' %}">Shipping</a>
                 </li>
-                <li><a href="{% url 'cars:list' %}">ShowRoom</a>
+                <li><a href="{% url 'blogs:rlist' %}">Research and Reviews</a>
+                </li>
+                <li><a href="{% url 'blogs:list' %}">News & Tips</a>
                 </li>
             </ul>
         </div>

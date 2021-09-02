@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n crispy_forms_tags %}
 
 
 {% block slider %}
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h1 class="b-title-page bg-primary_a">
-                        About Autobuyfast
+                        Auto Shipping Quote
                     </h1>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <ol class="breadcrumb">
                     <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
                     </li>
-                    <li class="active">About Us</li>
+                    <li class="active">Shipping Request</li>
                 </ol>
             </div>
         </div>
@@ -34,6 +34,177 @@
 {% endblock slider %}
 
 {% block content %}
+
+<div class="block-table block-table_xs mb-0">
+    <div class="block-table__cell col-md-6 mb-0">
+        <div class="block-table__inner">
+            <img class="b-services__img" src="{% static 'assets/media/components/b-services/1.jpg' %}" alt="foto">
+        </div>
+    </div>
+    <div class="block-table__cell col-md-6 bg-grey mb-0">
+        <div class="block-table__inner">
+            <section class="b-services">
+                <h2 class="ui-title-block-2">What is Autobuyfast</h2>
+                <div class="ui-subtitle-block">Autobuyfast is a global 100% online car solution website that
+                    brings together listings from all the major car dealerships in the USA featuring new and
+                    used vehicles. We make it easy for Members to find, connect with dealer and we can ship to
+                    you anywhere in the world.</div>
+                <div class="ui-decor"></div>
+                <div class="b-services__content">
+                    <p>Our site and innovative solutions connect buyers and sellers to match people with their
+                        perfect car.</p>
+                    <p> With our people spread across the U.S. we still maintain a startup culture with
+                        innovation and passion for our people at the core of everything we do</p>
+                </div>
+            </section>
+            <!-- end .b-services-->
+        </div>
+    </div>
+</div>
+
+
+
+
+                        <!-- end .section-reviews-->
+                        <div class="section-area">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <section class="section-type-1">
+                                            <h2 class="ui-title-block-2">Read FAQ’s</h2>
+                                            <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
+                                            <div class="ui-decor"></div>
+                                            <div class="panel-group accordion accordion-1" id="accordion-1">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><a class="btn-collapse" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1"><i class="icon"></i>What is the procedure for auto checkup?</a></h3>
+                                                    </div>
+                                                    <div class="panel-collapse collapse in" id="collapse-1">
+                                                        <div class="panel-body">
+                                                            <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur doloe amet consecteur adipisicing elit labore et dolore magna aliquaut enim minim veniam, quis nostrud exercitation ullamco.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-2"><i class="icon"></i>What type of vehicles you repair?</a></h3>
+                                                    </div>
+                                                    <div class="panel-collapse collapse" id="collapse-2">
+                                                        <div class="panel-body">
+                                                            <p>Norem ipsum dolor sit amet consectetur adipisicing elit sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exrcitation ullam co laboris nisi ut aliquip ex ea commodo
+                                                                consequat magna aliqua.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-3"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
+                                                    </div>
+                                                    <div class="panel-collapse collapse" id="collapse-3">
+                                                        <div class="panel-body">
+                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
+                                                                tempor.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-4"><i class="icon"></i>What type of vehicles you repair?</a></h3>
+                                                    </div>
+                                                    <div class="panel-collapse collapse" id="collapse-4">
+                                                        <div class="panel-body">
+                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
+                                                                tempor.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-5"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
+                                                    </div>
+                                                    <div class="panel-collapse collapse" id="collapse-5">
+                                                        <div class="panel-body">
+                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
+                                                                tempor.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end .accordion-->
+                                        </section>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <section class="section-type-1">
+                                            <h2 class="ui-title-block-2">Request Shipping Quote</h2>
+                                            <div class="ui-subtitle-block">Make a request for shipping cost and we shall have it sent to you via email.</div>
+                                            <div class="ui-decor"></div>
+                                            <div id="success"></div>
+                                            <form class="b-form-checkup ui-form-3" id="contactForm" action="{% url 'about' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{request_form.name|as_crispy_field}}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            {{request_form.phone|as_crispy_field}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{request_form.email|as_crispy_field}}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            {{request_form.pickup|as_crispy_field}}<i class="form-control-feedback icon fa fa-calendar"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            {{request_form.services|as_crispy_field}}
+                                                        </div>
+                                                        {{request_form.message|as_crispy_field}}
+                                                        <button class="btn btn-primary">book auto checkup</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- end .b-form-checkup-->
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end .section-area-->
+            
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- end .block-table-->
             <section class="section-default">
                 <div class="container">
@@ -124,124 +295,3 @@
                 </div>
             </div>
             <!-- end .section-default-->
-
-
-
-
-                        <!-- end .section-reviews-->
-                        <div class="section-area">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <section class="section-type-1">
-                                            <h2 class="ui-title-block-2">Read FAQ’s</h2>
-                                            <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
-                                            <div class="ui-decor"></div>
-                                            <div class="panel-group accordion accordion-1" id="accordion-1">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1"><i class="icon"></i>What is the procedure for auto checkup?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="collapse-1">
-                                                        <div class="panel-body">
-                                                            <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur doloe amet consecteur adipisicing elit labore et dolore magna aliquaut enim minim veniam, quis nostrud exercitation ullamco.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-2"><i class="icon"></i>What type of vehicles you repair?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-2">
-                                                        <div class="panel-body">
-                                                            <p>Norem ipsum dolor sit amet consectetur adipisicing elit sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exrcitation ullam co laboris nisi ut aliquip ex ea commodo
-                                                                consequat magna aliqua.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-3"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-3">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-4"><i class="icon"></i>What type of vehicles you repair?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-4">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-5"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-5">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end .accordion-->
-                                        </section>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <section class="section-type-1">
-                                            <h2 class="ui-title-block-2">Book Auto Checkup</h2>
-                                            <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
-                                            <div class="ui-decor"></div>
-                                            <div id="success"></div>
-                                            <form class="b-form-checkup ui-form-3" id="contactForm" action="#" method="post">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input class="form-control" id="user-name" type="text" name="user-name" placeholder="Your Name" required="required" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input class="form-control" id="user-phone" type="tel" name="user-phone" placeholder="Phone" required="required" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input class="form-control" id="user-email" type="email" name="user-email" placeholder="Email" required="required" />
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input class="form-control" type="text" id="datetimepicker" placeholder="Pick Date" required="required" /><i class="form-control-feedback icon fa fa-calendar"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <select class="selectpicker" data-width="100%">
-                                                                <option>Please choose a Service</option>
-                                                                <option>Service 1</option>
-                                                                <option>Service 2</option>
-                                                                <option>Service 3</option>
-                                                            </select>
-                                                        </div>
-                                                        <textarea class="form-control" id="user-message" rows="6" placeholder="Message" required="required"></textarea>
-                                                        <button class="btn btn-primary">book auto checkup</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <!-- end .b-form-checkup-->
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end .section-area-->
-            
-{% endblock content %}

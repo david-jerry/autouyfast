@@ -63,6 +63,28 @@ class PostList(ListView):
         context["recent_posts"] = recent_posts
         return context
 
+class ReviewList(ListView):
+    model = Post
+    template_name = "blog/review_list.html"
+    ordering = ["title", "-pub_date"]
+    queryset = Post.objects.all_posts().filter(tags__title="reviews")
+    context_object_name = "posts"
+    allow_empty = True
+    paginate_by = 5
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        request = self.request
+        tags = Tag.objects.all()
+        categories = Category.objects.all()
+        recent_posts = Post.objects.recent_posts().filter(tags__title="reviews")[:5]
+        context["tags"] = tags
+        context["categories"] = categories
+        context["recent_posts"] = recent_posts
+        return context
+
 
 class SearchPostList(ListView):
     model = Post

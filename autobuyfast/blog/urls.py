@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     PostDetail,
     PostList,
+    ReviewList,
     SearchPostList,
     cat_posts,
     post_share,
@@ -12,6 +13,7 @@ from .views import (
 app_name = "blogs"
 urlpatterns = [
     path('', PostList.as_view(), name='list'),
+    path('reviews/', ReviewList.as_view(), name='rlist'),
     path('search/', SearchPostList.as_view(), name="search"),
     path('<slug>/', PostDetail, name='detail'),
     path('<slug>/share/', post_share, name='share'),

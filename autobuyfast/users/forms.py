@@ -6,6 +6,8 @@ from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from tinymce.widgets import TinyMCE
 
+from autobuyfast.users.models import CarRequest
+
 from .models import AlertSetting, Profile, Testimonial
 
 User = get_user_model()
@@ -106,3 +108,21 @@ class AlertSettingsForm(forms.ModelForm):
             "car_sold_notif", 
             "car_price_notif"
         ]
+
+
+class CarRequestForm(forms.ModelForm):
+    class Meta:
+        model = CarRequest
+        fields = [
+            'name',
+            'email',
+            'phone',
+            'pickup',
+            'services',
+            'message',
+        ]
+        widgets = {
+            'pickup': forms.DateInput(attrs={'class': "home-date"}),
+        }
+
+    

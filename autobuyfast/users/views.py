@@ -1,8 +1,11 @@
 from allauth.account.views import SignupView
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import BadHeaderError, EmailMessage, send_mail, send_mass_mail
 from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.urls.base import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -15,6 +18,7 @@ from django.views.generic import (
 )
 
 from autobuyfast.cars.models import AutoSearch, Image, WatchCars
+from autobuyfast.users.forms import CarRequestForm
 
 from .forms import (
     AlertSettingsForm,
@@ -24,7 +28,7 @@ from .forms import (
     SellerProfileForm,
     TestimonyForm,
 )
-from .models import AlertSetting, Profile, Testimonial
+from .models import AlertSetting, CarRequest, Profile, Testimonial
 
 User = get_user_model()
 
@@ -78,8 +82,6 @@ class BuyerCreateView(SuccessMessageMixin, SignupView):
     form_class = BuyerForm
 
 buyer_signup = BuyerCreateView.as_view()
-
-
 
 
 
@@ -169,6 +171,27 @@ class UserSellerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 seller_update_view = UserSellerUpdateView.as_view()
 
+def car_request_view(request):
+    
+    if request.method == "POST":
+        form = CarRequestForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data['email']
+            date = form.cleaned_data['pickup']
+            service = form.cleaned_data["services"]
+            message = form.cleaned_data["message"]
+            form.save()
+            send_mail("Delivery Request", f"{name} made a request for {service} set to be delivered on this day: {date}.\n \n Further information for this request is: {message}. \n Tracking number will be sent to you after a follow up email has been sent.", "info@autobuyfast.com", ['info@autobuyfast.com', email], fail_silently=False)
+            messages.success(request, "Your request has been sent successfuly")
+            return HttpResponseRedirect(reverse("home"))
+    
+    else:
+        form = CarRequestForm()
+
+    return render(request, 'pages/about.html', {'request_form': form})
+    
+
 
 class UserBuyerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
@@ -208,14 +231,14 @@ class TestimonyView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Testimonial
     form_class = TestimonyForm
     success_message = "Thank you for your review of our service, this will enable us improve to serve you even better."
-    template_name = "pages/home.html"
+    template_name = "users/testimony.html"
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()  # type: ignore [union-attr]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.user.has_testified = True
+        User.objects.filter(username=self.request.user.username).update(has_testified=True)
         form.instance.save()
         return super().form_valid(form)
 

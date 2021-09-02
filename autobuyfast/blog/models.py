@@ -1,5 +1,6 @@
 import os
 import random
+from datetime import datetime
 
 import readtime
 from category.models import Category, Tag
@@ -110,6 +111,11 @@ class Post(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def post_published(self):
+        if self.pub_date == datetime.datetime.now():
+            self.status = "published"
+            self.save()
 
     @property
     def readtime(self):

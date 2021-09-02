@@ -7,8 +7,10 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>{% block title %}AutobuyFast{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="telephone=no" name="format-detection" />
+  <meta name="HandheldFriendly" content="true" />
   <meta name="description" content="Autobuy fast">
-  <meta name="author" content="Advance Scholar">
+  <meta name="author" content="Jeremiah David">
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -54,9 +56,9 @@
   {% include "snippets/js.html" %}
 
   <!-- place project specific Javascript in this file -->
-  <script defer src="{% static 'js/iziToast.min.js' %}"></script>
+  <script async src="{% static 'js/iziToast.min.js' %}"></script>
   {% compress js inline %}
-  <script defer src="{% static 'js/project.js' %}"></script>
+  <script async src="{% static 'js/project.js' %}"></script>
   {% endcompress %}
   {% endblock javascript %}
 
@@ -66,8 +68,8 @@
 
 <body>
   <!-- Loader-->
-  <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span>
-  </div>
+  <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span>
+  </div> -->
 
   {% include "snippets/mobile_menu.html" %}
 
@@ -95,7 +97,7 @@
       </button>
     </div> -->
     
-    <header class="header header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right">
+    <header class="{% if request.path == '/' %}header header-3 header-boxed-width navbar-fixed-top header-color-white header-topbar-dark header-logo-white header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right{% else %}header header-3 header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right{% endif %}">
       <div class="container container-boxed-width">
         {% include "snippets/header.html" %}
         {% include "snippets/nav.html" %}
@@ -106,7 +108,7 @@
     {% include "snippets/slider.html" %}
     {% endblock slider %}
   
-    <main class="l-main-content" style="padding: 16px 0;">
+    <main class="l-main-content" style="padding: 0 0 0 0;">
     {% block content %}
     {% endblock content %}
     </main>
@@ -117,8 +119,13 @@
 
   {% block modal %}{% endblock modal %}
   {# izi message signals for django #}
-  {% for message in messages %}
   <script type=text/javascript>
+    jQuery('.home-date').datepicker({
+      autoclose: true,
+      startDate: "today",
+    });
+
+    {% for message in messages %}
     iziToast.settings({
       timeout: 9000,
       position: 'topRight',
@@ -141,13 +148,13 @@
       title: '{{ message.tags|capfirst }}',
       message: '{{ message }}',
     });
+    {% endfor %}
   </script>
-  {% endfor %}
 
   {# tiny mce settings configuration #}
   
   {% block inline_javascript %}
-  <script >
+  <!-- <script >
     tinymce.init({
       selector: 'textarea',
       menubar: false,
@@ -163,7 +170,7 @@
         });
       }
     });
-</script>
+</script> -->
   {# Script tags with only code, no src (defer by default) #}
   {% endblock inline_javascript %}
 </body>

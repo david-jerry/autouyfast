@@ -1,69 +1,241 @@
 {% load static i18n %}
 
-<!-- <div data-off-canvas="slidebar-1 left overlay">
-    <ul class="nav navbar-nav">
-        <li><a class="scrollTo" href="#features-section">features</a>
-        </li>
-        <li><a class="scrollTo" href="#services-section">Services</a>
-        </li>
-        <li><a class="scrollTo" href="#works-section">Works</a>
-        </li>
-        <li><a class="scrollTo" href="#about-section">About</a>
-        </li>
-        <li><a class="scrollTo" href="#team-section">Team</a>
-        </li>
-        <li><a href="#">News</a>
-            <div class="wrap-inside-nav">
-                <div class="inside-col">
-                    <ul class="inside-nav">
-                        <li><a href="blog.html">Blog 1</a>
+{% url 'home' as home_url %}
+{% url 'cars:list' as cars_urls %}
+{% url 'about' as about_url %}
+{% url 'blogs:list' as news_url %}
+{% url 'blogs:rlist' as reviews_url %}
+{% url 'faq' as faq_url %}
+{% url 'contact' as contact_url %}
+{% url 'account_login' as login_url %}
+{% url 'signup_select' as select_url %}
+{% url 'account_signup' as buyer_url %}
+{% url 'seller_signup' as seller_url %}
+
+<!--main menu-->
+
+<div class="menu-holder">
+
+    <div class="container">
+
+        <div class="menu-wrap">
+
+            <div class="nav-item">
+
+                <!-- - - - - - - - - - - - - - Navigation - - - - - - - - - - - - - - - - -->
+
+                <nav id="main-navigation" class="main-navigation">
+                    <ul id="menu" class="clearfix">
+                        <li class="{% if request.path == home_url %}current{% endif %}"><a
+                                href="{% url 'home' %}">How it works</a></li>
+                        <li class="dropdown has-megamenu {% if request.path == cars_url %}current{% endif %}"><a href="#">Inventory</a>
+                            <!--sub menu-->
+                            <div class="sub-menu-wrap mega-menu full-width-menu">
+                                <div class="mega-submenu">
+                                    <h5>Inventory</h5>
+                                    <ul>
+                                        <li><a href="{% url 'cars:list' %}">All Cars</a></li>
+                                        <li><a href="">Car Parts</a></li>
+                                        <li><a href="{% url 'f_dealers' %}">Featured Sellers<br>(Dealership)</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-submenu">
+                                    <h5>By Body Style</h5>
+                                    <ul>
+                                        <li><a href="{% url 'cars:list' %}">All</a></li>
+                                        <li><a href="#">Sedans</a></li>
+                                        <li><a href="#">Coupes</a></li>
+                                        <li><a href="#">SUVs</a></li>
+                                        <li><a href="#">Crossovers</a></li>
+                                        <li><a href="#">Hatchbacks</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-submenu">
+                                    <ul>
+                                        <li><a href="#">Hybrids</a></li>
+                                        <li><a href="#">Convertibles</a></li>
+                                        <li><a href="#">Sports Cars</a></li>
+                                        <li><a href="#">Minivan</a></li>
+                                        <li><a href="#">Vans</a></li>
+                                        <li><a href="#">Luxury Cars</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-submenu">
+                                    <h5>By Make</h5>
+                                    <ul>
+                                        <li><a href="{% url 'cars:list' %}">All</a></li>
+                                        <li><a href="/cars/search/?title=acura">Acura</a></li>
+                                        <li><a href="/cars/search/?title=alfa">Alfa Romeo</a></li>
+                                        <li><a href="/cars/search/?title=aston">Aston Martin</a></li>
+                                        <li><a href="/cars/search/?title=audi">Audi</a></li>
+                                        <li><a href="/cars/search/?title=bently">Bentley</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-submenu">
+                                    <ul>
+                                        <li><a href="/cars/search/?title=bmw">BMW</a></li>
+                                        <li><a href="/cars/search/?title=buick">Buick</a></li>
+                                        <li><a href="/cars/search/?title=cadillac">Cadillac</a></li>
+                                        <li><a href="/cars/search/?title=chevrolet">Chevrolet</a></li>
+                                        <li><a href="/cars/search/?title=chrysler">Chrysler</a></li>
+                                        <li><a href="/cars/search/?title=dodge">Dodge</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-submenu">
+                                    <ul>
+                                        <li><a href="/cars/search/?title=ferrari">Ferrari</a></li>
+                                        <li><a href="/cars/search/?title=fiat">FIAT</a></li>
+                                        <li><a href="/cars/search/?title=ford">Ford</a></li>
+                                        <li><a href="/cars/search/?title=genesis">Genesis</a></li>
+                                        <li><a href="/cars/search/?title=gmc">GMC</a></li>
+                                        <li><a href="/cars/search/?title=honda">Honda</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
-                        <li><a href="blog-2.html">Blog 2</a>
-                        </li>
-                        <li><a href="blog-single.html">Blog single</a>
+                        <li class="{% if request.path == news_url %}current{% endif %}"><a
+                                href="{% url 'blogs:list' %}">News & Tips</a></li>
+                        <li class="{% if request.path == reviews_url %}current{% endif %}"><a
+                                href="{% url 'blogs:rlist' %}">Research & Reviews</a></li>
+                        <li class="{% if request.path == contact_url %}current{% endif %}"><a
+                                href="{% url 'contact' %}">Contact</a></li>
+
+                        <li class="dropdown"><a href="elements.html">Tools</a>
+                            <!--sub menu-->
+                            <div class="sub-menu-wrap">
+                                <ul>
+                                    <li><a href="">Car Compare</a></li>
+                                    <li><a href="">Price Calculator</a></li>
+                                    <li><a href="">Shipping Calculator</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
-                </div>
+                </nav>
+
+                <!-- - - - - - - - - - - - - end Navigation - - - - - - - - - - - - - - - -->
+
             </div>
-        </li>
-        <li><a href="#">Portfolio</a>
-            <div class="wrap-inside-nav">
-                <div class="inside-col">
-                    <ul class="inside-nav">
-                        <li><a href="portfolio.html">Portfolio</a>
-                        </li>
-                        <li><a href="portfolio-single.html">Portfolio single</a>
-                        </li>
-                    </ul>
-                </div>
+
+            <div class="search-holder">
+
+                <button class="search-button"></button>
+
             </div>
-        </li>
-        <li><a href="#">Contact</a>
-            <div class="wrap-inside-nav">
-                <div class="inside-col">
-                    <ul class="inside-nav">
-                        <li><a href="contact.html">Contact 1</a>
-                        </li>
-                        <li><a href="contact-2.html">Contact 2</a>
-                        </li>
-                        <li><a href="contact-3.html">Contact 3</a>
-                        </li>
-                    </ul>
+
+        </div>
+
+    </div>
+
+    <div class="shop-cart">
+
+        <button class="sc-cart-btn dropdown-invoker"><span class="licon-cart" data-amount="7"></span></button>
+
+        <div class="shopping-cart dropdown-window">
+
+            <div class="products-holder">
+
+                <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+
+                <div class="product">
+
+                    <button class="item-close"></button>
+
+                    <a href="#" class="product-image">
+
+                        <img src="{% static 'images/default/80x80_product1.jpg' %}" alt="">
+
+                    </a>
+
+                    <div class="product-description">
+
+                        <h6 class="product-name"><a href="#">2015 BMW M235i Coupe Staggered Tires</a></h6>
+
+                        <span class="product-size">Size: 18x8</span>
+
+                        <span class="product-price"><span class="amount">4</span>$150</span>
+
+                    </div>
+                    <!--/ .product-info -->
+
                 </div>
+
+                <!-- - - - - - - - - - - - - - End of Product - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+
+                <div class="product">
+
+                    <button class="item-close"></button>
+
+                    <a href="#" class="product-image">
+
+                        <img src="{% static 'images/default/80x80_product2.jpg' %}" alt="">
+
+                    </a>
+
+                    <div class="product-description">
+
+                        <h6 class="product-name"><a href="#">5PC Socket Set with Nylon Sleeve</a></h6>
+
+                        <span class="product-price"><span class="amount">1</span>$38</span>
+
+                    </div>
+                    <!--/ .product-info -->
+
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Product - - - - - - - - - - - - - - - - -->
+
             </div>
-        </li>
-    </ul>
-</div> -->
+            <!--/ .products-holder -->
+
+            <div class="sc-footer">
+
+                <div class="subtotal">Subtotal: <span class="total-price">$488</span></div>
+
+                <div class="vr-btns-set">
+
+                    <a href="#" class="btn btn-style-6 btn-small">View Cart</a>
+                    <a href="#" class="btn btn-style-3 btn-small">Checkout</a>
+
+                </div>
+                <!--/ .vr-btns-set -->
+
+            </div>
+
+        </div>
+        <!--/ .shopping-cart -->
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
 <nav class="navbar" id="nav" style="z-index: 1000 !important;">
     <div class="container">
         <div class="header-navibox-1">
             <!-- Mobile Trigger Start-->
-            <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
+            <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i
+                    class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
             </button>
             <!-- Mobile Trigger End-->
             <a class="navbar-brand scroll" href="{% url 'home' %}">
                 <img class="normal-logo img-responsive" src="{% static 'images/logo.png' %}" alt="logo" />
-                <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo-dark.png' %}" alt="logo" />
+                <img class="scroll-logo hidden-xs img-responsive" src="{% static 'images/logo-dark.png' %}"
+                    alt="logo" />
             </a>
         </div>
         <div class="header-navibox-3">
@@ -72,7 +244,10 @@
             {% endif %} -->
             <ul class="yamm nav navbar-nav hidden-xs clearfix vcenter">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -1.2rem;"> <span style="margin-top: -1.2rem;">{{request.user.fullname}}</span> <i class="icon fa fa-user-circle fa-2x" style="font-size: 25px; padding-top: 1rem; margin-bottom: 0.6rem;"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-top: -1.2rem;"> <span
+                            style="margin-top: -1.2rem;">{{request.user.fullname}}</span> <i
+                            class="icon fa fa-user-circle fa-2x"
+                            style="font-size: 25px; padding-top: 1rem; margin-bottom: 0.6rem;"></i></a>
                     <ul class="dropdown-menu" role="menu">
                         {% if request.user.is_authenticated %}
                         <li><a href="{% url 'users:detail' request.user.username %}" tabindex="1">DASHBOARD</a></li>
@@ -97,20 +272,8 @@
                 </li>
             </ul>
         </div>
-        <div class="header-navibox-2">
-            <ul class="yamm main-menu nav navbar-nav">
-                <li><a href="{% url 'home' %}">How it works</a>
-                </li>
-                <li><a href="{% url 'cars:list' %}">Cars for sale</a>
-                </li>
-                <li><a href="{% url 'about' %}">Shipping</a>
-                </li>
-                <li><a href="{% url 'blogs:rlist' %}">Research and Reviews</a>
-                </li>
-                <li><a href="{% url 'blogs:list' %}">News & Tips</a>
-                </li>
-            </ul>
-        </div>
     </div>
 </nav>
 <!-- end .header-->
+{% endcomment %}
+

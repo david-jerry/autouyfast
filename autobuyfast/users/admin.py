@@ -20,6 +20,7 @@ from .models import AlertSetting, CarRequest, Profile, Testimonial
 
 User = get_user_model()
 
+
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
 
@@ -29,13 +30,16 @@ class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
     empty_value_display = "-empty-"
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "email", "phone_no")}),
+        (
+            _("Personal info"),
+            {"fields": ("first_name", "last_name", "email", "phone_no")},
+        ),
         (
             _("Permissions"),
             {
                 "fields": (
                     "has_testified",
-                    "is_seller"
+                    "is_seller",
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -44,9 +48,32 @@ class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "first_name", "last_name", "phone_no", "has_testified", "is_seller", "is_active", "is_staff", "is_superuser"]
-    list_editable = ["first_name", "last_name", "phone_no", "has_testified", "is_seller", "is_active", "is_staff", "is_superuser"]
-    search_fields = ["first_name", "last_name", "phone_no",]
+    list_display = [
+        "username",
+        "first_name",
+        "last_name",
+        "phone_no",
+        "has_testified",
+        "is_seller",
+        "is_active",
+        "is_staff",
+        "is_superuser",
+    ]
+    list_editable = [
+        "first_name",
+        "last_name",
+        "phone_no",
+        "has_testified",
+        "is_seller",
+        "is_active",
+        "is_staff",
+        "is_superuser",
+    ]
+    search_fields = [
+        "first_name",
+        "last_name",
+        "phone_no",
+    ]
     actions = [
         "export_as_csv",
     ]
@@ -56,7 +83,6 @@ class TestimonialAdmin(admin.ModelAdmin, ExportCsvMixin):
     model = Testimonial
     list_per_page = 250
     empty_value_display = "-empty-"
-    form = TestimonyForm
     list_display = ["__str__", "testimony", "active"]
     list_editable = ["testimony", "active"]
     search_fields = ["testimony", "active"]
@@ -64,9 +90,11 @@ class TestimonialAdmin(admin.ModelAdmin, ExportCsvMixin):
         "export_as_csv",
     ]
 
+
 admin.site.register(Testimonial, TestimonialAdmin)
 
 admin.site.register(CarRequest)
+
 
 class ProfileAdmin(admin.ModelAdmin, ExportCsvMixin):
     model = Profile
@@ -74,15 +102,31 @@ class ProfileAdmin(admin.ModelAdmin, ExportCsvMixin):
     empty_value_display = "-empty-"
     fieldsets = (
         (None, {"fields": ("user",)}),
-        (_("Dealer Info"), {"fields": ("dealership_name", "bio", "website", "banner_display")}),
-        (_("General Profile Info"), { "fields": ("profile_display", "country", "address", "city", "zipcode", "security_quest", "security_answer", ),},),
-        (_("Important Dates"), {"fields": ("created", "modified")}),
+        (
+            _("Dealer Info"),
+            {"fields": ("dealership_name", "bio", "website", "banner_display")},
+        ),
+        (
+            _("General Profile Info"),
+            {
+                "fields": (
+                    "profile_display",
+                    "country",
+                    "address",
+                    "city",
+                    "zipcode",
+                    "security_quest",
+                    "security_answer",
+                )
+            },
+        ),
     )
-    list_display = ["__str__", "dealership_name", "bio", "website", "banner_display"]
-    list_editable = ["dealership_name", "bio", "website", "banner_display"]
-    search_fields = ["dealership_name", "bio", "website", "banner_display"]
+    list_display = ["user", "bio", "website", "banner_display"]
+    list_editable = ["bio", "website", "banner_display"]
+    search_fields = ["user", "bio", "website", "banner_display"]
     actions = [
         "export_as_csv",
     ]
+
 
 admin.site.register(Profile, ProfileAdmin)

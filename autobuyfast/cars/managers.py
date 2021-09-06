@@ -11,13 +11,21 @@ class CarManager(models.Manager):
         # All posts
         return super().get_queryset()
 
-    def all_posts(self):
+    def all_cars(self):
         # All posts
         return super().get_queryset().filter(status="published")
 
-    def recent_posts(self):
+    def recent_cars(self):
         # All posts
         return super().get_queryset().filter(status="published", created__lte=timezone.now()).order_by("-created")
+    
+    def featured_cars(self):
+        # All posts
+        return super().get_queryset().filter(status="published", featured=True)
+    
+    def special_offers(self):
+        # All posts
+        return super().get_queryset().filter(status="published", special=True)
 
 
 

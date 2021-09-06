@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="page-section-bg">
+
+    <div class="container">
+
+        <h2 class="section-title align-center">Our Showroom</h2>
+        <div class="carousel-type-3 portfolio-holder style-2">
+
+            <div class="owl-carousel" data-max-items="3" data-item-margin="30">
+
+                {% for sr in all_cars %}
+                <!-- Slide -->
+                <div class="item-carousel">
+                    <!-- Carousel Item -->
+                    <!-- - - - - - - - - - - - - - Project - - - - - - - - - - - - - - - - -->
+
+                    <div class="project">
+
+                        <!-- - - - - - - - - - - - - - Project Image - - - - - - - - - - - - - - - - -->
+
+                        <div class="project-image">
+
+                            <img src="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" alt="{{sr.title}} showroom section image">
+                            <a href="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" class="project-link project-action fancybox"
+                                data-fancybox="group"></a>
+
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - End of Project Image - - - - - - - - - - - - - - - - -->
+
+                    </div>
+
+                    <!-- - - - - - - - - - - - - - End of Project - - - - - - - - - - - - - - - - -->
+                    <!-- /Carousel Item -->
+                </div>
+                <!-- /Slide -->
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

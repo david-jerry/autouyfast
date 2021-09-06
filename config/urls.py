@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 from filebrowser.sites import site
 
 from autobuyfast.cars.views import home
+from autobuyfast.core.views import contact_view, faq_view
 from autobuyfast.users.views import buyer_signup, car_request_view, seller_signup
 from config.sitemaps import StaticViewSitemap
 
@@ -19,10 +20,28 @@ sitemaps = {
 
 urlpatterns = [
     path("", view=home, name="home"),
+    path("about/", view=car_request_view, name="about"),
+    path("faq/", view=faq_view, name="faq"),
+    path("contact/", view=contact_view, name="contact"),
     path(
-        "about/", view=car_request_view, name="about"
+        "featured_dealers/",
+        TemplateView.as_view(template_name="pages/featured_dealers.html"),
+        name="f_dealers",
+    ),
+    path(
+        "dealers/",
+        TemplateView.as_view(template_name="pages/dealers.html"),
+        name="dealers",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    # Your stuff: custom urls includes go here
+    path("career/", include("autobuyfast.career.urls", namespace="careers")),
+    path("cars/", include("autobuyfast.cars.urls", namespace="cars")),
+    path("blog/", include("autobuyfast.blog.urls", namespace="blogs")),
+    path("comment/", include("comment.urls")),
+]
 
 urlpatterns += [
     # Django Admin, use {% url 'admin:index' %}
@@ -39,20 +58,16 @@ urlpatterns += [
     # Custom users registration
     path("accounts/signup/", buyer_signup, name="account_signup"),
     path("accounts/signup-dealer/", seller_signup, name="seller_signup"),
-    path("signup/", TemplateView.as_view(template_name="account/signup.html"), name="signup_select"),
-
+    path(
+        "signup/",
+        TemplateView.as_view(template_name="account/signup.html"),
+        name="signup_select",
+    ),
     # User management
     path("users/", include("autobuyfast.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-
-    # Your stuff: custom urls includes go here
-    path("cars/", include("autobuyfast.cars.urls", namespace="cars")),
 ]
 
-urlpatterns += [
-    path("blog/", include("autobuyfast.blog.urls", namespace="blogs")),
-    path('comment/', include('comment.urls')),
-]
 
 # SEO url settings
 urlpatterns += [
@@ -64,7 +79,6 @@ urlpatterns += [
         name="robots",
     ),
     path("tinymce/", include("tinymce.urls")),
-
     # Language switcher support urls for django
     path("i18n/", include("django.conf.urls.i18n")),
 ]

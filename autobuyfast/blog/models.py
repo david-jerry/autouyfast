@@ -101,6 +101,7 @@ class Post(TimeStampedModel):
         blank=True,
         # validators=[file_validator],
     )
+    rating = DecimalField(_("Car Review Rating"), max_digits=2, decimal_places=1, default=0.1, null=True, blank=True)
     url = URLField(blank=True, max_length=500, null=True, unique=True)
     comments = GenericRelation(Comment)
     categories = ManyToManyField("category.Category", help_text="Categorize this item.")
@@ -124,6 +125,17 @@ class Post(TimeStampedModel):
     @property
     def get_related_posts_by_tags(self):
         return Post.objects.filter(tags__in=self.tags.all())[:4]
+
+    # @property
+    # def get_all_reviews(self):
+    #     cat = Category.objects.get_or_create(title="reviews", subtitle="reviews", slug="reviews", sites=1)
+    #     return Post.objects.filter(categories__in=[cat])
+
+    # @property
+    # def get_all_news(self):
+    #     cat = Category.objects.get_or_create(title="new", subtitle="news", slug="news", sites=1)
+    #     return Post.objects.filter(categories__in=[cat])
+
 
 
     @property

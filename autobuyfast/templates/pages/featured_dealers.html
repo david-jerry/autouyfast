@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+Featured Dealers | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+A list of dealers we guarantee to offer exemplary service to you. They are certified.
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+Featured Dealers
+{% endblock %}
+
+{% block og_url %}
+{% url 'dealers' %}
+{% endblock %}
+
+{% block twitter_title %}
+Featured Dealers
+{% endblock %}
+
+{% block twitter_desc %}
+A list of dealers we guarantee to offer exemplary service to you. They are certified.
+{% endblock %}
+
+{% block can_link %}
+dealers/
+{% endblock %}
+
+
+{% block slider %}
+<!-- - - - - - - - - - - - - - Breadcrumbs - - - - - - - - - - - - - - - - -->
+
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img1.jpg' %} ">
+
+    <div class="container">
+
+        <h1 class="page-title">Featured Dealers</h1>
+
+        <ul class="breadcrumbs">
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Featured Dealers</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- end breadcrumb-->
+{% endblock slider %}
+
+
+{% block content %}
+{% include "snippets/company_stat.html" %}
+{% include "snippets/showroom.html" %}
+{% include "snippets/buy_or_sell.html" %}
+{% endblock content %}

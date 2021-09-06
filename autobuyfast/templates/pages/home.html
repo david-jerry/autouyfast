@@ -1,14 +1,256 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags %}
+
 {% block title %}
-New Cars, Used Cars, Shipping and Reviews | {{ block.super }}
+Welcome to a new age of car shopping & shipping with convenience | {{ block.super }}
 {% endblock title %}
 
+{% block description %}
+Autobuyfast is a global 100% online car solution website that
+brings together listings from all the major car dealerships in the USA featuring new and
+used vehicles. We make it easy for Members to find, connect with dealer and we can ship
+to you anywhere in the world.
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+AutobuyFast | Welcome to a new age of car shopping & shipping with convenience
+{% endblock %}
+
+{% block og_url %}
+{% url 'home' %}
+{% endblock %}
+
+{% block twitter_title %}
+AutobuyFast | Welcome to a new age of car shopping & shipping with convenience
+{% endblock %}
+
+{% block twitter_desc %}
+Autobuyfast is a global 100% online car solution website that
+brings together listings from all the major car dealerships in the USA featuring new and
+used vehicles. We make it easy for Members to find, connect with dealer and we can ship
+to you anywhere in the world.
+{% endblock %}
+
+{% block can_link %}
+{% endblock %}
+
 {% block slider %}
-  {{ block.super }}
+<div class="media-holder type-2" data-bg="{% static 'assets/media/components/b-main-slider/2.jpg' %}">
+
+    <div class="container">
+
+        <div class="tabs type-2 style-3 tabs-section clearfix">
+            <!--tabs navigation-->
+            <ul class="tabs-nav clearfix">
+                <li class="">
+                    <a href="#tab-1">Find a Car</a>
+                </li>
+                <li class="">
+                    <a href="#tab-2">Find a Part or Accessory</a>
+                </li>
+            </ul>
+            <!--tabs content-->
+            <div class="tabs-content">
+                <div id="tab-1">
+
+                    <div class="input-wrapper">
+
+                        <input type="checkbox" name="checkbox-1" id="checkbox-1" checked="">
+                        <label for="checkbox-1">All Vehicles</label>
+
+                        <input type="checkbox" name="checkbox-2" id="checkbox-2">
+                        <label for="checkbox-2">New</label>
+
+                        <input type="checkbox" name="checkbox-3" id="checkbox-3">
+                        <label for="checkbox-3">Used</label>
+
+                        <input type="checkbox" name="checkbox-4" id="checkbox-4">
+                        <label for="checkbox-4">Certified Pre-Owned</label>
+
+                    </div>
+
+                    <div class="select-area tab-col-2">
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="All Makes">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="All Models">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="select-area tab-col-3">
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="Max Price">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="Max Mileage">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="Min Year">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="10 miles from">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <form class="lineform">
+                                <input type="text" placeholder="ZIP">
+                            </form>
+
+                        </div>
+
+                        <div class="select-col">
+                            <a href="#" class="btn btn-style-3"><i class="licon-magnifier"></i>Search</a>
+                        </div>
+
+                    </div>
+
+                    <a href="#" class="info-btn">More search options</a>
+
+                </div>
+                <div id="tab-2">
+
+                    <div class="select-area tab-col-2">
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="All Makes">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="All Models">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="select-area tab-col-3">
+
+                        <div class="select-col">
+
+                            <div class="auto-custom-select">
+                                <select data-default-text="Max Price">
+                                    <option value="Option 1">Option 1</option>
+                                    <option value="Option 2">Option 2</option>
+                                    <option value="Option 3">Option 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="select-col col-extra">
+
+                            <form class="lineform">
+                                <input type="text" placeholder="a product, brand or keyword">
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <div class="select-area tab-col-3">
+
+                        <div class="select-col">
+
+                            <a href="#" class="info-btn">More search options</a>
+
+                        </div>
+
+                        <div class="select-col"></div>
+
+                        <div class="select-col">
+
+                            <a href="#" class="btn btn-style-3"><i class="licon-magnifier"></i>Search</a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
 {% endblock slider %}
 
 {% block content %}
+{% comment %}
 <section class="section-filter">
     <div class="container">
         <div class="row">
@@ -70,175 +312,416 @@ New Cars, Used Cars, Shipping and Reviews | {{ block.super }}
     </form>
     <!-- end .b-filter-->
 </section>
-<!-- end .section-filter-->
-        <!-- end .section-default-->
-        <div class="section-default mb-0">
+{% endcomment %}
+<div class="page-section-bg">
+
+    <div class="car-carousel">
+
+        <div class="car-title-area">
+
             <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <section class="section-list-brands">
-                            <h2 class="ui-title-block">Top Car Makes</h2>
-                            <div class="ui-subtitle-block">We have large number of Cars available, here you can browse
-                                by Make!</div>
-                            <div class="ui-decor"></div>
-                            <ul class="b-list-brands list-unstyled">
-                                <li class="b-list-brands__item"><a class="b-list-brands__link" href="/cars/search/?title=alfa">Alfa
-                                        Romeo<span class="badge">(256)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=alpine">Alpine<span class="badge">(157)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=aston">Aston Martin<span class="badge">(456)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=audi">Audi<span class="badge">(856)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=bently">Bently<span class="badge">(125)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=bmw">BMW<span class="badge">(562)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=bugatti">Bugatti<span class="badge">(562)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=renault">Ferrari<span class="badge">(256)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=fiat">Fiat<span class="badge">(157)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=lamborghini">Lamborghini<span class="badge">(145)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=lancia">Lancia<span class="badge">(456)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link" href="/cars/search/?title=land">Land
-                                        Rover<span class="badge">(856)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=maserati">Maserati<span class="badge">(125)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=mclaren">McLaren<span class="badge">(562)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=renabenzult">Mercedes-Benz<span class="badge">(562)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=mini">Mini<span class="badge">(256)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=opel">Opel<span class="badge">(157)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=peugeout">Peugeot<span class="badge">(145)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=porsche">Porsche<span class="badge">(456)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=renault">Renault<span class="badge">(856)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=rolls">Rolls-Royce<span class="badge">(125)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=vauxhall">Vauxhall<span class="badge">(562)</span></a>
-                                </li>
-                                <li class="b-list-brands__item"><a class="b-list-brands__link"
-                                        href="/cars/search/?title=volkswagen">Volkswagen<span class="badge">(562)</span></a>
-                                </li>
-                            </ul>
-                            <!-- <a class="btn btn-primary" href="home.html">See all brands</a> -->
-                        </section>
+
+                <div class="flex-row flex-justify flex-center">
+
+                    <h3 class="section-title">Featured Car Inventory</h3>
+                    <div class="btn-list">
+                        <a href="/cars/search/?car_stock=Used" class="btn">View used car inventory</a>
+                        <a href="/cars/search/?car_stock=new" class="btn">View New car inventory</a>
                     </div>
-                    <div class="col-md-4 col-md-offset-1">
-                        <div class="b-bnr">
-                            <div class="b-bnr__label">Best & Low Cost</div>
-                            <div class="b-bnr__title">CAR PRICES</div>
-                            <div class="b-bnr__info">We have Effective and Efficient Vehicles, tell us what you like and
-                                we'll find you cars to love.</div>
-                            <ul class="b-bnr__list list list-mark-3">
-                                <li>Instant Quotes</li>
-                                <li>Unlimited Variety</li>
-                                <li>No Booking Fees or Hidden Costs</li>
-                                <li>Brand New and Used Vehicles</li>
-                                <li>Shipping & Delivery Services</li>
-                            </ul>
-                        </div>
-                        <!-- end .b-banner-->
-                    </div>
+
+
                 </div>
+
             </div>
+
         </div>
-        <div class="block-table block-table_xs mb-0">
-            <div class="block-table__cell col-md-6 mb-0">
-                <div class="block-table__inner">
-                    <img class="b-services__img" src="{% static 'assets/media/components/b-services/1.jpg' %}" alt="foto">
-                </div>
-            </div>
-            <div class="block-table__cell col-md-6 bg-grey mb-0">
-                <div class="block-table__inner">
-                    <section class="b-services">
-                        <h2 class="ui-title-block-2">What is Autobuyfast</h2>
-                        <div class="ui-subtitle-block">Autobuyfast is a global 100% online car solution website that
-                            brings together listings from all the major car dealerships in the USA featuring new and
-                            used vehicles. We make it easy for Members to find, connect with dealer and we can ship to
-                            you anywhere in the world.</div>
-                        <div class="ui-decor"></div>
-                        <div class="b-services__content">
-                            <p>Our site and innovative solutions connect buyers and sellers to match people with their
-                                perfect car.</p>
-                            <p> With our people spread across the U.S. we still maintain a startup culture with
-                                innovation and passion for our people at the core of everything we do</p>
-                        </div><a class="btn btn-dark" href="{% url 'about' %}">Our services</a>
-                    </section>
-                    <!-- end .b-services-->
-                </div>
-            </div>
-        </div>
-        <!-- end .block-table-->
-        <section class="section-news area-bg area-bg_light area-bg_op_90 parallax"
-            style="background-image: url(assets/media/content/bg/bg-7.jpg)">
-            <div class="area-bg__inner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="text-center">
-                                <h2 class="ui-title-block">Latest car releases and expert reviews</h2>
-                                <div class="ui-subtitle-block">Get our experts' honest take on new makes and models.
+
+        <div class="carousel-type-3">
+
+            <div class="owl-carousel container" data-max-items="4" data-item-margin="30">
+                {% for f_car in all_featured_cars %}
+                <!-- Slide -->
+                <div class="item-carousel">
+                    <!-- Carousel Item -->
+                    <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                    <div class="product">
+
+                        <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                        <a href="{{f_car.get_absolute_url}}"><img loading="lazy" src="{% if f_car.image_set %}{{f_car.get_image_url}}{% else %}{% static 'images/default/289x190_img1.jpg' %}{% endif %}" alt="{{f_car.title}} photo"></a>
+                        <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+                        <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                        <div class="product-description">
+
+                            <h5 class="product-name"><a href="{{f_car.get_absolute_url}}">{{f_car.title}}</a></h5>
+
+                            <div class="pricing-area">
+
+                                <div class="product-price">
+                                    ${{f_car.car_price}}
                                 </div>
-                                <div class="ui-decor"></div>
+
                             </div>
-                            <div class="carousel-news owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
-                                data-min768="2" data-min992="3" data-min1200="3" data-margin="30"
-                                data-pagination="false" data-navigation="true" data-auto-play="4000"
-                                data-stop-on-hover="true">
-                                {% for rev in all_reviews %}
-                                <section class="b-post b-post-1 clearfix">
-                                    <div class="entry-media">
-                                        <img class="img-responsive" src="{% if rev.get_image_url %}{{rev.get_image_url}}{% else %}{% static 'assets/media/content/posts/360x250/1.jpg' %}{% endif %}"
-                                            alt="{{rev.title}}" />
+                        </div>
+                        <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                    </div>
+                    <!-- /Carousel Item -->
+                </div>
+                <!-- /Slide -->
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page-section parallax-section" data-bg="{% static 'images/special_bg.jpg' %}">
+
+    <div class="container">
+
+        <div class="title-holder align-center">
+            <h2 class="section-title">Special Offers</h2>
+            <p class="text-size-medium">Start with a must-have and discover matches along the way.</p>
+        </div>
+
+        <div class="carousel-type-3 products-holder">
+
+            <div class="owl-carousel container" data-max-items="3" data-item-margin="30">
+
+                {% for sp in all_special_cars %}
+                <!-- Slide -->
+                <div class="item-carousel">
+                    <!-- Carousel Item -->
+                    <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                    <div class="product">
+
+                        <div class="label type-2">Special Offer</div>
+
+                        <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                        <a href="#">
+                            <img loading="lazy" src="{% if sp.image_set %}{{sp.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="">
+
+                        </a>
+                        <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+                        <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                        <div class="product-description no-rating">
+
+                            <h5 class="product-name"><a href="{{sp.get_absolute_url}}">{{sp.title}}</a></h5>
+
+                            <div class="pricing-area">
+
+                                <div class="product-price new-price">
+                                    <span>New Price</span>
+                                    ${{sp.car_price}}
+                                </div>
+                                {% if sp.car_sub_price %}
+                                <div class="mpg">
+                                    <span>Old Price</span>
+                                    ${{sp.car_sub_price}}
+                                </div>
+                                {% endif %}
+                                <!-- <div class="mpg">
+                                    <span>MSRP</span>
+                                    $34,999
+                                </div> -->
+
+                            </div>
+                            <p>{{sp.car_ext_color}} (ext), {{sp.car_int_color}} (int), {{sp.car_engine}}, {{sp.car_drive_train}}</p>
+                            <div class="model-info">
+
+                                <a href="{{sp.get_absolute_url}}">More Info</a>
+                                <a href="#">Add to Wishlist</a>
+                                <a href="#">Add to Compare</a>
+
+                            </div>
+                        </div>
+                        <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                    </div>
+                    <!-- /Carousel Item -->
+                </div>
+                <!-- /Slide -->
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="align-center"><a href="{% url 'cars:list' %}" class="btn">Show All</a></div>
+
+    </div>
+
+</div>
+
+<div class="page-section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <h2><b>Why Buy From <br> Autobuyfast</b></h2>
+                <p class="text-size-medium"><b>To simply put, It is a brand you can trust to deliver quality on auto
+                        purchases and delivery. </b>
+                </p>
+                <p class="text-size-medium">
+                    Autobuyfast is a global 100% online car solution website that
+                    brings together listings from all the major car dealerships in the USA featuring new and
+                    used vehicles. We make it easy for Members to find, connect with dealer and we can ship to
+                    you anywhere in the world.
+                </p>
+                <a href="{% url 'about' %}" class="info-btn">More About Autobuyfast</a>
+
+            </div>
+            <div class="col-sm-8">
+
+                <ul class="our-services flex-row">
+
+                    <li>
+                        <h4>A Wide Range Of Vehicles</h4>
+                        <p>
+                            We have a wide range of car inventory for popular dealerships accross the globe. Our cars do
+                            undergo a strict check up as well as obtains a vehicle history to ascertain detailed
+                            information on its usage and ownerships.
+                        </p>
+                    </li>
+                    <li>
+                        <h4>Fair, Upfront Pricing</h4>
+                        <p>
+                            There are no hidden charges attached to any purchase from us. We esure the prices you see
+                            are exactly what you pay once you have undicated an interest to purchase and ship to your
+                            desired destination.
+                        </p>
+                    </li>
+                    <li>
+                        <h4>Trusted By Thousands</h4>
+                        <p>
+                            For a brand that has been in business over the years, our reputation can not be expressed
+                            just by our words alone. Feel free to browse through our list of testimonials given by other
+                            past and present buyers. We do pride our self for our on-time delivery and top quality car
+                            history.
+                        </p>
+                    </li>
+                    <li>
+                        <h4>Lifelong Auto Service</h4>
+                        <p>
+                            While we know it can be challenging at times to purchase parts for your automobile machines,
+                            we have taken the time to partner with major car brands to provide you with necessary parts
+                            in cases of repairs or replacements. So please do well to visit our store to search out what
+                            exactly you seek. Should you not find it, do not be weary, we accept requests for unique
+                            items as well and ensures they will get to you and in a timely fashion.
+                        </p>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% include "snippets/testimonial.html" %}
+
+{% include "snippets/body_ad.html" %}
+
+{% include "snippets/compare.html" %}
+
+{% if two_reviews %}
+<div class="page-section">
+
+    <div class="container">
+
+        <h3 class="section-title">Car Reviews, Videos & Advice</h3>
+
+        <div class="review-section">
+
+            <div class="row">
+                {% for c_rev in two_reviews %}
+                <div class="col-md-6">
+
+                    <article class="entry review-item">
+
+                        <div class="review-label">
+                            {{c_rev.rating}}<span>out of 5</span>
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
+
+                        <div class="entry-attachment" style="background:#000; overflow:hidden;">
+
+                            <figure class="thumbnail-attachment"><img style="opacity:0.4" src="{{c_rev.get_image_url}}" alt="{{c_rev.title}} review image"></figure>
+
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
+
+                        <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+
+                        <div class="entry-body">
+
+                            <!-- - - - - - - - - - - - - - Entry Meta - - - - - - - - - - - - - - - - -->
+
+                            <div class="entry-meta">
+
+                                <time class="entry-date" datetime="{{c_rev.pub_date}}">{{c_rev.pub_date}}</time>
+
+                            </div>
+
+                            <!-- - - - - - - - - - - - - - End of Meta - - - - - - - - - - - - - - - - -->
+
+                            <h4 class="entry-title"><a href="{{c_rev.get_absolute_url}}">{{c_rev.title}}</a></h4>
+
+                            <!-- - - - - - - - - - - - - - Entry Excerpt - - - - - - - - - - - - - - - - -->
+
+                            <div class="entry-content">
+
+                                <p>{{c_rev.content|safe|truncatechars:160}}. <br><a href="{{c_rev.get_absolute_url}}"
+                                        class="btn btn-danger btn-sm text-danger">Read More</a></p>
+
+                            </div>
+
+                            <!-- - - - - - - - - - - - - - End of Entry Excerpt - - - - - - - - - - - - - - - - -->
+
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - End of Entry body - - - - - - - - - - - - - - - - -->
+
+                    </article>
+
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                {% for c3 in three_reviews %}
+                <div class="col-md-4 col-sm-6">
+
+                    <article class="entry review-item">
+
+                        <div class="review-label size2">
+                            {{c3.rating}}<span>out of 5</span>
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
+
+                        <div class="entry-attachment" style="background:#000; overflow:hidden;">
+
+                            <figure class="thumbnail-attachment"><img style="opacity:0.4" src="{{c3.get_image_url}}" alt="{{c3.title}} post image"></figure>
+
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
+
+                        <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
+
+                        <div class="entry-body">
+
+                            <!-- - - - - - - - - - - - - - Entry Meta - - - - - - - - - - - - - - - - -->
+
+                            <div class="entry-meta">
+
+                                <time class="entry-date" datetime="{{c3.pub_date}}">{{c3.pub_date}}</time>
+
+                            </div>
+
+                            <!-- - - - - - - - - - - - - - End of Meta - - - - - - - - - - - - - - - - -->
+
+                            <h5 class="entry-title text-primary"><a href="{{c3.get_absolute_url}}">{{c3.title}}</a></h5>
+
+                        </div>
+
+                        <!-- - - - - - - - - - - - - - End of Entry body - - - - - - - - - - - - - - - - -->
+
+                    </article>
+
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="align-center">
+            <a href="{% url 'blogs:rlist' %}" class="btn">More Reviews</a>
+        </div>
+
+    </div>
+
+</div>
+{% endif %}
+
+{% comment %}
+
+<div class="block-table block-table_xs mb-0">
+    <div class="block-table__cell col-md-6 mb-0">
+        <div class="block-table__inner">
+            <img class="b-services__img" src="{% static 'assets/media/components/b-services/1.jpg' %}" alt="foto">
+        </div>
+    </div>
+    <div class="block-table__cell col-md-6 bg-grey mb-0">
+        <div class="block-table__inner">
+            <section class="b-services">
+                <h2 class="ui-title-block-2">What is Autobuyfast</h2>
+                <div class="ui-subtitle-block">Autobuyfast is a global 100% online car solution website that
+                    brings together listings from all the major car dealerships in the USA featuring new and
+                    used vehicles. We make it easy for Members to find, connect with dealer and we can ship to
+                    you anywhere in the world.</div>
+                <div class="ui-decor"></div>
+                <div class="b-services__content">
+                    <p>Our site and innovative solutions connect buyers and sellers to match people with their
+                        perfect car.</p>
+                    <p> With our people spread across the U.S. we still maintain a startup culture with
+                        innovation and passion for our people at the core of everything we do</p>
+                </div><a class="btn btn-dark" href="{% url 'about' %}">Our services</a>
+            </section>
+            <!-- end .b-services-->
+        </div>
+    </div>
+</div>
+<!-- end .block-table-->
+<section class="section-news area-bg area-bg_light area-bg_op_90 parallax"
+    style="background-image: url(assets/media/content/bg/bg-7.jpg)">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <h2 class="ui-title-block">Latest car releases and expert reviews</h2>
+                        <div class="ui-subtitle-block">Get our experts' honest take on new makes and models.
+                        </div>
+                        <div class="ui-decor"></div>
+                    </div>
+                    <div class="carousel-news owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
+                        data-min768="2" data-min992="3" data-min1200="3" data-margin="30" data-pagination="false"
+                        data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
+                        {% for rev in all_reviews %}
+                        <section class="b-post b-post-1 clearfix">
+                            <div class="entry-media">
+                                <img class="img-responsive"
+                                    src="{% if rev.get_image_url %}{{rev.get_image_url}}{% else %}{% static 'assets/media/content/posts/360x250/1.jpg' %}{% endif %}"
+                                    alt="{{rev.title}}" />
+                            </div>
+                            <div class="entry-main">
+                                <div class="entry-header">
+                                    <div class="entry-meta">
+                                        <div class="entry-meta__face">
+                                            <img class="img-responsive"
+                                                src="{% if rev.author.profile_display %}{{rev.author.profile_display.url}}{% else %}{% static 'assets/media/content/posts/face/76x76_1.jpg' %}{% endif %}"
+                                                alt="{{rev.title}} author photo" />
+                                        </div><span class="entry-meta__item">Post by<a class="entry-meta__link">
+                                                {{rev.author.fullname}}</a></span><a class="entry-meta__categorie"
+                                            href="{{rev.tags.all.first}}"><strong>{{rev.tags.all.first}}</strong></a>
                                     </div>
-                                    <div class="entry-main">
-                                        <div class="entry-header">
-                                            <div class="entry-meta">
-                                                <div class="entry-meta__face">
-                                                    <img class="img-responsive"
-                                                        src="{% if rev.author.profile_display %}{{rev.author.profile_display.url}}{% else %}{% static 'assets/media/content/posts/face/76x76_1.jpg' %}{% endif %}" alt="{{rev.title}} author photo" />
-                                                </div><span class="entry-meta__item">Post by<a class="entry-meta__link"
-                                                        > {{rev.author.fullname}}</a></span><a
-                                                    class="entry-meta__categorie" href="{{rev.tags.all.first}}"><strong>{{rev.tags.all.first}}</strong></a>
-                                            </div>
-                                            <h2 class="entry-title"><a href="{{rev.get_absolute_url}}">{{rev.title}} </a></h2>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p>{{rev.content|safe|truncatewords:30}}</p>
-                                        </div>
-                                        <!-- <div class="entry-footer">
+                                    <h2 class="entry-title"><a href="{{rev.get_absolute_url}}">{{rev.title}} </a></h2>
+                                </div>
+                                <div class="entry-content">
+                                    <p>{{rev.content|safe|truncatewords:30}}</p>
+                                </div>
+                                <!-- <div class="entry-footer">
                                             <div class="entry-footer__inner">
                                                 <div class="b-post-social">SHARE
                                                     <ul class="b-post-social__list list-inline">
@@ -260,30 +743,32 @@ New Cars, Used Cars, Shipping and Reviews | {{ block.super }}
                                                 </div>
                                             </div>
                                         </div> -->
+                            </div>
+                        </section>
+                        {% empty %}
+                        <!-- end .post-->
+                        <section class="b-post b-post-1 clearfix">
+                            <div class="entry-media">
+                                <img class="img-responsive"
+                                    src="{% static 'assets/media/content/posts/360x250/2.jpg' %}" alt="Foto" />
+                            </div>
+                            <div class="entry-main">
+                                <div class="entry-header">
+                                    <div class="entry-meta">
+                                        <div class="entry-meta__face">
+                                            <img class="img-responsive"
+                                                src="{% static 'assets/media/content/posts/face/76x76_2.jpg' %}"
+                                                alt="face" />
+                                        </div><span class="entry-meta__item">Post by<a class="entry-meta__link"> sample
+                                                author</a></span><a class="entry-meta__categorie"><strong>sample
+                                                tag</strong></a>
                                     </div>
-                                </section>
-                                {% empty %}
-                                <!-- end .post-->
-                                <section class="b-post b-post-1 clearfix">
-                                    <div class="entry-media">
-                                        <img class="img-responsive" src="{% static 'assets/media/content/posts/360x250/2.jpg' %}"
-                                            alt="Foto" />
-                                    </div>
-                                    <div class="entry-main">
-                                        <div class="entry-header">
-                                            <div class="entry-meta">
-                                                <div class="entry-meta__face">
-                                                    <img class="img-responsive"
-                                                        src="{% static 'assets/media/content/posts/face/76x76_2.jpg' %}" alt="face" />
-                                                </div><span class="entry-meta__item">Post by<a class="entry-meta__link"> sample author</a></span><a
-                                                    class="entry-meta__categorie"><strong>sample tag</strong></a>
-                                            </div>
-                                            <h2 class="entry-title"><a>sample title</a></h2>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p>demo sample of what to expect. for now we have no ocntent relating to reviews</p>
-                                        </div>
-                                        <!-- <div class="entry-footer">
+                                    <h2 class="entry-title"><a>sample title</a></h2>
+                                </div>
+                                <div class="entry-content">
+                                    <p>demo sample of what to expect. for now we have no ocntent relating to reviews</p>
+                                </div>
+                                <!-- <div class="entry-footer">
                                             <div class="entry-footer__inner">
                                                 <div class="b-post-social">SHARE
                                                     <ul class="b-post-social__list list-inline">
@@ -305,66 +790,97 @@ New Cars, Used Cars, Shipping and Reviews | {{ block.super }}
                                                 </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                </section>
-                                {% endfor %}
                             </div>
-                            <!-- end .carousel-news-->
-                        </div>
+                        </section>
+                        {% endfor %}
                     </div>
-                </div>
-            </div>
-        </section>
-        <div>
-            <div class="text-center" style="margin-top: 22px;">
-                <h2 class="ui-title-block">Testimonials</h2>
-                <div class="ui-subtitle-block">What Customers Have To say</div>
-                <div class="ui-decor" style="margin-bottom:12px;"></div>
-            </div>
-        </div>
-        <!-- end .section-default_top-->
-        <div class="section-reviews area-bg area-bg_dark parallax"
-            style="background-image: url({% static 'assets/media/content/bg/bg-9.jpg' %}); padding-bottom:32px;">
-            <div class="area-bg__inner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="carousel-reviews owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
-                                data-min768="1" data-min992="2" data-min1200="2" data-margin="0" data-pagination="true"
-                                data-navigation="false" data-auto-play="4000" data-stop-on-hover="true">
-                                {% for test in all_testimony %}
-                                <div class="b-blockquote b-blockquote-1">
-                                    <div class="b-blockquote__img">
-                                        <img src="{% if test.user.display_photo %}{{test.user.display_photo.url}}{% else %}{% static 'assets/media/components/b-blockquote/face-1.jpg' %}{% endif %}" alt="foto" />
-                                    </div>
-                                    <blockquote>
-                                        <cite class="b-blockquote__cite" title="Blockquote Title"><span
-                                                class="b-blockquote__author">{{test.user.fullname}}</span>
-                                                <!-- <span class="b-blockquote__category">Quality Assurance Manager</span> -->
-                                            </cite>
-                                        <p>{{test.content|safe}}</p>
-                                    </blockquote>
-                                </div>
-                                {% empty %}
-                                <!-- end .b-blockquote-->
-                                <div class="b-blockquote b-blockquote-1">
-                                    <div class="b-blockquote__img">
-                                        <img src="{% static 'assets/media/components/b-blockquote/face-2.jpg' %}" alt="foto" />
-                                    </div>
-                                    <blockquote>
-                                        <cite class="b-blockquote__cite" title="Blockquote Title"><span
-                                                class="b-blockquote__author">testimony author</span></cite>
-                                        <p>testimony content sample</p>
-                                    </blockquote>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <!-- end .carousel-reviews-->
-                        </div>
-                    </div>
+                    <!-- end .carousel-news-->
                 </div>
             </div>
         </div>
-        <!-- end .section-reviews-->
+    </div>
+</section>
+<div>
+    <div class="text-center" style="margin-top: 22px;">
+        <h2 class="ui-title-block">Testimonials</h2>
+        <div class="ui-subtitle-block">What Customers Have To say</div>
+        <div class="ui-decor" style="margin-bottom:12px;"></div>
+    </div>
+</div>
+<!-- end .section-default_top-->
+<div class="section-reviews area-bg area-bg_dark parallax"
+    style="background-image: url({% static 'assets/media/content/bg/bg-9.jpg' %}); padding-bottom:32px;">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="carousel-reviews owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
+                        data-min768="1" data-min992="2" data-min1200="2" data-margin="0" data-pagination="true"
+                        data-navigation="false" data-auto-play="4000" data-stop-on-hover="true">
+                        {% for test in all_testimony %}
+                        <div class="b-blockquote b-blockquote-1">
+                            <div class="b-blockquote__img">
+                                <img loading="lazy" src="{% if test.user.display_photo %}{{test.user.display_photo.url}}{% else %}{% static 'assets/media/components/b-blockquote/face-1.jpg' %}{% endif %}"
+                                    alt="foto" />
+                            </div>
+                            <blockquote>
+                                <cite class="b-blockquote__cite" title="Blockquote Title"><span
+                                        class="b-blockquote__author">{{test.user.fullname}}</span>
+                                    <!-- <span class="b-blockquote__category">Quality Assurance Manager</span> -->
+                                </cite>
+                                <p>{{test.content|safe}}</p>
+                            </blockquote>
+                        </div>
+                        {% empty %}
+                        <!-- end .b-blockquote-->
+                        <div class="b-blockquote b-blockquote-1">
+                            <div class="b-blockquote__img">
+                                <img loading="lazy" src="{% static 'assets/media/components/b-blockquote/face-2.jpg' %}" alt="foto" />
+                            </div>
+                            <blockquote>
+                                <cite class="b-blockquote__cite" title="Blockquote Title"><span
+                                        class="b-blockquote__author">testimony author</span></cite>
+                                <p>testimony content sample</p>
+                            </blockquote>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- end .carousel-reviews-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .section-reviews-->
+
+
+{% endcomment %}
+
+
+
+
+
+
+<div class="call-out holder-bg" data-bg="{% static 'images/default/1920x170_bg1.jpg' %}">
+
+    <div class="container">
+
+        <div class="row flex-row flex-center">
+
+            <div class="col-md-6">
+
+                <div class="align-right">
+                    <h2>Looking to Sell Your Car?</h2>
+                    <p>Get cash offers to your inbox in hours</p>
+                </div>
+
+            </div>
+            <div class="col-md-6"><a href="#" class="btn btn-big">Submit Your Vehicle Now</a></div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock content %}

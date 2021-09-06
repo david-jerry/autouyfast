@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+FAQ | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+We employ you to go through our list of frequently asked questions asked by other customers to asssit you get answers to common questions before seeking a personal response by our team
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+FAQ
+{% endblock %}
+
+{% block og_url %}
+{% url 'faq' %}
+{% endblock %}
+
+{% block twitter_title %}
+FAQ
+{% endblock %}
+
+{% block twitter_desc %}
+We employ you to go through our list of frequently asked questions asked by other customers to asssit you get answers to common questions before seeking a personal response by our team
+{% endblock %}
+
+{% block can_link %}
+faq/
+{% endblock %}
+
+
+{% block slider %}
+<!-- - - - - - - - - - - - - - Breadcrumbs - - - - - - - - - - - - - - - - -->
+
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img1.jpg' %} ">
+
+    <div class="container">
+
+        <h1 class="page-title">Frequently Asked Questions</h1>
+
+        <ul class="breadcrumbs">
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>FAQ</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- end breadcrumb-->
+{% endblock slider %}
+
+
+{% block content %}
+{% include "snippets/faq.html" %}
+{% include "snippets/company_stat.html" %}
+{% include "snippets/showroom.html" %}
+{% include "snippets/testimonial.html" %}
+{% include "snippets/buy_or_sell.html" %}
+{% endblock content %}

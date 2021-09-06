@@ -1,0 +1,58 @@
+{% load static %}
+{% if all_testimony %}
+<div class="parallax-section page-section align-center" data-bg="{% static 'images/testimony_bg.jpg' %}">
+
+    <div class="container">
+
+        <!-- - - - - - - - - - - - - Owl-Carousel - - - - - - - - - - - - - - - -->
+
+        <div class="carousel-type-2">
+
+            <div class="owl-carousel" data-max-items="1">
+
+                {% for test in all_testimony %}
+                <!-- Slide -->
+                <div class="item-carousel">
+                    <!-- Carousel Item -->
+
+                    <!-- - - - - - - - - - - - - - Testimonial - - - - - - - - - - - - - - - - -->
+                    <div class="testimonial type-3">
+
+                        <div class="testimonial-holder">
+                            <h5>{% if request.user.is_seller %}Dealer Testimony{% else %}Customer Testimony{% endif %}</h5>
+                            <blockquote>
+                                <p>{{test.testimony|safe|truncatechars:250}}</p>
+                            </blockquote>
+                        </div>
+
+                        <div class="author-box">
+
+                            <a href="#" class="avatar">
+                                <img src="{% if test.user.userprofile.profile_display %}{{test.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/100x100_photo1.jpg' %}{% endif %}" alt="{{test.user.fullname}} testimony passport">
+                            </a>
+
+                            <div class="author-info">
+
+                                <h6 class="author-name">{{test.user.fullname}}</h6>
+                                <span class="author-position">{% if request.user.is_seller %}Dealer{% else %}Customer{% endif %}</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /Carousel Item -->
+
+                    <!-- /Carousel Item -->
+                </div>
+                <!-- /Slide -->
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endif %}

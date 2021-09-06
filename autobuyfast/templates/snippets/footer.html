@@ -1,122 +1,181 @@
 {% load static i18n %}
 
-
+{% url 'home' as home_url %}
 {% url 'account_login' as login_url %}
 {% url 'signup_select' as select_url %}
 {% url 'account_signup' as buyer_url %}
 {% url 'seller_signup' as seller_url %}
-<!-- end .section-default-->
-<footer class="footer area-bg">
-    <div class="area-bg__inner">
-        {% if not request.path == login_url or not request.path == buyer_url or not request.path == seller_url or not request.path == select_url %}
-        <div class="footer__main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="footer-section">
-                            <a class="footer__logo" href="{% url 'home' %}">
-                                <img class="img-responsive" src="{% static 'images/footer-logo.png' %}" alt="Logo" />
-                            </a>
-                            <div class="footer__info">Autobuyfast is a global 100% online car solution website that brings together listings from all the major car dealerships in the USA featuring new and used vehicles. We make it easy for Members to find, connect with dealer and we can ship to you anywhere in the world.
+
+<footer id="footer" class="footer-2">
+
+    <!-- pre footer -->
+    <div class="pre-footer">
+
+        <div class="container">
+
+            <div class="icons-box">
+
+                <div class="row flex-row">
+
+                    <div class="col-md-3 col-sm-6">
+
+                        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+                        <div class="icons-wrap">
+
+                            <div class="icons-item type-3">
+                                <div class="item-box"> <i class="licon-map-marker"></i>
+                                    <p>
+                                        2532A Cheshaire Drive<br> Baltimore, MD 21244
+                                    </p>
+                                    <a href="{% url 'contact' %}"
+                                        class="info-btn">Get Directions</a>
+                                </div>
                             </div>
-                            <ul class="social-net list-inline">
-                                <li class="social-net__item"><a class="social-net__link text-primary_h"
-                                        href="facebook.com"><i class="icon fa fa-facebook"></i></a>
-                                </li>
-                                <li class="social-net__item"><a class="social-net__link text-primary_h"
-                                        href="twitter.com"><i class="icon fa fa-twitter"></i></a>
-                                </li>
-                                <li class="social-net__item"><a class="social-net__link text-primary_h"
-                                        href="linkedin.com"><i class="icon fa fa-linkedin"></i></a>
-                                </li>
-                                <li class="social-net__item"><a class="social-net__link text-primary_h"
-                                        href="instagram.com"><i class="icon fa fa-instagram"></i></a>
-                                </li>
-                                <li class="social-net__item"><a class="social-net__link text-primary_h"
-                                        href="youtube.com"><i class="icon fa fa-youtube-play"></i></a>
-                                </li>
-                            </ul>
-                            <!-- end .social-list-->
+
                         </div>
+
                     </div>
-                    <div class="col-md-4">
-                        <section class="footer-section footer-section_list-columns">
-                            <h3 class="footer-section__title ui-title-inner">Top Brands</h3>
-                            <ul class="footer-list footer-list_columns list-unstyled">
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=bmw">BMW</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=ferrari">Ferrari</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link"
-                                        href="/cars/search/?title=benz">Mercedes</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=aston">Aston
-                                        Martin</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=toyota">Toyota</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=rover">Land
-                                        Rover</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=mclaren">Mclaren</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=peogeot">Peogeot</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="/cars/search/?title=renault">Renault</a>
-                                </li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="col-md-2">
-                        <section class="footer-section footer-section_list-one">
-                            <h3 class="footer-section__title ui-title-inner">Useful Links</h3>
-                            <ul class="footer-list list-unstyled">
-                                {% if request.user.is_seller %}
-                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'cars:create' %}">Create Ads</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'users:ads' %}">Manage Ads</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'seller_signup' %}">Dealer Signup</a>
-                                </li>
-                                {% else %}
-                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'account_signup' %}">Buyer Signup</a>
-                                </li>
-                                {% endif %}
-                                <li class="footer-list__item"><a class="footer-list__link"
-                                        href="{% url 'users:watch_list' %}">Watch List</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="{% url 'users:detail' request.user %}">Dashboard</a>
-                                </li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="col-md-3">
-                        <section class="footer-section">
-                            <h3 class="footer-section__title ui-title-inner">Address Information</h3>
-                            <div class="footer-contact footer-contact_lg">Call us <span class="text-primary"> <a href="tel://+13257011819">+1 (325) 701
-                                    1819</a></span>
+                    <div class="col-md-3 col-sm-6">
+
+                        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+                        <div class="icons-wrap">
+
+                            <div class="icons-item type-3">
+                                <div class="item-box"> <i class="licon-smartphone"></i>
+                                    <span>Sales:</span> <a href="tel://+13257011819">+1325-701-18-19</a> <br>
+                                    <a href="mailto://hello@autobuyfast.com" class="link-text">hello@autobuyfast.com</a>
+                                </div>
                             </div>
-                            <div class="footer-contact"><i
-                                    class="icon icon-xs fa fa-envelope-o"></i>hello@autobuyfast.com</div>
-                            <div class="footer-contact"><i class="icon icon-lg fa fa-map-marker"></i>2532A Cheshaire Drive Baltimore, MD 21244</div>
-                            <div class="footer-contact"><i class="icon fa fa-clock-o"></i>Mon - Fri : 0900am to 0600pm
-                            </div>
-                        </section>
+
+                        </div>
+
                     </div>
+                    <div class="col-md-3 col-sm-6">
+
+                        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+                        <div class="icons-wrap">
+
+                            <div class="icons-item type-3">
+                                <div class="item-box"> <i class="licon-clock3"></i>
+                                    <span>Sales:</span><br>
+                                    <p>Mon - Fri: 9:00 AM - 6:00 PM <br> Sunday is closed</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+
+                        <!-- - - - - - - - - - - - - - Icon Box Item - - - - - - - - - - - - - - - - -->
+                        <div class="icons-wrap">
+
+                            <div class="icons-item type-3">
+                                <div class="item-box">
+                                    <span>Service:</span> <br>
+                                    <p>Sat: 9:00 AM - 4:00 PM <br> Sunday is closed</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
-        {% endif %}
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">Copyrights 2021 <a class="copyright__brand" href="{% url 'home' %}"> AUTOBUYFAST</a>
-                        All Rights Reserved<a class="copyright__link" href="privacy-policy.html">Privacy Policy</a><a
-                            class="copyright__link" href="terms-of-use.html">Terms & Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </div><span class="btn-up" id="toTop">TOP</span>
+
     </div>
+    <!-- end pre footer -->
+
+    <!-- Top footer -->
+    <div class="top-footer">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-3 col-sm-6">
+
+                    <div class="widget">
+
+                        <a href="{{home_url}}" class="logo"><img src="{% static 'images/footer-logo.png' %}" alt="autobuyfast footer logo"></a>
+
+                        <ul class="social-icons">
+
+                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="icon-youtube-play"></i></a></li>
+                            <li><a href="#"><i class="icon-gplus-3"></i></a></li>
+                            <li><a href="#"><i class="icon-instagram-5"></i></a></li>
+                            <li><a href="#"><i class="icon-linkedin-3"></i></a></li>
+
+                        </ul>
+
+                        <p class="copyright">Copyright Autobuyfast © 2021. <br> All Rights Reserved.</p>
+                        <br>
+                        
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+
+                    <div class="widget">
+                        <h5 class="widget-title">Company</h5>
+                        <p>
+                            Autobuyfast is a global 100% online car solution website that
+                            brings together listings from all the major car dealerships in the USA featuring new and
+                            used vehicles. We make it easy for Members to find, connect with dealer and we can ship
+                            to you anywhere in the world.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+
+                    <div class="widget">
+                        <h5 class="widget-title">Quick Links</h5>
+                        <ul class="info-links">
+
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'careers:list' %}">Careers</a></li>
+                            <li><a href="{% url 'faq' %}">FAQ</a></li>
+                            <li><a href="{% url 'blogs:list' %}">News & Tips</a></li>
+                            <li><a href="{% url 'blogs:rlist' %}">Reviews</a></li>
+                            <li><a href="{% url 'sitemap' %}">Site Map</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+
+                    <div class="widget">
+                        <h5 class="widget-title">Popular Cars By Make</h5>
+                        <ul class="info-links">
+
+                            <li ><a href="/cars/search/?title=bmw">BMW</a></li>
+                            <li ><a href="/cars/search/?title=ferrari">Ferrari</a></li>
+                            <li ><a href="/cars/search/?title=benz">Mercedes</a></li>
+                            <li ><a href="/cars/search/?title=aston">Aston Martin</a></li>
+                            <li ><a href="/cars/search/?title=toyota">Toyota</a></li>
+                            <li ><a href="/cars/search/?title=rover">Land Rover</a></li>
+                            <li ><a href="{% url 'cars:list' %}">All Cars</a></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- <a href="#" class="btn btn-big btn-style-3"><i class="licon-bubbles"></i>Chat With Us</a> -->
+
+    </div>
+
 </footer>
-<!-- .footer-->

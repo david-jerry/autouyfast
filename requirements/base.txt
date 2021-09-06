@@ -23,7 +23,7 @@ django-redis==5.0.0  # https://github.com/jazzband/django-redis
 # Developer Installed Packages #
 # ------------------------------------------------------------------------------
 beautifulsoup4==4.9.3
-
+cssutils==2.3.0 
 
 # SEARCH INDEX IMPORTS & PLUGINS
 # ------------------------------------------------------------------------------

@@ -7,6 +7,7 @@ import random
 import uuid
 from datetime import timedelta
 from decimal import Decimal
+from urllib import request
 
 # Third partie imports
 from category.models import Category, Tag
@@ -14,6 +15,8 @@ from comment.models import Comment
 from countries_plus.models import Country
 # django imports
 from django.conf import settings
+from django.core.files import File
+from django.core.mail import BadHeaderError, EmailMessage, send_mail, send_mass_mail
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -183,8 +186,9 @@ CAR_MAKE = (
     ('yugo', 'yugo'),
 )
 CAR_STOCK = (
-    ('Used', 'Used'),
-    ('Ac_Certified', 'ac'),
+    ('Used', 'used'),
+    ('New', 'new'),
+    ('Certified', 'certified'),
     ('Acura_Certified', 'acura'),
     ('Alfa_Romeo _Certified', 'alfa romeo'),
     ('Allard_Certified', 'allard'),
@@ -339,63 +343,12 @@ CAR_BODY = (
     ('convertible', 'convertible'),
     ('wagon', 'wagon'),
     ('hatchback', 'hatchback'),
+    ('passenger_van', 'passenger van'),
     ('suv', 'suv'),
     ('minivan', 'minivan'),
-    ('truck', 'truck'),
-    ('van', 'van'),
+    ('pickup_truck', 'pickup truck'),
+    ('cargo_van', 'cargo van'),
 )
-
-# class Seating(TimeStampedModel):
-#     title = CharField(max_length=500, blank=True, null=True, unique=True)
-
-#     def __str__(self):
-#         return f"{self.title} Seating"
-
-#     class Meta:
-#         managed = True
-#         verbose_name = "Car Seating"
-#         verbose_name_plural = "Car Seatings"
-#         ordering = ["-created"]
-
-
-
-
-# class Body(TimeStampedModel):
-#     title = CharField(max_length=500, blank=True, null=True, unique=True)
-
-#     def __str__(self):
-#         return f"{self.title} Car Body"
-
-#     class Meta:
-#         managed = True
-#         verbose_name = "Car Body"
-#         verbose_name_plural = "Car Bodys"
-#         ordering = ["-created"]
-# class Year(TimeStampedModel):
-#     year = PositiveSmallIntegerField(_("Production Year"), blank=True, null=True, unique=True) 
-
-#     def __str__(self):
-#         return f"Year {self.year}"
-    
-
-#     class Meta:
-#         managed = True
-#         verbose_name = "Car Year"
-#         verbose_name_plural = "Car Years"
-#         ordering = ["-created"]
-
-
-# class Stock(TimeStampedModel):
-#     stock = CharField(_("Used or New Stock"), max_length=700, blank=True, null=True, unique=True) 
-
-#     def __str__(self):
-#         return self.stock
-
-#     class Meta:
-#         managed = True
-#         verbose_name = "Car Stock Type"
-#         verbose_name_plural = "Car Stock Types"
-#         ordering = ["-created"]
 
 
 class AutoSearch(TimeStampedModel):
@@ -405,32 +358,33 @@ class AutoSearch(TimeStampedModel):
         (UNPUBLISHED, "unpublished"),
         (PUBLISHED, "published")
     )
-    dealer = ForeignKey(User, on_delete=CASCADE, related_name='car', blank=True, null=True, unique=False)
-    # car_image = URLField(_("Car Image Url"), max_length=700, blank=True, null=True, unique=True)
-    car_url = CharField(_("Car Detail Link"), max_length=700, blank=True, null=True, unique=True) 
-    car_vin = CharField(_("Car VIN"), max_length=200, blank=True, null=True, unique=False) 
-    car_stock = CharField(_("Car Stock Type"), max_length=100, blank=True, null=True, choices=CAR_STOCK, default="Used", unique=False)
-    car_year = CharField(_("Car Manufacturing Year"), max_length=100, blank=True, null=True, choices=CAR_YEAR, default=2000, unique=False)
     title = CharField(_("Car Title"), max_length=700, blank=True, null=True, unique=False) 
     slug = SlugField(max_length=800, blank=True, null=True, unique=True)
+    car_url = CharField(_("Car Detail Link"), max_length=700, blank=True, null=True, unique=True) 
+    car_vin = CharField(_("Car VIN"), max_length=200, blank=True, null=True, unique=True) 
+    car_stock = CharField(_("Car Stock Type"), max_length=25, blank=True, null=True, choices=CAR_STOCK, default="used", unique=False)
+    dealer = ForeignKey(User, on_delete=SET_NULL, related_name='car', null=True)
+    car_year = CharField(_("Car Manufacturing Year"), max_length=10, blank=True, null=True, choices=CAR_YEAR, default=2000, unique=False)
     car_mileage = DecimalField(_("Car Mileage"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False) 
     car_price = DecimalField(_("Car Main Price"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False)
     car_sub_price = DecimalField(_("Car Old Price"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False)
-    car_history = URLField(_("Car History Link"), max_length=700, blank=True, null=True) 
-    car_def_image = URLField(_("Car Default Image"), max_length=700, blank=True, null=True) 
+    car_door = CharField(_("Car Door"), max_length=15, blank=True, null=True, choices=CAR_DOOR, default="2")
+    car_body = CharField(_("Car Body"), max_length=15, blank=True, null=True, choices=CAR_BODY, default="sedan")
+    car_history = URLField(_("Car History Link"), max_length=700, blank=True, null=True, unique=True) 
     car_dealer_name = CharField(_("Car Dealer"), max_length=700, blank=True, default="car dealer name", null=True) 
     car_dealer_phone = CharField(_("Car Dealer Phone Number"), max_length=16, blank=True, default="+1864756473547", null=True) 
-    car_transmission = CharField(_("Car Transmission"), max_length=200, blank=True, null=True) 
-    car_ext_color = CharField(_("Car Ext Color"), max_length=200, blank=True, null=True) 
-    car_int_color = CharField(_("Car Int Color"), max_length=200, blank=True, null=True) 
-    car_drive_train = CharField(_("Car Drive Train"), max_length=200, blank=True, null=True) 
-    car_fuel_type = CharField(_("Car Fuel Type"), max_length=200, blank=True, null=True) 
-    car_engine = CharField(_("Car Engine"), max_length=200, blank=True, null=True) 
+    car_transmission = CharField(_("Car Transmission"), max_length=50, blank=True, null=True) 
+    car_ext_color = CharField(_("Car Ext Color"), max_length=50, blank=True, null=True) 
+    car_int_color = CharField(_("Car Int Color"), max_length=50, blank=True, null=True) 
+    car_drive_train = CharField(_("Car Drive Train"), max_length=50, blank=True, null=True) 
+    car_fuel_type = CharField(_("Car Fuel Type"), max_length=50, blank=True, null=True) 
+    car_engine = CharField(_("Car Engine"), max_length=50, blank=True, null=True) 
     likes = ManyToManyField(User, blank=True, related_name="car_likes")
     seller_note = HTMLField(_("Seller Note"), null=True, blank=True, default="From https://cars.com, follow the link to see their reviews and comments on this car")
-    status = CharField(_("Status"), max_length=100, blank=True, null=True, choices=STATUS, default=PUBLISHED)
-    featured = BooleanField(default=False)
-    available = BooleanField(default=True)
+    status = CharField(_("Status"), max_length=15, blank=True, null=True, choices=STATUS, default=PUBLISHED)
+    featured = BooleanField(_('Featured Cars'), default=False)
+    special = BooleanField(_('Special Offer'), default=False)
+    available = BooleanField(_('Car Availability'), default=True)
     objects = CarManager()
 
     def __str__(self):
@@ -478,12 +432,23 @@ class AutoSearch(TimeStampedModel):
 
 class Image(TimeStampedModel):
     car = ForeignKey(AutoSearch, on_delete=CASCADE, related_name='car')
+    img_url = CharField(_("Alternative Image Upload Field"), max_length=500, null=True, blank=True)
     image = ResizedImageField(
         _("Upload Car Image"), quality=75, force_format='JPEG', size=[400, 328], crop=['middle', 'center'], upload_to=post_image, null=True, blank=True, help_text="Size 400px x 328px"
     )
 
     def __str__(self):
         return f"{self.car.title} photo"
+
+    def get_image_url(self):
+        if self.img_url and not self.image:
+            result = request.urlretrieve(self.img_url)
+            self.image.save(
+                os.path.basename(self.img_url),
+                File(open(result[0], 'rb'))
+                )
+            self.save()
+
 
     class Meta:
         managed = True
@@ -512,7 +477,7 @@ class WatchCars(TimeStampedModel):
 
     def expired(self):
         qs = WatchCars.objects.filter(user=self.user, car=self.car, active=True)
-        if expired_watch:
+        if self.expired_watch:
             qs.delete()
             return True
         return False

@@ -1,0 +1,29 @@
+<div class="page-section">
+    <div class="container">
+        <div class="accordion toggle style-1">
+            {% for fq in all_faqs %}
+            <!--accordion item-->
+            <div class="accordion-item">
+                <h6 class="a-title"><span class="licon-bubble-question"></span>{{fq.title}}?</h6>
+                <div class="a-content">
+                    <p>
+                        {{fq.content|safe}}
+                    </p>
+                </div>
+            </div>
+            <!--accordion item-->
+            {% empty %}
+            <!--accordion item-->
+            <div class="accordion-item">
+                <h6 class="a-title"><span class="licon-bubble-question"></span>Why is it scanty here?</h6>
+                <div class="a-content">
+                    <p>
+                        No FAQ at the moment, Please check back later
+                    </p>
+                </div>
+            </div>
+            <!--accordion item-->
+            {% endfor %}
+        </div>
+    </div>
+</div>

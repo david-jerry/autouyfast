@@ -10,12 +10,15 @@ except:
 
 import datetime
 
+import django.contrib.sites.models
 from category.models import Category, Tag
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -45,45 +48,85 @@ class PostList(ListView):
     model = Post
     template_name = "blog/list.html"
     ordering = ["title", "-pub_date"]
-    queryset = Post.objects.all_posts()
     context_object_name = "posts"
     allow_empty = True
     paginate_by = 5
     slug_field = "slug"
     slug_url_kwarg = "slug"
 
+    def get_queryset(self): # new
+        site = Site.objects.get_or_create(id=2, domain="autobuyfast.com", name="autobuyfast")
+        # cat = Category.objects.get_or_create(id=5, title="news", subtitle="news", slug="news", sites__domain__in=[site])
+        cat = get_object_or_404(Category, slug="news")
+        object_list = Post.objects.all_posts().filter(categories__slug__in=[cat])
+        return object_list
+
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         request = self.request
-        tags = Tag.objects.all()
-        categories = Category.objects.all()
-        recent_posts = Post.objects.recent_posts()[:5]
+        # site = Site.objects.get_or_create(id=settings.SITE_ID, domain="autobuyfast.com", name="autobuyfast.com")
+        # site = Site.objects.get_or_create(id=2, domain="autobuyfast.com", name="autobuyfast")
+        cat = get_object_or_404(Category, slug="news")
+        tags = Tag.objects.all().filter(categories__slug__in=[cat])
+        categories = Category.objects.filter(slug="news")
+        recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
         context["tags"] = tags
         context["categories"] = categories
         context["recent_posts"] = recent_posts
         return context
 
-class ReviewList(ListView):
-    model = Post
-    template_name = "blog/review_list.html"
-    ordering = ["title", "-pub_date"]
-    queryset = Post.objects.all_posts().filter(tags__title="reviews")
-    context_object_name = "posts"
-    allow_empty = True
-    paginate_by = 5
-    slug_field = "slug"
-    slug_url_kwarg = "slug"
+def reviews_posts(request):
+    # site = get_object_or_404(Site, name="autobuyfast")
+    cat = get_object_or_404(Category, slug="reviews")
+    # cat = Category.objects.get_or_create(title="reviews", subtitle="reviews", slug="reviews", sites__set="1")
+    object_list = Post.objects.all_posts().filter(categories__slug__in=[cat], status="published")
+    recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
+    tags = Tag.objects.all().filter(categories__slug__in=[cat])
+    categories = Category.objects.filter(slug="reviews")
+    recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        request = self.request
-        tags = Tag.objects.all()
-        categories = Category.objects.all()
-        recent_posts = Post.objects.recent_posts().filter(tags__title="reviews")[:5]
-        context["tags"] = tags
-        context["categories"] = categories
-        context["recent_posts"] = recent_posts
-        return context
+    paginator = Paginator(object_list, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        posts = paginator.page(paginator.num_pages)
+    data = {
+        'page': page,
+        'posts': posts,
+        'tags': tags,
+        'categories': categories,
+        'recent_posts': recent_posts,
+    }        
+    return render(request, 'blog/review_list.html', data)
+
+
+# class ReviewList(ListView):
+#     model = Post
+#     template_name = "blog/review_list.html"
+#     ordering = ["title", "-pub_date"]
+#     queryset = Post.objects.all_posts().filter(tags__title="reviews")
+#     context_object_name = "posts"
+#     allow_empty = True
+#     paginate_by = 5
+#     slug_field = "slug"
+#     slug_url_kwarg = "slug"
+
+#     def get_context_data(self, *args, **kwargs):
+#         context = super().get_context_data(*args, **kwargs)
+#         request = self.request
+#         tags = Tag.objects.all()
+#         categories = Category.objects.all()
+#         recent_posts = Post.objects.recent_posts().filter(tags__title="reviews")[:5]
+#         context["tags"] = tags
+#         context["categories"] = categories
+#         context["recent_posts"] = recent_posts
+#         return context
 
 
 class SearchPostList(ListView):
@@ -185,7 +228,6 @@ def cat_posts(request, cat_slug=None):
     return render(request, 'blog/categories.html', data)
 
 
-
 def post_share(request, slug):
     post = get_object_or_404(Post, slug=slug, status="published")
     if not request.method == "POST":
@@ -204,7 +246,7 @@ def post_share(request, slug):
         send_mail(
             subject,
             message,
-            "info@autobuyfast.com",
+            "no-reply@autobuyfast.com",
             [cd['to']],
             fail_silently=False
         )
@@ -256,18 +298,3 @@ def PostDetail(request, slug):
     return render(request, "blog/detail.html", data)
 
 
-# class TagDetail(DetailView):
-#     model = Tag
-#     template_name = "blog/tags.html"
-#     ordering = ["title", "pub_date"]
-#     allow_empty = True
-#     queryset = Post.objects.all_posts()
-#     context_object_name = "tag"
-#     slug_field = "slug"
-#     slug_url_kwarg = "slug"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         tags = Tag.objects.all()
-#         context["tags"] = tags
-#         return context

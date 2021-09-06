@@ -1,185 +1,131 @@
 {% extends "base.html" %}
-{% load static i18n crispy_forms_tags %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+About Us | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+Get your questions answered about autobuyfast, who we are, what we do, and we help you with our services
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+About Us
+{% endblock %}
+
+{% block og_url %}
+{% url 'about' %}
+{% endblock %}
+
+{% block twitter_title %}
+About Us
+{% endblock %}
+
+{% block twitter_desc %}
+Get your questions answered about autobuyfast, who we are, what we do, and we help you with our services
+{% endblock %}
+
+{% block can_link %}
+about/
+{% endblock %}
 
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
-    <div class="area-bg__inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="b-title-page bg-primary_a">
-                        Auto Shipping Quote
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
+<!-- - - - - - - - - - - - - - Breadcrumbs - - - - - - - - - - - - - - - - -->
+
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img1.jpg' %} ">
+
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-                    </li>
-                    <li class="active">Shipping Request</li>
-                </ol>
-            </div>
-        </div>
+
+        <h1 class="page-title">About Us</h1>
+
+        <ul class="breadcrumbs">
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>About Us</li>
+
+        </ul>
+
     </div>
+
 </div>
+
 <!-- end breadcrumb-->
 {% endblock slider %}
 
 {% block content %}
+<div class="page-section">
 
-<div class="block-table block-table_xs mb-0">
-    <div class="block-table__cell col-md-6 mb-0">
-        <div class="block-table__inner">
-            <img class="b-services__img" src="{% static 'assets/media/components/b-services/1.jpg' %}" alt="foto">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <img loading="lazy" src="{% static 'images/about_bg.svg' %}" alt="about us image">
+
+            </div>
+            <div class="col-sm-6">
+
+                <h2><b>Welcome to Autobuyfast!</b></h2>
+                <p class="text-size-medium"><b>Luxury Car Shopping and Shipping.</b></p>
+                <p class="text-size-medium">Autobuyfast is a global 100% online car solution website that brings
+                    together listings from all the major car dealerships in the USA featuring new and used vehicles. We
+                    make it easy for Members to find, connect with dealer and we can ship to you anywhere in the world.
+                </p>
+                <p class="text-size-medium">Our site and innovative solutions connect buyers and sellers to match people
+                    with their perfect car.</p>
+                <p class="text-size-medium">With our people spread across the U.S. we still maintain a startup culture
+                    with innovation and passion for our people at the core of everything we do.</p>
+
+            </div>
         </div>
+
     </div>
-    <div class="block-table__cell col-md-6 bg-grey mb-0">
-        <div class="block-table__inner">
-            <section class="b-services">
-                <h2 class="ui-title-block-2">What is Autobuyfast</h2>
-                <div class="ui-subtitle-block">Autobuyfast is a global 100% online car solution website that
-                    brings together listings from all the major car dealerships in the USA featuring new and
-                    used vehicles. We make it easy for Members to find, connect with dealer and we can ship to
-                    you anywhere in the world.</div>
-                <div class="ui-decor"></div>
-                <div class="b-services__content">
-                    <p>Our site and innovative solutions connect buyers and sellers to match people with their
-                        perfect car.</p>
-                    <p> With our people spread across the U.S. we still maintain a startup culture with
-                        innovation and passion for our people at the core of everything we do</p>
-                </div>
-            </section>
-            <!-- end .b-services-->
-        </div>
-    </div>
+
 </div>
 
-
-
-
-                        <!-- end .section-reviews-->
-                        <div class="section-area">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <section class="section-type-1">
-                                            <h2 class="ui-title-block-2">Read FAQ’s</h2>
-                                            <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
-                                            <div class="ui-decor"></div>
-                                            <div class="panel-group accordion accordion-1" id="accordion-1">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-1"><i class="icon"></i>What is the procedure for auto checkup?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse in" id="collapse-1">
-                                                        <div class="panel-body">
-                                                            <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur doloe amet consecteur adipisicing elit labore et dolore magna aliquaut enim minim veniam, quis nostrud exercitation ullamco.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-2"><i class="icon"></i>What type of vehicles you repair?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-2">
-                                                        <div class="panel-body">
-                                                            <p>Norem ipsum dolor sit amet consectetur adipisicing elit sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exrcitation ullam co laboris nisi ut aliquip ex ea commodo
-                                                                consequat magna aliqua.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-3"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-3">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-4"><i class="icon"></i>What type of vehicles you repair?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-4">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="panel">
-                                                    <div class="panel-heading">
-                                                        <h3 class="panel-title"><a class="btn-collapse collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-5"><i class="icon"></i>Do you offer free checkups or discounts?</a></h3>
-                                                    </div>
-                                                    <div class="panel-collapse collapse" id="collapse-5">
-                                                        <div class="panel-body">
-                                                            <p>Corem ipsum dolor amet consectetur sed dipisicing elit do eiusmod tempor incidid labore etsed dolore magna aliqua enimad minim incididunt lorem ipsum dolor amet consectetur adipisic ding elit sed eiusmod
-                                                                tempor.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end .accordion-->
-                                        </section>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <section class="section-type-1">
-                                            <h2 class="ui-title-block-2">Request Shipping Quote</h2>
-                                            <div class="ui-subtitle-block">Make a request for shipping cost and we shall have it sent to you via email.</div>
-                                            <div class="ui-decor"></div>
-                                            <div id="success"></div>
-                                            <form class="b-form-checkup ui-form-3" id="contactForm" action="{% url 'about' %}" method="POST">
-                                                {% csrf_token %}
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{request_form.name|as_crispy_field}}
-                                                        </div>
-                                                        <div class="form-group">
-                                                            {{request_form.phone|as_crispy_field}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{request_form.email|as_crispy_field}}
-                                                        </div>
-                                                        <div class="form-group">
-                                                            {{request_form.pickup|as_crispy_field}}<i class="form-control-feedback icon fa fa-calendar"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            {{request_form.services|as_crispy_field}}
-                                                        </div>
-                                                        {{request_form.message|as_crispy_field}}
-                                                        <button class="btn btn-primary">book auto checkup</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <!-- end .b-form-checkup-->
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end .section-area-->
-            
+{% include "snippets/company_stat.html" %}
+{% include "snippets/showroom.html" %}
+{% include "snippets/testimonial.html" %}
+{% include "snippets/buy_or_sell.html" %}
 {% endblock content %}
 
 
+<form class="b-form-checkup ui-form-3" id="contactForm" action="{% url 'about' %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{request_form.name|as_crispy_field}}
+            </div>
+            <div class="form-group">
+                {{request_form.phone|as_crispy_field}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{request_form.email|as_crispy_field}}
+            </div>
+            <div class="form-group">
+                {{request_form.pickup|as_crispy_field}}<i class="form-control-feedback icon fa fa-calendar"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                {{request_form.services|as_crispy_field}}
+            </div>
+            {{request_form.message|as_crispy_field}}
+            <button class="btn btn-primary">book auto checkup</button>
+        </div>
+    </div>
+</form>
+<!-- end .b-form-checkup-->
 
 
 
@@ -205,93 +151,121 @@
 
 
 
-            <!-- end .block-table-->
-            <section class="section-default">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="text-center">
-                                <h2 class="ui-title-block">Our Services</h2>
-                                <div class="ui-subtitle-block">is to ensure a safe and legal shipping route for Foreign cars to the global market.
-                                </div>
-                                <div class="ui-decor"></div>
-                            </div>
-                        </div>
+<!-- end .block-table-->
+<section class="section-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-center">
+                    <h2 class="ui-title-block">Our Services</h2>
+                    <div class="ui-subtitle-block">is to ensure a safe and legal shipping route for Foreign cars to the
+                        global market.
                     </div>
-                    <div class="wrap-inl-bl">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-voltage"></i>
-                                    <h3 class="b-advantages-4__title">Electrical Works</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-screwdriver-and-wrench"></i>
-                                    <h3 class="b-advantages-4__title">General Repairs</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-transmision"></i>
-                                    <h3 class="b-advantages-4__title">Break Checking</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-gears"></i>
-                                    <h3 class="b-advantages-4__title">Suspension Fix</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-oil"></i>
-                                    <h3 class="b-advantages-4__title">Car Oil Change</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                            <div class="col-md-4">
-                                <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-wheel-and-manometer"></i>
-                                    <h3 class="b-advantages-4__title">Wheel Balancing</h3>
-                                    <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
-                                </section>
-                                <!-- end .b-advantages-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- end .section-default-->
-
-
-
-
-            <div class="section-default area-bg area-bg_dark parallax" style="background-image: url({% static 'media/content/bg/bg-8.jpg' %}); z-index: -100 !important;">
-                <div class="area-bg__inner">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <ul class="b-progress-list-2 js-progress-list list-unstyled">
-                                    <li class="b-progress-list-2__item clearfix"><i class="b-progress-list-2__icon text-primary icon_house_alt"></i><span class="b-progress-list-2__percent js-chart" data-percent="100"><span class="js-percent"></span></span><span class="b-progress-list-2__name">OUR BRANCHES</span>
-                                    </li>
-                                    <li class="b-progress-list-2__item clearfix"><i class="b-progress-list-2__icon text-primary icon_box-checked"></i><span class="b-progress-list-2__percent js-chart" data-percent="632"><span class="js-percent"></span></span><span class="b-progress-list-2__name">VEHICLES SERVICED</span>
-                                    </li>
-                                    <li class="b-progress-list-2__item clearfix"><i class="b-progress-list-2__icon text-primary icon_like"></i><span class="b-progress-list-2__percent js-chart" data-percent="1500"><span class="js-percent"></span></span><span class="b-progress-list-2__name">HAPPY CUSTOMERS</span>
-                                    </li>
-                                    <li class="b-progress-list-2__item clearfix"><i class="b-progress-list-2__icon text-primary icon_toolbox_alt"></i><span class="b-progress-list-2__percent js-chart" data-percent="900"><span class="js-percent"></span></span><span class="b-progress-list-2__name">PROBLEMS SOLVED</span>
-                                    </li>
-                                    <li class="b-progress-list-2__item clearfix"><i class="b-progress-list-2__icon text-primary icon_book_alt"></i><span class="b-progress-list-2__percent js-chart" data-percent="500"><span class="js-percent"></span></span><span class="b-progress-list-2__name">CLIENTS REVIEWS</span>
-                                    </li>
-                                </ul>
-                                <!-- end .b-progress-->
-                            </div>
-                        </div>
-                    </div>
+                    <div class="ui-decor"></div>
                 </div>
             </div>
-            <!-- end .section-default-->
+        </div>
+        <div class="wrap-inl-bl">
+            <div class="row">
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-voltage"></i>
+                        <h3 class="b-advantages-4__title">Electrical Works</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-screwdriver-and-wrench"></i>
+                        <h3 class="b-advantages-4__title">General Repairs</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-transmision"></i>
+                        <h3 class="b-advantages-4__title">Break Checking</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-gears"></i>
+                        <h3 class="b-advantages-4__title">Suspension Fix</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-oil"></i>
+                        <h3 class="b-advantages-4__title">Car Oil Change</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+                <div class="col-md-4">
+                    <section class="b-advantages-4"><i class="b-advantages-4__icon flaticon-wheel-and-manometer"></i>
+                        <h3 class="b-advantages-4__title">Wheel Balancing</h3>
+                        <div class="b-advantages-4__info">MotorLand is nisi aliquip ea consequat duis velit esse cillum
+                            dolore fugiat nulla pariatur excepteur sint occaecat.</div><span class="ui-decor-2"></span>
+                    </section>
+                    <!-- end .b-advantages-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end .section-default-->
+
+
+
+
+<div class="section-default area-bg area-bg_dark parallax"
+    style="background-image: url({% static 'media/content/bg/bg-8.jpg' %}); z-index: -100 !important;">
+    <div class="area-bg__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="b-progress-list-2 js-progress-list list-unstyled">
+                        <li class="b-progress-list-2__item clearfix"><i
+                                class="b-progress-list-2__icon text-primary icon_house_alt"></i><span
+                                class="b-progress-list-2__percent js-chart" data-percent="100"><span
+                                    class="js-percent"></span></span><span class="b-progress-list-2__name">OUR
+                                BRANCHES</span>
+                        </li>
+                        <li class="b-progress-list-2__item clearfix"><i
+                                class="b-progress-list-2__icon text-primary icon_box-checked"></i><span
+                                class="b-progress-list-2__percent js-chart" data-percent="632"><span
+                                    class="js-percent"></span></span><span class="b-progress-list-2__name">VEHICLES
+                                SERVICED</span>
+                        </li>
+                        <li class="b-progress-list-2__item clearfix"><i
+                                class="b-progress-list-2__icon text-primary icon_like"></i><span
+                                class="b-progress-list-2__percent js-chart" data-percent="1500"><span
+                                    class="js-percent"></span></span><span class="b-progress-list-2__name">HAPPY
+                                CUSTOMERS</span>
+                        </li>
+                        <li class="b-progress-list-2__item clearfix"><i
+                                class="b-progress-list-2__icon text-primary icon_toolbox_alt"></i><span
+                                class="b-progress-list-2__percent js-chart" data-percent="900"><span
+                                    class="js-percent"></span></span><span class="b-progress-list-2__name">PROBLEMS
+                                SOLVED</span>
+                        </li>
+                        <li class="b-progress-list-2__item clearfix"><i
+                                class="b-progress-list-2__icon text-primary icon_book_alt"></i><span
+                                class="b-progress-list-2__percent js-chart" data-percent="500"><span
+                                    class="js-percent"></span></span><span class="b-progress-list-2__name">CLIENTS
+                                REVIEWS</span>
+                        </li>
+                    </ul>
+                    <!-- end .b-progress-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end .section-default-->

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+Shipping Request | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+Request for your shipping cost
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+Shipping Request
+{% endblock %}
+
+{% block og_url %}
+{% url 'shipping' %}
+{% endblock %}
+
+{% block twitter_title %}
+Shiping Request
+{% endblock %}
+
+{% block twitter_desc %}
+Request for your shipping cost
+{% endblock %}
+
+{% block can_link %}
+shipping-request/
+{% endblock %}
+
+
+{% block slider %}
+<!-- - - - - - - - - - - - - - Breadcrumbs - - - - - - - - - - - - - - - - -->
+
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img1.jpg' %} ">
+
+    <div class="container">
+
+        <h1 class="page-title">Shipping Request</h1>
+
+        <ul class="breadcrumbs">
+
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Shipping Request</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- end breadcrumb-->
+{% endblock slider %}
+
+
+{% block content %}
+{% include "snippets/company_stat.html" %}
+{% include "snippets/showroom.html" %}
+{% include "snippets/testimonial.html" %}
+{% include "snippets/buy_or_sell.html" %}
+{% endblock content %}

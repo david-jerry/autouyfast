@@ -43,7 +43,7 @@ class CarFilter(django_filters.FilterSet):
     car_price = django_filters.ChoiceFilter(choices=PRICE, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Price')
     car_year = django_filters.ChoiceFilter(choices=YEAR, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Manufacturing Year')
     # car_year = django_filters.ModelChoiceFilter(queryset=Year.objects.all(), widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Manufacturing Year')
-    car_stock = django_filters.ChoiceFilter(choices=CAR_STOCK, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Stock Type')
+    car_stock = django_filters.ChoiceFilter(choices=CAR_STOCK, lookup_expr='icontains', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Stock Type')
     
     class Meta:
         model = AutoSearch

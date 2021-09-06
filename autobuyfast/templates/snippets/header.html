@@ -1,30 +1,71 @@
 {% load static i18n %}
 
-{% if not request.path == '/' %}
-<div class="top-bar">
+<!-- top-header -->
+
+<div class="top-header">
+
     <div class="container">
-        <div class="header-topbarbox-1 p-2" style="width: 100%;">
-            <div class="row header-form">
-                <div class="col-md-9 text-left" style="text-align: left">
-                    <form action="{% url 'cars:search' %}" method="get" role="/search/?title=">
-                        <div class="input-group">
-                            <input class="form-control" id="title" autocomplete="off" type="text" name="title"
-                                placeholder="Search Inventory by Make, Model, Year" required="required" style="padding:9px; color: #292929"/>
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary" type="button">Search Inventory</button>
-                            </div>
-                        </div>
-                    </form>
+
+        <div class="row">
+            <div class="col-lg-3">
+
+                <!-- logo -->
+
+                <div class="logo-wrap">
+
+                    <a href="{% url 'home' %}" class="logo"><img src="{% static 'images/logo.png' %}" alt="autobuyfast logo"></a>
+
                 </div>
 
-                <div class="col-md-3 text-right header-account" style="text-align: right;">
-                    <a href="{% url 'signup_select' %}" class="btn btn-white" style="margin-right: 20px;" >Register</a>
-                    <a href="{% url 'account_login' %}" class="btn btn-white">Login</a>                                    
+            </div>
+            <div class="col-lg-9">
+
+                <div class="align-right">
+
+                    <ul class="our-info-list">
+                        <li>
+
+                            <span class="licon-map-marker"></span>
+                            <div>
+                                <p>9863 - 9867 Mill Road, <br> Cambridge, MG09 99HT</p>
+                            </div>
+
+                        </li>
+                        <li>
+
+                            <span class="licon-telephone"></span>
+                            <div>
+                                Sales:
+                                <span>800-987-65-43</span>
+                            </div>
+
+                        </li>
+                        <li>
+
+                            <div>
+                                Service:
+                                <span>800-987-65-43</span>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                    <ul class="social-icons">
+
+                        {% if not request.user.is_authenticated%}
+                            <li><a href="{% url 'account_login' %}" class="btn btn-style-6 btn-small">Login</a></li>
+                            <li><a href="{% url 'signup_select' %}" class="btn btn-style-3 btn-small">Signup</a></li>
+                        {% else %}
+                            <li><a href="{% url 'users:detail' request.user.username %}" class="btn btn-style-6 btn-small">{{request.user.fullname}}</a></li>
+                            <li><a href="{% url 'account_logout' %}" class="btn btn-style-3 btn-small">Logout</a></li>
+                        {% endif %}
+                    </ul>
+
                 </div>
 
             </div>
         </div>
 
     </div>
+
 </div>
-{% endif %}

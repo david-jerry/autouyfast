@@ -33,6 +33,7 @@ from django.db.models import (
 )
 from django.template.loader import get_template, render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_resized import ResizedImageField
 # Third party installs
@@ -80,7 +81,8 @@ class User(AbstractUser):
     newsletter_notif = BooleanField(_("Subscribe to Newsletter?"), default=False)
     car_sold_notif = BooleanField(_("Send Email When Saved car is sold?"), default=False)
     car_price_notif = BooleanField(_("Send Email When Saved car price has been reduced?"), default=False)
-
+    featured = BooleanField(_("Featured Dealers"), default=False)
+    
     def initials(self):
         if self.first_name and self.last_name:
             fname = self.first_name[0].upper()
@@ -125,18 +127,18 @@ class Profile(TimeStampedModel):
     dealership_name = CharField(_("Company Name"), max_length=500, null=True, blank=True, unique=True)
     bio = HTMLField(_("What services will buyers find appealing from you?"), null=True, blank=True)
     website = URLField(_("Website URI"), null=True, blank=True, unique=True)
-    profile_display = ResizedImageField(size=[120, 120], quality=64.15, crop=['middle', 'center'], upload_to=profile_image, force_format='JPEG', help_text="Image should be squared and sized 120px X 120px")
-    banner_display = ResizedImageField(size=[1280, 300], quality=64.15, crop=['middle', 'center'], upload_to=banner_image, force_format='JPEG', help_text="Image should be cropped and sized 1280px X 300px")
+    profile_display = ResizedImageField(size=[120, 120], quality=75, crop=['middle', 'center'], upload_to=profile_image, force_format='JPEG', help_text="Image should be squared and sized 120px X 120px", null=True, blank=True)
+    banner_display = ResizedImageField(size=[1280, 300], quality=75, crop=['middle', 'center'], upload_to=banner_image, force_format='JPEG', help_text="Image should be cropped and sized 1280px X 300px", null=True, blank=True)
     country = ForeignKey(Country, on_delete=CASCADE, related_name="dealercountry", null=True, blank=True)
     address = CharField(_("Address"), max_length=500, null=True, blank=True)
     city = CharField(_("City"), max_length=500, null=True, blank=True)
-    zipcode = CharField(_("Zipcode"), max_length=500, null=True, blank=True)
+    zipcode = CharField(_("Zipcode"), max_length=7, null=True, blank=True)
     member_since = DateField(_("Membership Age"), default=datetime.datetime.now)
     security_quest = CharField(_("Security Question"), choices=QUESTION, default=FIVE, max_length=47)
     security_answer = CharField(_("Security Answer"), max_length=500, null=True, blank=True)
 
     def __str__(self):
-        return self.user.fullname
+        return str(self.user.fullname)
 
     class Meta:
         managed = True
@@ -178,7 +180,7 @@ class Testimonial(TimeStampedModel):
     active = BooleanField(default=False)
     
     def __str__(self):
-        return self.user.fullname
+        return str(self.user.fullname)
 
     class Meta:
         managed = True
@@ -203,7 +205,7 @@ class CarRequest(models.Model):
         auto_now_add=False,
         null=True,
         blank=False,
-        default=datetime.datetime.now()
+        default=timezone.now()
     )
     services = CharField(_("Services"), max_length=50, null=True, blank=True, choices=CHOICES)
     message = HTMLField(help_text="Tell us more information about your shippment, where from and where to")

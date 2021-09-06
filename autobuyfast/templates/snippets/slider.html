@@ -1,75 +1,228 @@
 {% load static i18n %}
 
 
-<div class="main-slider main-slider-3">
-    <div class="slider-pro" id="main-slider" data-slider-width="100%" data-slider-height="550px"
-        data-slider-arrows="true" data-slider-buttons="false">
-        <div class="sp-slides">
-            <!-- Slide 1-->
-            <div class="sp-slide">
-                <img class="sp-image" src="{% static 'assets/media/components/b-main-slider/2.jpg' %}" alt="slider" />
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="sp-layer" data-show-transition="left" data-hide-transition="left"
-                                data-show-duration="2000" data-show-delay="1200" data-hide-delay="400">
-                                <div class="main-slider__title"><strong>Worldwide Vehicle
-                                        Shipping<br></strong>and handling</div><a
-                                    class="main-slider__btn btn btn-lg btn-white" href="services.html">Request a
-                                    Car</a><a class="main-slider__btn btn btn-lg btn-primary"
-                                    href="services.html">Cars For Sale</a>
-                            </div>
+<!-- - - - - - - - - - - - - - Revolution Slider - - - - - - - - - - - - - - - - -->
+
+<div class="rev-slider-wrapper">
+
+    <div id="rev-slider" class="rev-slider" data-version="5.0">
+
+        <ul>
+
+            <li data-transition="fade">
+
+                <img src="{% static 'images/default/1920x700_slide1.jpg' %}" class="rev-slidebg" alt="">
+
+                <!-- - - - - - - - - - - - - - Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-text rs-parallaxlevel-1" data-x="left" data-y="top"
+                    data-voffset="120" data-whitespace="nowrap"
+                    data-frames='[{"delay":150,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
+                    data-responsive_offset="on" data-elementdelay="0.05">
+                    <div class="label type-2">Special Offer</div>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-large rs-parallaxlevel-2" data-x="left" data-y="top"
+                    data-voffset="195"
+                    data-frames='[{"delay":250,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    2017 Jeep Renegade
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-3" data-x="left" data-y="top" data-voffset="260"
+                    data-frames='[{"delay":450,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <span>Red (ext), Black (int), 9-Speed Automatic, 4WD</span>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-4" data-x="left" data-y="top" data-voffset="320"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":750,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <div class="price-area">
+                        <div class="price-col">
+                            <h2><span>$</span>599</h2>
+                            <div class="per-time">Per month</div>
+                        </div>
+                        <div class="price-col">
+                            <h2>36</h2>
+                            <div class="per-time">months</div>
+                        </div>
+                        <div class="price-col">
+                            <h3><span>$</span>4,799</h3>
+                            <div class="per-time">due at signing <br> after Al Offers</div>
                         </div>
                     </div>
+                    <p>No security deposit required. Tax, title, license extra.</p>
                 </div>
-            </div>
-            <!-- Slide 2-->
-            <div class="sp-slide">
-                <img class="sp-image" src="{% static 'assets/media/components/b-main-slider/1.jpg' %}" alt="slider" />
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="sp-layer" data-show-transition="left" data-hide-transition="left"
-                                data-show-duration="2000" data-show-delay="1200" data-hide-delay="400">
-                                <div class="main-slider__title">
-                                    Find & Ship <br>Your Car
-                                    <span class="main-slider__label text-primary">fast</span>
-                                </div>
-                                <!-- <div class="main-slider__subtitle">Buy From Dealers Across USA and Canada</div> -->
-                                <a class="main-slider__btn btn btn-white btn-lg" href="services.html"><span class="main-slider__btn-label">Cars For Sale</span>
-                                <a class="main-slider__btn btn btn-primary btn-lg" href="services.html">Shipping</a>
-                                </div>
-                            </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 5 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-5" data-x="left" data-y="top" data-voffset="480"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":950,"speed":2500,"frame":"0","from":"x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"frame":"999","to":"auto:auto;","ease":"Power2.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;"}]'>
+                    <a href="#" class="btn btn-big">View Inventory</a>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 5 - - - - - - - - - - - - - - - - -->
+
+            </li>
+
+            <li data-transition="fade" class="align-right">
+
+                <img src="{% static 'images/default/1920x700_slide2.jpg' %}" class="rev-slidebg" alt="">
+
+                <!-- - - - - - - - - - - - - - Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-text rs-parallaxlevel-1" data-x="right" data-y="top"
+                    data-voffset="120" data-whitespace="nowrap"
+                    data-frames='[{"delay":150,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
+                    data-responsive_offset="on" data-elementdelay="0.05">
+                    <div class="label">Special Offer</div>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-large rs-parallaxlevel-2" data-x="right" data-y="top"
+                    data-voffset="195"
+                    data-frames='[{"delay":250,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    2017 Toyota Hilux
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-3" data-x="right" data-y="top" data-voffset="260"
+                    data-frames='[{"delay":450,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <span>Nebula Blue (ext), Black (int),6-Speed Automatic, 4WD</span>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-4" data-x="right" data-y="top" data-voffset="320"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":750,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <div class="price-area">
+                        <div class="price-col">
+                            <h2><span>$</span>429</h2>
+                            <div class="per-time">Per month</div>
+                        </div>
+                        <div class="price-col">
+                            <h2>36</h2>
+                            <div class="per-time">months</div>
+                        </div>
+                        <div class="price-col">
+                            <h3><span>$</span>4,559</h3>
+                            <div class="per-time">due at signing <br> after Al Offers</div>
                         </div>
                     </div>
+                    <p>No security deposit required. Tax, title, license extra.</p>
                 </div>
-            </div>
-        </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 5 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-5" data-x="right" data-y="top" data-voffset="480"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":950,"speed":2500,"frame":"0","from":"x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"frame":"999","to":"auto:auto;","ease":"Power2.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;"}]'>
+                    <a href="#" class="btn btn-big">View Inventory</a>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 5 - - - - - - - - - - - - - - - - -->
+
+            </li>
+
+            <li data-transition="fade">
+
+                <img src="{% static 'images/default/1920x700_slide3.jpg' %}" class="rev-slidebg" alt="">
+
+                <!-- - - - - - - - - - - - - - Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-text rs-parallaxlevel-1" data-x="left" data-y="top"
+                    data-voffset="95" data-whitespace="nowrap"
+                    data-frames='[{"delay":150,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'
+                    data-responsive_offset="on" data-elementdelay="0.05">
+                    <div class="label type-2">Special Offer</div>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 1 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme scaption-white-large rs-parallaxlevel-2" data-x="left" data-y="top"
+                    data-voffset="170"
+                    data-frames='[{"delay":250,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    2017 Mercedes-Benz <br> C300 4MATIC
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 2 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-3" data-x="left" data-y="top" data-voffset="300"
+                    data-frames='[{"delay":450,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <span>Selenite Grey Metallic (ext), Red/Black (int) <br> 9-Speed Automatic w/OD, AWD</span>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 3 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-4" data-x="left" data-y="top" data-voffset="380"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":750,"speed":2000,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"frame":"999","to":"y:[175%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
+                    <div class="price-area">
+                        <div class="price-col">
+                            <h2><span>$</span>719</h2>
+                            <div class="per-time">Per month</div>
+                        </div>
+                        <div class="price-col">
+                            <h2>36</h2>
+                            <div class="per-time">months</div>
+                        </div>
+                        <div class="price-col">
+                            <h3><span>$</span>5,179</h3>
+                            <div class="per-time">due at signing <br> after Al Offers</div>
+                        </div>
+                    </div>
+                    <p>No security deposit required. Tax, title, license extra.</p>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 4 - - - - - - - - - - - - - - - - -->
+
+                <!-- - - - - - - - - - - - - - Layer 5 - - - - - - - - - - - - - - - - -->
+
+                <div class="tp-caption tp-resizeme rs-parallaxlevel-5" data-x="left" data-y="top" data-voffset="540"
+                    data-whitespace="nowrap"
+                    data-frames='[{"delay":950,"speed":2500,"frame":"0","from":"x:[-100%];z:0;rX:0deg;rY:0deg;rZ:0deg;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"frame":"999","to":"auto:auto;","ease":"Power2.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;"}]'>
+                    <a href="#" class="btn btn-big">View Inventory</a>
+                </div>
+
+                <!-- - - - - - - - - - - - - - End of Layer 5 - - - - - - - - - - - - - - - - -->
+
+            </li>
+
+        </ul>
+
     </div>
+
 </div>
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="col-md-12"> -->
-            <!-- <div class="section-advantages-1"> -->
-                <!-- <section class="b-advantages-1"><i class="b-advantages-1__icon flaticon-gearbox"></i>
-                    <h3 class="b-advantages-1__title">Largest Dealership of Cars</h3>
-                    <div class="b-advantages-1__info">Autobuy is one of the largest provider of car listing around the world. We offer Shipping and Car Rentals.</div><span class="ui-decor-2"></span>
-                </section> -->
-                <!-- end .b-advantages-->
-                <!-- <section class="b-advantages-1 active"><i class="b-advantages-1__icon flaticon-steering-wheel"></i>
-                    <h3 class="b-advantages-1__title">We Offers Lower Cars Prices</h3>
-                    <div class="b-advantages-1__info">At Autobuy we ensure our listings are affordable. All we want is for you to be seated in the drivers seat, playing your favorite song and on your way in style.</div><span class="ui-decor-2"></span>
-                </section> -->
-                <!-- end .b-advantages-->
-                <!-- <section class="b-advantages-1"><i class="b-advantages-1__icon flaticon-wrench"></i>
-                    <h3 class="b-advantages-1__title">Multipoint Safety Checks</h3>
-                    <div class="b-advantages-1__info">All our cars are checked for abnormalities and mileage. We ensure every car listed here are inspected properly, accident free, and with proper clearing documents..</div><span class="ui-decor-2"></span>
-                </section> -->
-                <!-- end .b-advantages-->
-            <!-- </div> -->
-            <!-- end .section-advantages-1-->
-        <!-- </div>
-    </div>
-</div> -->
-
+<!-- - - - - - - - - - - - - - End of Slider - - - - - - - - - - - - - - - - -->

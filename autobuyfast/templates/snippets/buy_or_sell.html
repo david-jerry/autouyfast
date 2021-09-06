@@ -1,0 +1,38 @@
+{% load static %}
+
+
+<div class="call-out holder-bg half-bg-col">
+
+    <div class="img-col-left"><div class="col-bg" data-bg="{% static 'images/default/960x266_bg1.jpg' %}"></div></div>
+
+    <div class="img-col-right"><div class="col-bg" data-bg="{% static 'images/default/960x266_bg2.jpg' %}"></div></div>
+
+    <div class="container">
+      
+      <div class="row">
+
+        <div class="col-md-6">
+
+          <div class="align-center">
+            <h2>Want to Sell Your Car?</h2>
+            <p>Get cash offers to your inbox in hours</p>
+            <p>All you have to do is, own an account, post your car ad, manage all your ads and attend to buyers directly.</p>
+            <a href="{% url 'seller_signup' %}" class="btn btn-big">Dealer Signup</a>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+
+          <div class="align-center">
+            <h2>Looking For A Car?</h2>
+            <p>We have thousands of new and used cars for sale</p>
+            <p>All you have to do is, own an account, browse our showroom and manage your listing.</p>
+            <a href="{% url 'account_signup' %}" class="btn btn-big">Get a profile</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  
+  </div>

@@ -19,6 +19,10 @@ class AutoSearchAdmin(admin.ModelAdmin, ExportCsvMixin):
     ]
     list_display = [
         'dealer',
+        "status",
+        "featured",
+        "special",
+        "available",
         'car_vin',
         'car_stock',
         'car_year',
@@ -27,6 +31,8 @@ class AutoSearchAdmin(admin.ModelAdmin, ExportCsvMixin):
         'car_url',
         'car_mileage',
         'car_price',
+        "car_door",
+        "car_body",
         'car_history',
         'car_dealer_name',
         'car_dealer_phone',
@@ -37,6 +43,12 @@ class AutoSearchAdmin(admin.ModelAdmin, ExportCsvMixin):
         'car_fuel_type',
         'car_engine',
         'seller_note',
+    ]
+    list_editable = [
+        "status",
+        "featured",
+        "special",
+        "available",
     ]
     list_filter = ["car_stock", "car_year"]
     search_fields = ["title", "car_stock", "car_year"]

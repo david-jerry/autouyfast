@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libxml2-dev \
   libxslt-dev \ 
   python-dev \
-  python3-lxml \
+  python3-lxml 
   # libmagic for image compression
   # libmagic1 \
   # libmagic-dev \
@@ -55,11 +55,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libxslt-dev \ 
   python-dev \
   python3-lxml \
-  # libmagic for image compression
-  # libmagic1 \
-  # libmagic-dev \
-  # python3-magic \
-
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*

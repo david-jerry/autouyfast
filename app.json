@@ -1,0 +1,15 @@
+{
+    "scripts": {
+        "dokku": {
+            "predeploy": "python manage.py update_countries_plus"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity":1
+        },
+        "worker": {
+            "quantity": 2
+        }
+    }
+}

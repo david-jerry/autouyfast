@@ -23,7 +23,7 @@ from .models import CAR_BODY, CAR_DOOR, CAR_MAKE, AutoSearch, Image
 class CarImageForm(forms.ModelForm):
     class Meta:
         model = Image
-        exclude = ['created', 'modified']
+        exclude = ['created', 'modified', 'img_url']
 
 CarImageFormset = inlineformset_factory(
     AutoSearch, Image, form=CarImageForm,
@@ -40,10 +40,11 @@ class AutoSearchForm(forms.ModelForm):
             "car_stock",
             "car_year",
             "title",
+            "car_door",
+            "car_body",
             "car_mileage",
             "car_price",
             "car_sub_price",
-            "car_def_image",
             "car_transmission",
             "car_ext_color",
             "car_int_color",

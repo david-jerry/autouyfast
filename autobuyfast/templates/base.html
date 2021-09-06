@@ -5,13 +5,37 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block title %}AutobuyFast{% endblock title %}</title>
+  <title>{% block title %}AutobuyFast | Welcome to a new age of car shopping & shipping with convenience{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="telephone=no" name="format-detection" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="description" content="Autobuy fast">
-  <meta name="author" content="Jeremiah David">
+  <meta name="description" content="{% block description %}Autobuy fast{% endblock %}">
+  <meta name="author" content="{% block author %}Jeremiah David{% endblock %}">
+  <meta name="keywords" content="{% block keyword %}autobuyfast, cars, car shipping, online car calculator{% endblock %}">
+  
+  <meta property="og:site_name" content="Autobuyfast">
+  <meta property="og:author" content="{% block og_author %}Jeremiah David{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}AutobuyFast | Welcome to a new age of car shopping & shipping with convenience{% endblock %}">
+  <meta property="og:type" content="website">
+  <!-- 160 charchters description -->
+  <meta property="og:description" content="{% block og_desc %}Autobuyfast is a global 100% online car solution website that brings together listings from all the major car dealerships in the USA featuring new and used vehicles. We make it easy for Members to find, connect with dealer and we can ship to you anywhere in the world.{% endblock %}">
+  <meta property="og:image" content="{% static 'images/logo.jpg' %}">
+  <meta property="og:url" content="{% block og_url %}http://www.autobuyfast.com/{% endblock %}">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block twitter_title %}AutobuyFast | Welcome to a new age of car shopping & shipping with convenience{% endblock %}">
+  <!-- 160 charchters description -->
+  <meta name="twitter:description" content="{% block twitter_desc %}Autobuyfast is a global 100% online car solution website that brings together listings from all the major car dealerships in the USA featuring new and used vehicles. We make it easy for Members to find, connect with dealer and we can ship to you anywhere in the world.{% endblock %}">
+  <meta name="twitter:image:alt" content="Autobuyfast Logo Icon">
 
+  <!-- social analytics from fb and twitter -->
+  <meta property="fb:app_id" content="">
+  <meta name="twitter:site" content="@autobuyfast">
+
+  <link rel="canonical" href="https://www.autobuyfast.com/{% block can_link %}{% endblock %}">
+
+
+  
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -25,16 +49,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-  <link rel="preconnect" href="https://stackpath.bootstrapcdn.com/">
-  <link rel="dns-prefetch" href="https://stackpath.bootstrapcdn.com/">
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700|Poppins:100,200,300,400,500,600,700&display=swap">
-
-
   <link rel="preconnect" href="https://autobuyfast-bucket.s3.amazonaws.com/">
   <link rel="dns-prefetch" href="https://autobuyfast-bucket.s3.amazonaws.com/">
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|verpass:300,400,600,700,800,900|Hind:300,400,500,600,700|Poppins:100,200,300,400,500,600,700&display=swap">
 
   <!-- Your stuff: Third-party CSS libraries go here -->
   <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
@@ -56,9 +74,8 @@
   {% include "snippets/js.html" %}
 
   <!-- place project specific Javascript in this file -->
-  <script async src="{% static 'js/iziToast.min.js' %}"></script>
+  <script defer src="{% static 'js/iziToast.min.js' %}"></script>
   {% compress js inline %}
-  <script async src="{% static 'js/project.js' %}"></script>
   {% endcompress %}
   {% endblock javascript %}
 
@@ -67,48 +84,37 @@
 </head>
 
 <body>
-  <!-- Loader-->
-  <!-- <div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span>
-  </div> -->
+  <div id="loader">
+    <div class="box loading"></div>
+  </div>
 
-  {% include "snippets/mobile_menu.html" %}
 
-  <div class="l-theme animated-css" data-header="sticky" data-header-top="200" data-canvas="container">
-    <!-- ==========================-->
-    <!-- SEARCH MODAL-->
-    <!-- ==========================-->
-    <!-- <div class="header-search open-search">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-            <div class="navbar-search">
-              <form class="search-global" action="{% url 'cars:search' %}" method="get">
-                <input class="search-global__input" type="text" placeholder="Type to search make and year" autocomplete="off" name="car_title__icontains"
-                  value="" />
-                <button class="search-global__btn"><i class="icon stroke icon-Search"></i>
-                </button>
-                <div class="search-global__note">Begin typing your search above and press return to search.</div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="search-close close" type="button"><i class="fa fa-times"></i>
-      </button>
-    </div> -->
+  <div id="wrapper" class="wrapper-container">
+
+    <div id="mobile-advanced" class="mobile-advanced"></div>
     
-    <header class="{% if request.path == '/' %}header header-3 header-boxed-width navbar-fixed-top header-color-white header-topbar-dark header-logo-white header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right{% else %}header header-3 header-boxed-width navbar-fixed-top header-background-white header-color-black header-topbar-dark header-logo-black header-topbarbox-1-left header-topbarbox-2-right header-navibox-1-left header-navibox-2-right header-navibox-3-right header-navibox-4-right{% endif %}">
-      <div class="container container-boxed-width">
+    <header id="header" class="header-2">
+        <div class="searchform-wrap">
+          <div class="vc-child h-inherit relative">
+
+            <form>
+              <input type="text" name="search" placeholder="Start typing...">
+              <button type="button"></button>
+            </form>
+
+          </div>
+          <button class="close-search-form"></button>
+        </div>
+
         {% include "snippets/header.html" %}
         {% include "snippets/nav.html" %}
-      </div>
-    </div>
+    </header>
 
     {% block slider %}
     {% include "snippets/slider.html" %}
     {% endblock slider %}
   
-    <main class="l-main-content" style="padding: 0 0 0 0;">
+    <main id="content">
     {% block content %}
     {% endblock content %}
     </main>

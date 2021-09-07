@@ -1,5 +1,5 @@
 {% load static i18n %}
-
+{% url 'home' as home_url %}
 <!-- top-header -->
 
 <div class="top-header">
@@ -21,46 +21,30 @@
             <div class="col-lg-9">
 
                 <div class="align-right">
-
-                    <ul class="our-info-list">
-                        <li>
-
-                            <span class="licon-map-marker"></span>
-                            <div>
-                                <p>9863 - 9867 Mill Road, <br> Cambridge, MG09 99HT</p>
-                            </div>
-
-                        </li>
-                        <li>
-
-                            <span class="licon-telephone"></span>
-                            <div>
-                                Sales:
-                                <span>800-987-65-43</span>
-                            </div>
-
-                        </li>
-                        <li>
-
-                            <div>
-                                Service:
-                                <span>800-987-65-43</span>
-                            </div>
-
-                        </li>
-                    </ul>
-
-                    <ul class="social-icons">
-
-                        {% if not request.user.is_authenticated%}
-                            <li><a href="{% url 'account_login' %}" class="btn btn-style-6 btn-small">Login</a></li>
-                            <li><a href="{% url 'signup_select' %}" class="btn btn-style-3 btn-small">Signup</a></li>
-                        {% else %}
-                            <li><a href="{% url 'users:detail' request.user.username %}" class="btn btn-style-6 btn-small">{{request.user.fullname}}</a></li>
-                            <li><a href="{% url 'account_logout' %}" class="btn btn-style-3 btn-small">Logout</a></li>
-                        {% endif %}
-                    </ul>
-
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-12">
+                            {% if not request.path == home_url %}
+                            <form class="lineform"  method="GET" role="/search/alt/?title=" action="{% url 'cars:home_search' %}">
+                                <button type="submit" class="btn-email btn btn-style-2 f-right icon-btn"><i
+                                        class="licon-magnifier"></i></button>
+                                <div class="wrapper">
+                                    <input class="form-sidebar__input form-control" id="title" name="title" type="text" autocomplete="off" placeholder="Search Inventory by Make, Name, Year ..." />
+                                </div>
+                            </form>  
+                            {% endif %}                  
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <ul class="social-icons">
+                                {% if not request.user.is_authenticated%}
+                                    <li><a href="{% url 'account_login' %}" class="btn btn-style-6 btn-small">Login</a></li>
+                                    <li><a href="{% url 'signup_select' %}" class="btn btn-style-3 btn-small">Signup</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'users:detail' request.user.username %}" class="btn btn-style-6 btn-small">{{request.user.fullname}}</a></li>
+                                    <li><a href="{% url 'account_logout' %}" class="btn btn-style-3 btn-small">Logout</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
             </div>

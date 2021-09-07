@@ -2994,7 +2994,7 @@ button.search-button:before{content: "\e922";}
     position: fixed;
     z-index: 103;
     right: 60px;
-    bottom: 30%;
+    bottom: 8%;
     background: #d5d7d8;
     color: #515459;
     opacity: 0;

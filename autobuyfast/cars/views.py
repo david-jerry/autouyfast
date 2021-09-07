@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import BadHeaderError, EmailMessage, send_mail, send_mass_mail
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -11,8 +12,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, FormMixin, UpdateView
 
-from .filters import CarFilter, CarSearchFilter
-from .forms import AutoSearchForm, CarImageFormset
+from .filters import CarFilter, CarSearchFilter, HomeSearchFilter
+from .forms import AutoSearchForm, CarImageFormset, ContactCarDealerForm
 from .models import AutoSearch, WatchCars
 
 User = get_user_model()
@@ -126,7 +127,7 @@ class CarsListview(ListView):
         context = super().get_context_data(**kwargs)
         request = self.request
         context["cars_total"] = AutoSearch.objects.count()
-        context["filter"] = CarSearchFilter(request.GET, queryset=AutoSearch.objects.all())
+        context["filter"] = CarSearchFilter(request.GET, queryset=AutoSearch.objects.filter(available=True))
         return context
     
     # def dispatch(self, request, *args, **kwargs):
@@ -172,13 +173,42 @@ class CarsSearchListview(ListView):
 filter_car_search_view = CarsSearchListview.as_view()
 
 
+class CarsHomeSearchListview(ListView):
+    model = AutoSearch
+    template_name = 'cars/home_search_list.html'
+    page_kwarg = 'page'
+    paginate_by = 15
+    allow_empty = True
+
+    def get_queryset(self):
+        request = self.request
+        queryset = super().get_queryset()
+        return HomeSearchFilter(request.GET, queryset=queryset).qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        request = self.request
+        context = super().get_context_data(**kwargs)
+        context["cars_total"] = self.get_queryset().count()
+        context["filter"] = CarSearchFilter(request.GET, queryset=self.get_queryset())
+        return context
+    
+filter_home_car_search_view = CarsHomeSearchListview.as_view()
+
+
 def home(request):
-    f = CarFilter(request.GET, queryset=AutoSearch.objects.all())
+    f = CarFilter(request.GET, queryset=AutoSearch.objects.filter(available=True))
 
     data = {
         "form":f.form,
     }
     return render(request, 'pages/home.html', data)
+
+def base(request):
+    f = CarSearchFilter(request.GET, queryset=AutoSearch.objects.filter(available=True))
+    data = {
+        "filter":f,
+    }
+    return render(request, 'cars/base.html', data)
 
 
 # def CarLikeFunc(request, slug):
@@ -213,12 +243,25 @@ def unwatch_car(request, slug):
     return HttpResponseRedirect(reverse('users:watch_list'))
 
 
-class CarDetailView(DetailView):
+class CarDetailView(FormMixin, SuccessMessageMixin, DetailView):
     model = AutoSearch
     template_name='cars/detail.html'
     context_object_name = "car"
+    form_class = ContactCarDealerForm
+    success_message = "Your Message has been sent to the dealer"
     slug_field = "slug"
     slug_url_kwarg = "slug"
+
+    def form_valid(self, form):
+        instance = self.get_object()
+        email = form.cleaned_data['email']
+        question = form.cleaned_data['question']
+        first_name = form.cleaned_data['first_name']
+        last_name = form.cleaned_data['last_name']
+        phone = form.cleaned_data['phone']
+        message = form.cleaned_data['message']
+        send_mail("Request Dealer", f"{first_name} {last_name} has made a dealer request\n {question},\n {message}\n Contact Information:\n {email}\n{phone}", email, [instance.dealer.email], fail_silently=False)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)

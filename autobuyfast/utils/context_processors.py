@@ -15,6 +15,8 @@ def settings_context(_request):
     # cat_news = Category.objects.get(slug="news")
     context = {
         "DEBUG": settings.DEBUG,
+        "latest_news": Post.objects.all_posts().filter(categories__slug="news").order_by("-pub_date")[:3],
+        "latest_reviews": Post.objects.all_posts().filter(categories__slug="reviews").order_by("-pub_date")[:3],
         "all_dealers": User.objects.filter(is_seller=True),
         "featured_dealers": User.objects.filter(featured=True, is_seller=True)[:20],
         "all_cars": AutoSearch.objects.all_cars()[:10],

@@ -137,7 +137,6 @@ class Post(TimeStampedModel):
     #     return Post.objects.filter(categories__in=[cat])
 
 
-
     @property
     def get_recent_posts(self):
         return Post.objects.order_by('-created_at')[:5]

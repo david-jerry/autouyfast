@@ -3,7 +3,13 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import ButtonHolder, Fieldset, Layout, Submit
 from django import forms
 
-from .models import CAR_STOCK, AutoSearch  # , Stock, Year
+from .models import CAR_BODY, CAR_DOOR, CAR_MAKE, AutoSearch  # , Stock, Year
+
+CAR_STOCK = (
+    ("used", "used"),
+    ("new", "new"),
+    ("certified", "certified")
+)
 
 MILEAGE = (
     (100, "less than 100"),
@@ -37,82 +43,53 @@ YEAR = (
     (2022, "less than 2022"),
 )
 class CarFilter(django_filters.FilterSet):
-    car_mileage = django_filters.ChoiceFilter(choices=MILEAGE, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Mileage')
-    title = django_filters.CharFilter(lookup_expr='icontains', label='Car Name')
-    car_dealer_name = django_filters.CharFilter(lookup_expr='icontains', label='Dealer Name')
-    car_price = django_filters.ChoiceFilter(choices=PRICE, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Price')
-    car_year = django_filters.ChoiceFilter(choices=YEAR, lookup_expr='lt', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Manufacturing Year')
-    # car_year = django_filters.ModelChoiceFilter(queryset=Year.objects.all(), widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Manufacturing Year')
-    car_stock = django_filters.ChoiceFilter(choices=CAR_STOCK, lookup_expr='icontains', widget=forms.Select(attrs={"class":"selectpicker", "data-width":"100%"}), label='Stock Type')
+    car_mileage = django_filters.ChoiceFilter(empty_label='Mileage', choices=MILEAGE, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='MILEAGE')
+    title = django_filters.ChoiceFilter(empty_label='Make',choices=CAR_MAKE, lookup_expr='icontains', label='MAKE', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    # title = django_filters.CharFilter(lookup_expr='icontains', label='CAR KEYWORD', widget=forms.TextInput(attrs={"class":"a-content"}))
+    car_body = django_filters.ChoiceFilter(empty_label='Body',choices=CAR_BODY, lookup_expr='icontains', label='BODY STYLE', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    car_door = django_filters.ChoiceFilter(choices=CAR_DOOR, lookup_expr='icontains', label='DOORS', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    car_price = django_filters.ChoiceFilter(empty_label='Price',choices=PRICE, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='PRICE')
+    car_year = django_filters.ChoiceFilter(empty_label='Year',choices=YEAR, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='YEAR')
+    car_stock = django_filters.ChoiceFilter(empty_label='Used or New',choices=CAR_STOCK, lookup_expr='icontains', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='CONDITION')
     
     class Meta:
         model = AutoSearch
         fields = (
-            'title',
-            'car_dealer_name',
-            'car_mileage',
-            'car_price',
-            'car_year',
             'car_stock',
+            'title',
+            'car_year',
+            'car_price',
+            'car_body',
+            'car_door',
+            'car_mileage',
         )
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.helper = FormHelper()
-    #     self.helper.layout = Layout(
-    #         Fieldset(
-    #             'first arg is the legend of the fieldset',
-    #             'like_website',
-    #             'favorite_number',
-    #             'favorite_color',
-    #             'favorite_food',
-    #             'notes'
-    #         ),
-    #         ButtonHolder(
-    #             Submit('submit', 'Submit', css_class='button white')
-    #         )
-    #     )
 
-    # def __init__(self, *args, **kwargs):
-    #     super(CarFilter, self).__init__(*args, **kwargs)
-    #     self.filters['car_mileage'].extra.update(
-    #         {
-    #             'choices': MILEAGE
-    #         })
-    #     self.filters['car_price'].extra.update(
-    #         {
-    #             'choices': PRICE
-    #         })
-
-        # filter_overrides = {
-        #     models.CharField: {
-        #         'filter_class': django_filters.CharFilter,
-        #         'extra': lambda f: {
-        #             'lookup_expr': 'icontains',
-        #         },
-        #     },
-        #     models.BooleanField: {
-        #         'filter_class': django_filters.BooleanFilter,
-        #         'extra': lambda f: {
-        #             'widget': forms.CheckboxInput,
-        #         },
-        #     },
-        # }
 class CarSearchFilter(django_filters.FilterSet):
-    car_mileage = django_filters.ChoiceFilter(choices=MILEAGE, lookup_expr='lt', label='Mileage')
-    title = django_filters.CharFilter(lookup_expr='icontains', label='Car Name')
-    car_dealer_name = django_filters.CharFilter(lookup_expr='icontains', label='Dealer Name')
-    car_price = django_filters.ChoiceFilter(choices=PRICE, lookup_expr='lt', label='Price')
-    # car_year = django_filters.ChoiceFilter(choices=YEAR, lookup_expr='lt', label='Manufacturing Year')
-    car_year = django_filters.ChoiceFilter(choices=YEAR, lookup_expr='lt', label='Manufacturing Year')
-    car_stock = django_filters.ChoiceFilter(choices=CAR_STOCK, lookup_expr='lt', label='Stock Type')
+    car_mileage = django_filters.ChoiceFilter(choices=MILEAGE, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='MILEAGE')
+    title = django_filters.ChoiceFilter(choices=CAR_MAKE, lookup_expr='icontains', label='MAKE', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    car_body = django_filters.ChoiceFilter(choices=CAR_BODY, lookup_expr='icontains', label='BODY STYLE', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    car_door = django_filters.ChoiceFilter(choices=CAR_DOOR, lookup_expr='icontains', label='DOORS', widget=forms.Select(attrs={"class":"auto-custom-select"}))
+    car_price = django_filters.ChoiceFilter(choices=PRICE, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='PRICE')
+    car_year = django_filters.ChoiceFilter(choices=YEAR, lookup_expr='lt', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='YEAR')
+    car_stock = django_filters.ChoiceFilter(choices=CAR_STOCK, lookup_expr='icontains', widget=forms.Select(attrs={"class":"auto-custom-select"}), label='CONDITION')
     
     class Meta:
         model = AutoSearch
         fields = (
-            'title',
-            'car_dealer_name',
-            'car_mileage',
-            'car_price',
-            'car_year',
             'car_stock',
+            'title',
+            'car_year',
+            'car_price',
+            'car_body',
+            'car_door',
+            'car_mileage',
         )
+
+
+class HomeSearchFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(lookup_expr='icontains')
+    class Meta:
+        model = AutoSearch
+        fields = [
+            'title'
+            ]

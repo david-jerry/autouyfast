@@ -11,6 +11,6 @@ class EmailSubscribeForm(forms.ModelForm):
 
 
 class ContactForm(forms.Form):
-    from_email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
+    from_email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder": "Your Email"}))
+    subject = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder": "Why are your mailing us?"}))
     message = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'row': 40}))

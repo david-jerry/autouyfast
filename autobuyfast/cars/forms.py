@@ -13,6 +13,7 @@ from crispy_forms.layout import (
 from django import forms
 from django.contrib.auth import get_user_model
 from django.forms.models import inlineformset_factory
+from tinymce.widgets import TinyMCE
 
 User = get_user_model()
 
@@ -84,3 +85,16 @@ class AutoSearchForm(forms.ModelForm):
                 ButtonHolder(Submit('submit', 'save', css_class="btn btn-primary btn-block")),
                 )
             )
+
+
+SELLER_CONTACT_REASON = (
+    ("Is this still Available", "Availability"),
+    ("Do you offer an installmental Payment plan", "Installed Payment"),
+)
+class ContactCarDealerForm(forms.Form):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"placeholder":"Email"}))
+    first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"First Name"}))
+    phone = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Phone"}))
+    last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Last Name"}))
+    question = forms.ChoiceField(choices=SELLER_CONTACT_REASON)
+    message = forms.CharField(widget=TinyMCE(attrs={'cols': 40, 'row': 40, "placeholder":"I will like to know is this car is still available."}))

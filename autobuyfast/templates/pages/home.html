@@ -39,7 +39,7 @@ to you anywhere in the world.
 {% endblock %}
 
 {% block slider %}
-<div class="media-holder type-2" data-bg="{% static 'assets/media/components/b-main-slider/2.jpg' %}">
+<div class="media-holder type-2" data-bg="{% static 'images/home_bg.jpg' %}">
 
     <div class="container">
 
@@ -56,117 +56,71 @@ to you anywhere in the world.
             <!--tabs content-->
             <div class="tabs-content">
                 <div id="tab-1">
+                    <form action="{% url 'cars:search' %}" method="get">
+                        {{filter.form.non_field_errors}}
+                        {{filter.form.source.errors}}
+                        {{filter.form.source}}
 
-                    <div class="input-wrapper">
+                        <div class="select-area tab-col-2">
 
-                        <input type="checkbox" name="checkbox-1" id="checkbox-1" checked="">
-                        <label for="checkbox-1">All Vehicles</label>
+                            <div class="select-col">
 
-                        <input type="checkbox" name="checkbox-2" id="checkbox-2">
-                        <label for="checkbox-2">New</label>
+                                <div class="auto-custom-select">
+                                    {{form.title}}
+                                    {{form.title.errors}}
+                                </div>
 
-                        <input type="checkbox" name="checkbox-3" id="checkbox-3">
-                        <label for="checkbox-3">Used</label>
+                            </div>
 
-                        <input type="checkbox" name="checkbox-4" id="checkbox-4">
-                        <label for="checkbox-4">Certified Pre-Owned</label>
+                            <div class="select-col">
 
-                    </div>
+                                <div class="auto-custom-select">
+                                    {{form.car_stock}}
+                                    {{form.car_stock.errors}}
+                                </div>
 
-                    <div class="select-area tab-col-2">
-
-                        <div class="select-col">
-
-                            <div class="auto-custom-select">
-                                <select data-default-text="All Makes">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
                             </div>
 
                         </div>
 
-                        <div class="select-col">
+                        <div class="select-area tab-col-3">
 
-                            <div class="auto-custom-select">
-                                <select data-default-text="All Models">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
+                            <div class="select-col">
+
+                                <div class="auto-custom-select">
+                                    {{form.car_price}}
+                                    {{form.car_price.errors}}
+                                </div>
+
+                            </div>
+
+                            <div class="select-col">
+
+                                <div class="auto-custom-select">
+                                    {{form.car_year}}
+                                    {{form.car_year.errors}}
+                                </div>
+
+                            </div>
+
+                            <div class="select-col">
+
+                                <div class="auto-custom-select">
+                                    {{form.car_mileage}}
+                                    {{form.car_mileage.errors}}
+                                </div>
+
+                            </div>
+
+
+                            <div class="select-col">
+                                <button type="submit" class="btn btn-style-3"><i class="licon-magnifier"></i>Search</button>
                             </div>
 
                         </div>
 
-                    </div>
-
-                    <div class="select-area tab-col-3">
-
-                        <div class="select-col">
-
-                            <div class="auto-custom-select">
-                                <select data-default-text="Max Price">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="select-col">
-
-                            <div class="auto-custom-select">
-                                <select data-default-text="Max Mileage">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="select-col">
-
-                            <div class="auto-custom-select">
-                                <select data-default-text="Min Year">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="select-col">
-
-                            <div class="auto-custom-select">
-                                <select data-default-text="10 miles from">
-                                    <option value="Option 1">Option 1</option>
-                                    <option value="Option 2">Option 2</option>
-                                    <option value="Option 3">Option 3</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="select-col">
-
-                            <form class="lineform">
-                                <input type="text" placeholder="ZIP">
-                            </form>
-
-                        </div>
-
-                        <div class="select-col">
-                            <a href="#" class="btn btn-style-3"><i class="licon-magnifier"></i>Search</a>
-                        </div>
-
-                    </div>
-
-                    <a href="#" class="info-btn">More search options</a>
-
+                        <a href="{% url 'cars:search' %}" class="info-btn">More search options</a>
+                    </form>
                 </div>
                 <div id="tab-2">
 
@@ -347,7 +301,7 @@ to you anywhere in the world.
                     <div class="product">
 
                         <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
-                        <a href="{{f_car.get_absolute_url}}"><img loading="lazy" src="{% if f_car.image_set %}{{f_car.get_image_url}}{% else %}{% static 'images/default/289x190_img1.jpg' %}{% endif %}" alt="{{f_car.title}} photo"></a>
+                        <a href="{{f_car.get_absolute_url}}"><img loading="lazy" height="262" src="{% if f_car.image_set %}{{f_car.get_image_url}}{% else %}{% static 'images/default/289x190_img1.jpg' %}{% endif %}" alt="{{f_car.title}} photo"></a>
                         <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
 
                         <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
@@ -402,7 +356,7 @@ to you anywhere in the world.
 
                         <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
                         <a href="#">
-                            <img loading="lazy" src="{% if sp.image_set %}{{sp.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="">
+                            <img loading="lazy" height="262" src="{% if sp.image_set %}{{sp.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="">
 
                         </a>
                         <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->

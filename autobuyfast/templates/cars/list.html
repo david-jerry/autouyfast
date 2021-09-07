@@ -1,52 +1,218 @@
-{% extends "base.html" %}
+{% extends "cars/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block title %}
-  All Cars - {{ block.super }}
-{% endblock title %}
+{% block car_title %}
+Car Listing
+{% endblock car_title %}
+
+{% block car_desc %}
+View all listed car ads on our site today
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block car_og_title %}
+Car Listing
+{% endblock %}
+
+{% block car_og_url %}
+{% url 'cars:list' %}
+{% endblock %}
+
+{% block car_tw_title %}
+Car Listing
+{% endblock %}
+
+{% block car_tw_desc %}
+View all listed car ads on our site today
+{% endblock %}
+
+{% block car_can_link %}
+cars/
+{% endblock %}
+
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
-    <div class="area-bg__inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="b-title-page bg-primary_a">All Vehicles</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-                    </li>
-                    <li class="active">Vehicle Inventry</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb-->
-
 {% endblock slider %}
 
-{% block content %}
+{% block cars_count %}
+{% if is_paginated %}
+Showing <strong style="color:#ed1c24">{{cars_total}}</strong> results from {{paginator.num_pages}} Pages - <strong
+    style="color:#ed1c24">Page {{page_obj.number}} </strong>
+{% endif %}
+{% endblock cars_count %}
+
+{% block car_content %}
+<div class="row flex-row">
+{% for car in cars %}
+    <div class="col-sm-4 col-xs-6">
+
+        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+        <div class="product">
+
+            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+            <figure class="product-image">
+                <a href="{{car.get_absolute_url}}"><img src="{% if car.image_set %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" height="236" alt="{{car.title}} listing cover image"></a>
+                <div class="overlay full-width-block">
+                    <div class="icon-fancy">
+                        <a href="{% if car.image_set %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" class="fancybox" data-fancybox="group"><i
+                                class="licon-camera2"></i><span>{{car.image_set.all.count}}</span></a>
+                        <!-- <a href="#"><i class="licon-camera"></i><span>1</span></a> -->
+                    </div>
+                    <!-- <div>
+                        <a href="#"><i class="licon-heart"></i></a>
+                        <a href="#"><i class="licon-copy"></i></a>
+                    </div> -->
+                </div>
+            </figure>
+            <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+            <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+            <div class="product-description">
+
+                <div class="row">
+                    <div class="col-xs-8">
+
+                        <h5 class="product-name"><a href="{{car.get_absolute_url}}">{{car.title}}</a></h5>
+
+                        <div class="pricing-area">
+
+                            <div class="product-price">
+                                ${{car.car_price}}
+                            </div>
+
+                        </div>
+                        <div class="pricing-area">
+
+                            <div class="mpg">
+                                <span>Stock Type</span>
+                                {{car.car_stock}}
+                            </div>
+                            <div class="mpg">
+                                <span>Mileage</span>
+                                {{car.car_mileage}}
+                            </div>
+
+                        </div>
+
+                        <p>{{car.car_ext_color}} (ext), {{car.car_int_color}} (int), {{car.car_engine}}, {{car.car_drive_train}}</p>
+
+                        <div class="brends flex-row flex-center">
+                            <a href="{{car.car_history}}"><img src="{% static 'images/default/93x41_img1.jpg' %}" alt="carfax history link image"></a>
+                            <a href=""><img src="{% static 'images/default/93x41_img2.jpg' %}" alt="autocheck history link image"></a>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-4">
+
+                        <div class="dealer-item">
+
+                            <div class="dealer-title">
+                                <img src="{% if car.dealer.userprofile.profile_display %}{{car.dealer.userprofile.profile_display.url}}{% else %}{% static 'images/logo.png' %}{% endif %}" alt="{{car.dealer.fullname}} logo">
+                                <div class="wrapper">
+                                    <a href="{{car.dealer.get_absolute_url}}"><b>{{car.car_dealer_name}}</b></a>
+                                </div>
+                            </div>
+
+                            <div class="dealer-desc">
+
+                                <div class="contact-section">
+
+                                    <div class="contact-item">
+                                        <span class="contact-title"><i class="licon-map-marker"></i>{{car.dealer.userprofile.address}}</span>
+                                    </div>
+
+                                    <div class="contact-item">
+                                        <span class="contact-title"><i class="licon-telephone"></i>{{car.car_dealer_phone}}</span>
+                                    </div>
+
+                                </div>
+
+                                <a href="tel://{{car.dealer.phone}}" class="btn btn-small">Call for Best Price</a>
+
+                            </div>
+
+                            <!-- <a href="#" class="link-text2">Similar cars at this dealership</a> -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+        </div>
+        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+
+    </div>
+
+{% empty %}
+<div class="col-sm-12 col-xs-12">
+    <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+    <div style="text-align:center; width:100%; padding:10px; background: #FFF;">
+        No Cars Listed Yet
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock car_content %}
+
+
+{% block pagination %}
+{% if is_paginated %}
+<ul class="pagination text-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{page_obj.previous_page_number}}"><i class="icon fa fa-angle-double-left"></i></a>
+    </li>
+    {% else %}
+    <li class="disabled"><a><i class="icon fa fa-angle-double-left"></i></a>
+    </li>
+    {% endif %}
+
+    {% if page_obj.number|add:'-4' > 1 %}
+    <li><a href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a>
+    </li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+    <li class="active"><a>{{ i }}</a></li>
+    {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %} <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+        <li><a href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <li><a href="?page={{page_obj.next_page_number}}"><i class="icon fa fa-angle-double-right"></i></a>
+        </li>
+        {% else %}
+        <li class="disabled"><a><i class="icon fa fa-angle-double-right"></i></a>
+        </li>
+        {% endif %}
+</ul>
+{% endif %}
+
+{% endblock pagination %}
+
 <div class="container">
     <div class="row">
         <div class="col-md-9 col-md-push-3">
             <main class="l-main-content">
                 <div class="filter-goods">
                     {% if is_paginated %}
-                    <div class="filter-goods__info">Showing <strong>{{cars_total}}</strong> results <strong> Page {{page_obj.number}} of </strong> <strong> {{paginator.num_pages}} Pages</strong>
+                    <div class="filter-goods__info">Showing <strong>{{cars_total}}</strong> results <strong> Page
+                            {{page_obj.number}} of </strong> <strong> {{paginator.num_pages}} Pages</strong>
                     </div>
                     {% endif %}
                     <div class="filter-goods__select">
-                       <div class="btns-switch"><i class="btns-switch__item js-view-th icon fa fa-th-large"></i><i class="btns-switch__item js-view-list active icon fa fa-th-list"></i>
+                        <div class="btns-switch"><i class="btns-switch__item js-view-th icon fa fa-th-large"></i><i
+                                class="btns-switch__item js-view-list active icon fa fa-th-list"></i>
                         </div>
                     </div>
                 </div>
@@ -57,83 +223,60 @@
                         <div class="row">
                             <div class="b-goods-1__img">
                                 <a class="js-zoom-images" href="{{car.car_def_image}}">
-                                    <img class="img-responsive" loading="lazy" src="{{car.car_def_image}}" alt="{{car.title}} Image" />
-                                <!-- </a><span class="b-goods-1__price hidden-th">{{car.car_price}}<span class="b-goods-1__price-msrp">MSRP $27,000</span></span> -->
+                                    <img class="img-responsive" loading="lazy" src="{{car.car_def_image}}"
+                                        alt="{{car.title}} Image" />
+                                    <!-- </a><span class="b-goods-1__price hidden-th">{{car.car_price}}<span class="b-goods-1__price-msrp">MSRP $27,000</span></span> -->
                                 </a><span class="b-goods-1__price hidden-th">$ {{car.car_price}}</span>
                             </div>
                             <div class="b-goods-1__inner">
                                 <div class="b-goods-1__header">
-                                    <h2 class="b-goods-1__name"><a href="{{car.get_absolute_url}}">{{car.title|upper}}</a></h2>
+                                    <h2 class="b-goods-1__name"><a
+                                            href="{{car.get_absolute_url}}">{{car.title|upper}}</a></h2>
                                     <!-- <a class="b-goods-1__choose hidden-th" href=""><i class="icon fa fa-heart-o"></i></a> -->
                                 </div>
-                                <span class="b-goods-1__price_th text-primary visible-th">$ {{car.car_price}}<a class="b-goods-1__choose" href=""><i class="icon fa fa-heart-o"></i></a>
+                                <span class="b-goods-1__price_th text-primary visible-th">$ {{car.car_price}}<a
+                                        class="b-goods-1__choose" href=""><i class="icon fa fa-heart-o"></i></a>
                                 </span>
                                 <div class="b-goods-1__section">
-                                    <h3 class="b-goods-1__title" data-toggle="collapse" data-target="#desc-1">Highlights</h3>
+                                    <h3 class="b-goods-1__title" data-toggle="collapse" data-target="#desc-1">Highlights
+                                    </h3>
                                     <div class="collapse in" id="desc-1">
                                         <ul class="b-goods-1__desc list-unstyled">
-                                            <li class="b-goods-1__desc-item"><span class="hidden-th"></span> {{car.car_mileage|upper}} MI </li>
-                                            <li class="b-goods-1__desc-item"><span class="hidden-th">Model:</span> {{car.car_year}}</li>
-                                            <li class="b-goods-1__desc-item hidden-th"><span class="hidden-th">Stock:</span> {{car.car_stock}}</li>
+                                            <li class="b-goods-1__desc-item"><span class="hidden-th"></span>
+                                                {{car.car_mileage|upper}} MI </li>
+                                            <li class="b-goods-1__desc-item"><span class="hidden-th">Model:</span>
+                                                {{car.car_year}}</li>
+                                            <li class="b-goods-1__desc-item hidden-th"><span
+                                                    class="hidden-th">Stock:</span> {{car.car_stock}}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="b-goods-1__section hidden-th">
-                                    <h3 class="b-goods-1__title" data-toggle="collapse" data-target="#list-1">Dealer Information</h3>
+                                    <h3 class="b-goods-1__title" data-toggle="collapse" data-target="#list-1">Dealer
+                                        Information</h3>
                                     <div class="collapse in" id="list-1">
                                         <ul class="b-goods-1__list list list-mark-5">
-                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Dealer Name:</span> {{car.car_dealer_name|upper}}</li>
-                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Dealer Phone:</span> <a href="tel://{{car.car_dealer_phone}}">{{car.car_dealer_phone}}</a></li>
-                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Listed On:</span> cars.com</li>
-                                            <li class="b-goods-1__list-item"><span class="hidden-th"><a href="{{car.car_history}}">History Report Link</a></span></li>
+                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Dealer
+                                                    Name:</span> {{car.car_dealer_name|upper}}</li>
+                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Dealer
+                                                    Phone:</span> <a
+                                                    href="tel://{{car.car_dealer_phone}}">{{car.car_dealer_phone}}</a>
+                                            </li>
+                                            <li class="b-goods-1__list-item"><span class="hidden-th b-goods-1">Listed
+                                                    On:</span> cars.com</li>
+                                            <li class="b-goods-1__list-item"><span class="hidden-th"><a
+                                                        href="{{car.car_history}}">History Report Link</a></span></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <!-- end .b-goods-1-->    
+                    <!-- end .b-goods-1-->
                     {% empty %}
-                    <h2 class="">No listing yet</h2>                  
+                    <h2 class="">No listing yet</h2>
                     {% endfor %}
                 </div>
-                <!-- end .goods-group-2-->
-                {% if is_paginated %}
-                <ul class="pagination text-center">
-                    {% if page_obj.has_previous %}
-                    <li><a href="?page={{page_obj.previous_page_number}}"><i class="icon fa fa-angle-double-left"></i></a>
-                    </li>
-                    {% else %}
-                    <li class="disabled"><a><i class="icon fa fa-angle-double-left"></i></a>
-                    </li>
-                    {% endif %}
-
-                    {% if page_obj.number|add:'-4' > 1 %}
-                    <li><a href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a>
-                    </li>
-                    {% endif %}
-
-                    {% for i in page_obj.paginator.page_range %} 
-                    {% if page_obj.number == i %}
-                    <li class="active"><a>{{ i }}</a></li>
-                    {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
-                    <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
-                    <li><a href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
-                    {% endif %}
-
-                    {% if page_obj.has_next %}
-                    <li><a href="?page={{page_obj.next_page_number}}"><i class="icon fa fa-angle-double-right"></i></a>
-                    </li>
-                    {% else %}
-                    <li class="disabled"><a><i class="icon fa fa-angle-double-right"></i></a>
-                    </li>
-                    {% endif %}
-                </ul>
-                {% endif %}
             </main>
             <!-- end .l-main-content-->
         </div>
@@ -143,7 +286,8 @@
                 <form class="b-filter-2 bg-grey" method="GET" action="{% url 'cars:search' %}">
                     <h3 class="b-filter-2__title">VEHICLE FILTER</h3>
                     <div class="b-filter-2__inner">
-                        <div class="b-filter-2__group" style="margin-bottom:-1.7rem !important; margin-top:-1.7rem !important;">
+                        <div class="b-filter-2__group"
+                            style="margin-bottom:-1.7rem !important; margin-top:-1.7rem !important;">
                             {{filter.form.title|as_crispy_field}}
                             {{filter.form.car_dealer_name|as_crispy_field}}
                             {{filter.form.car_stock|as_crispy_field}}
@@ -162,4 +306,3 @@
         </div>
     </div>
 </div>
-{% endblock content %}

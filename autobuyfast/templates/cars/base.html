@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+{% block car_title %}{% endblock car_title %} | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+{% block car_desc %}{% endblock %}
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+{% block car_og_title %}{% endblock %}
+{% endblock %}
+
+{% block og_url %}
+{% block car_og_url %}{% endblock %}
+{% endblock %}
+
+{% block twitter_title %}
+{% block car_tw_title %}{% endblock %}
+{% endblock %}
+
+{% block twitter_desc %}
+{% block car_tw_desc %}{% endblock %}
+{% endblock %}
+
+{% block can_link %}
+{% block car_can_link %}{% endblock %}
+{% endblock %}
+
+{% block bg %}
+page-section-bg
+{% endblock bg %}
+{% block page_bg %}style="transform:none;"{% endblock page_bg %}
+
+{% block pcw %}class="page-content-wrap"{% endblock pcw %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <aside id="sidebar" class="sbl style-2 col-md-3 col-sm-12">
+            <div class="filter-section">
+                <form action="{% url 'cars:search' %}" method="GET">
+                    {{filter.form.non_field_errors}}
+                    {{filter.form.source.errors}}
+                    {{filter.form.source}}
+
+                    <div class="accordion toggle no-of">
+
+                        <!--accordion item-->
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_stock.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_stock}}
+                                    {{filter.form.car_stock.errors}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="accordion toggle no-of">
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_year.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_year}}
+                                    {{filter.form.car_year.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion toggle no-of">
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.title.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.title}}
+                                    {{filter.form.title.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion toggle no-of">
+
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_price.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_price}}
+                                    {{filter.form.car_price.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion toggle no-of">
+
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_body.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_body}}
+                                    {{filter.form.car_body.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion toggle no-of">
+
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_door.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_door}}
+                                    {{filter.form.car_door.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion toggle no-of">
+
+                        <div class="accordion-item">
+                            <h6 class="a-title">{{filter.form.car_mileage.label_tag}}</h6>
+                            <div class="a-content">
+                                <div class="auto-custom-select">
+                                    {{filter.form.car_mileage}}
+                                    {{filter.form.car_mileage.errors}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-block">filter vehicle</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </aside>
+
+        <main id="main" class="col-md-9 col-sm-12">
+            <div class="dealers-section product-type">
+
+
+                <!-- dealer sorting -->
+
+                <div class="flex-row flex-justify">
+
+                    <div class="sort-dealer">
+
+                        <h3 class="section-title">{% block cars_count %}{% endblock %}</h3>
+
+                    </div>
+
+                    <div class="settings-view-products">
+
+                        <div class="sort-criteria">
+
+                            <div class="view-type">
+
+                                <a href="#" title="grid View" data-view="grid" data-target="#product-holder"
+                                    class="active"><i class="licon-icons"></i></a>
+
+                                <a href="#" title="list View" data-view="list" data-target="#product-holder"><i
+                                        class="licon-menu2"></i></a>
+
+                            </div>
+
+                        </div>
+                        <!--/ .sort-criteria -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="products-holder view-grid" id="product-holder">
+            {% block car_content %}
+            {% endblock car_content %}
+            </div>
+
+            {% block pagination %}
+            {% endblock pagination %}
+        </main>
+    </div>
+</div>
+{% endblock content %}

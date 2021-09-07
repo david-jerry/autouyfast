@@ -2,242 +2,520 @@
 {% load static crispy_forms_tags humanize %}
 
 {% block title %}
-  {{car.title}} - {{ block.super }}
+{{car.title}} - {{ block.super }}
 {% endblock title %}
 
+{% block description %}
+{{car.seller_note}}
+{% endblock %}
+
+{% block og_author %}
+{{car.car_dealer_name}}
+{% endblock %}
+
+{% block og_title %}
+{{car.title}}
+{% endblock %}
+
+{% block og_url %}
+{{car.get_absolute_url}}
+{% endblock %}
+
+{% block twitter_title %}
+{{car.title}}
+{% endblock %}
+
+{% block twitter_desc %}
+{{car.seller_note}}
+{% endblock %}
+
+{% block can_link %}
+cars/{{car.slug}}
+{% endblock %}
+
+
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
-    <div class="area-bg__inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="b-title-page bg-primary_a">{{car.title}}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-                    </li>
-                    <li><a href="{% url 'cars:list' %}">Showroom</a>
-                    </li>
-                    <li class="active">{{car.title}}</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb-->
 
 {% endblock slider %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-  <div class="col-md-8" style="z-index: 10 !important;">
-    <section class="b-car-details">
-        <div class="b-car-details__header">
-            <h2 class="b-car-details__title">{{car.car_year}}</h2>
-            <div class="b-car-details__subtitle">{{car.title}}</div>
-            <div class="b-car-details__address"><i class="icon fa fa-map-marker text-primary"></i> {{car.car_dealer_name}}</div>
-            <div class="b-car-details__links">
-                <a class="b-car-details__link" href="{% url 'cars:list' %}"><i class="icon fa fa-car text-primary"></i> Car Brochure</a>
-                {% if request.user.is_authenticated %}
-                {% if watched %}
-                <a class="b-car-details__link" href="{% url 'cars:watch_remove' car.slug %}"><i class="icon fa fa-floppy-o text-primary"></i> Unwatch Price Change</a>
-                {% else %}
-                <a class="b-car-details__link" href="{% url 'cars:watch_add' car.slug %}"><i class="icon fa fa-floppy-o text-primary"></i> Watch Price Change</a>
-                {% endif %}
-                {% endif %}
-            </div>
-        </div>
-        <div class="slider-car-details slider-pro" id="slider-car-details">
-            <div class="sp-slides">
-                {% if car.image_set %}
-                    {% for image in car.image_set.all %}
-                    <div class="sp-slide">
-                        <img class="sp-image" src="{{image.image.url}}" alt="{{car.title}} image" />
-                    </div>
-                    {% endfor %}
-                {% elif car.car_def_image %}
-                <div class="sp-slide">
-                    <img class="sp-image" src="{{car.car_def_image}}" alt="{{car.title}} image" />
-                </div>
-                {% endif %}
-            </div>
-            <div class="sp-thumbnails">
-                {% if car.image_set %}
-                    {% for image in car.image_set.all %}
-                    <div class="sp-thumbnail">
-                        <img class="img-responsive" src="{{image.image.url}}" alt="{{car.title}} image" />
-                    </div>
-                    {% endfor %}
-                {% elif car.car_def_image %}
-                {% endif %}
-            </div>
-        </div>
-        <!-- end .b-thumb-slider-->
-        <div class="b-car-details__section">
-            <h3 class="b-car-details__section-title ui-title-inner">Car Overview</h3>
-            <div class="b-car-details__section-subtitle">{{car.title}}.</div>
-            <p>{{car.seller_note|safe}}</p>
-        </div>
-        <ul class="b-car-details__nav nav nav-tabs bg-primary">
-            <li class="active"><a href="#specifications" data-toggle="tab">specifications</a>
-            </li>
-            <li><a href="#details" data-toggle="tab">technical details</a>
-            </li>
-            <li><a href="#contact" data-toggle="tab">contact</a>
-            </li>
-        </ul>
-        <div class="b-car-details__tabs tab-content">
-            <div class="tab-pane active fade in" id="specifications">
-                <dl class="list list-mark-5 list_mark-prim list-2-col fancy-description-list">
-                    <dt>Exterior Color</dt><dd>{{car.car_ext_color}}</dd>
-                    <dt>Interior Color</dt><dd>{{car.car_int_color}}</dd>
-                    <dt>Fuel Type</dt><dd>{{car.car_fuel_type}}</dd>
-                    <dt>Engine</dt><dd>{{car.car_engine}}</dd>
-                    <dt>Drivetrain</dt><dd>{{car.car_drive_train}}</dd>
-                </dl>
-            </div>
-            <div class="tab-pane fade" id="details">
-                <dl class="list list-mark-5 list_mark-prim list-2-col fancy-description-list">
-                    <dt>VIN</dt><dd>{{car.car_vin}}</dd>
-                    <dt>Stock Type</dt><dd>{{car.car_stock}}</dd>
-                    <dt>Manufacturing Year</dt><dd>{{car.car_year}}</dd>
-                    <dt>Mileage</dt><dd>{{car.car_mileage}} Miles</dd>
-                    <dt>Transmission</dt><dd>{{car.car_transmission}}</dd>
-                </dl>
-            </div>
-            <div class="tab-pane fade" id="contact">
-                <dl class="list list-mark-5 list_mark-prim list-2-col fancy-description-list">
-                    {% if car.car_dealer_name %}
-                    <dt>Dealer Name</dt><dd>{{car.car_dealer_name}}</dd>
-                    <dt>Dealer Contact</dt><dd><a href="tel://{{car.car_dealer_phone}}">{{car.car_dealer_phone}}</a></dd>
-                    <dt>Car External Listing</dt><dd><a href="{{car.car_url}}">External Link</a></dd>
-                    <dt>Car History Report</dt><dd><a href="{{car.car_history}}">View Report</a></dd>
-                    {% else %}
-                    <dt>Dealer Name</dt><dd><a href="{{car.dealer.get_absolute_url}}">{{car.dealer.fullname}}</a></dd>
-                    <dt>Dealer Phone</dt><dd><a href="tel://{{car.dealer.phone_no}}">{{car.dealer.phone_no}}</a></dd>
-                    <dt>Dealer Name</dt><dd><a href="mailto://{{car.dealer.email}}">{{car.dealer.email}}</a></dd>
-                    {% endif %}
-                    <dt>Seller Note</dt><dd>{{car.car_seller_note|safe}}</dd>
-                </dl>
-            </div>
-        </div>
-    </section>
+<div class="page-section">
 
-  </div>
-
-  <div class="col-md-4" style="z-index: 10 !important;">
-    <aside class="l-sidebar-2">
-        <div class="b-car-info">
-            <div class="b-car-info__price">${{car.car_price|intcomma}}{% if car.car_sub_price %}<span class="b-car-info__price-msrp">PROMO ${{car.car_sub_price|intcomma}}</span>{% endif %}
-            </div>
-            <dl class="b-car-info__desc dl-horizontal bg-grey">
-                <dt class="b-car-info__desc-dt">year</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_year}}</dd>
-                <dt class="b-car-info__desc-dt">MILEAGe</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_mileage}} mi</dd>
-                <dt class="b-car-info__desc-dt">ENGINE</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_engine}}</dd>
-                <dt class="b-car-info__desc-dt">TRANSMISSION</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_transmission}}</dd>
-                <dt class="b-car-info__desc-dt">FUEL</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_fuel_type}}</dd>
-                <dt class="b-car-info__desc-dt">colors</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_ext_color}}, {{car.car_int_color}}</dd>
-                <dt class="b-car-info__desc-dt">DRIVE TRAIN</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_drive_train}}</dd>
-                <dt class="b-car-info__desc-dt">STOCK #</dt>
-                <dd class="b-car-info__desc-dd">{{car.car_stock}}</dd>
-            </dl>
-            <div class="b-car-info__item"><span class="b-car-info__item-name"><i class="icon flaticon-car"></i> Vehicle Demand</span>
-                <div class="b-car-info__item-inner"><span class="b-car-info__item-info">HIGH</span>
-                </div>
-            </div>
-            <div class="b-bnr-2">
-                <div class="b-bnr-2__icon flaticon-smartphone"></div>
-                <div class="b-bnr-2__inner">
-                    <div class="b-bnr-2__title">Call Dealer</div>
-                    <div class="b-bnr-2__info">{% if car.car_dealer_name %}{{car.car_dealer_phone}}{% else %}{{ car.dealer.phone_no }}{% endif %}</div>
-                </div>
-            </div>
-            <!-- end .b-banner-->
-            <form class="b-calculator">
-                <div class="b-calculator__header"><i class="icon flaticon-calculator text-primary"></i>
-                    <div class="b-calculator__header-inner">
-                        <div class="b-calculator__name">Shipping Calculator</div>
-                        <div class="b-calculator__info">Calculate The Shipping Financing based on location</div>
-                    </div>
-                </div>
-                <div class="b-calculator__group">
-                    <div class="b-calculator__label">VEHICLE PRICE ($)</div>
-                    <input class="b-calculator__input form-control" type="text" placeholder="$28.600" />
-                </div>
-                <div class="b-calculator__group">
-                    <div class="b-calculator__label">INTEREST RATE (%)</div>
-                    <input class="b-calculator__input form-control" type="text" placeholder="10%" />
-                </div>
-                <div class="b-calculator__group">
-                    <div class="b-calculator__label">period in months</div>
-                    <input class="b-calculator__input form-control" type="text" placeholder="15 Months" />
-                </div>
-                <div class="b-calculator__group">
-                    <div class="b-calculator__label">down payment</div>
-                    <input class="b-calculator__input form-control" type="text" placeholder="$5,000" />
-                </div>
-                <button class="btn btn-dark">Cauculate</button>
-            </form>
-            <!-- end .b-calculator-->
-        </div>
-    </aside>
-
-  </div>
-
-    <!-- end .b-car-details-->
-    <section class="section-default_top">
     <div class="container">
+
+        <div class="share-section flex-row flex-justify flex-center">
+
+            <a href="{% url 'cars:list' %}" class="link-text2"><i class="icon-reply-4"></i>Back to Results</a>
+            <div class="page-nav">
+                <!-- <a href="#" class="page-prev">Prev</a>
+          <span>2/38 Listings</span>
+          <a href="#" class="page-next">Next</a> -->
+            </div>
+            <div class="share-list flex-row flex-center">
+
+                <span>Share</span>
+                <ul>
+                    <li><a href="#" class="sh-facebook"><i class="icon-facebook"></i></a></li>
+                    <li class="share-menu">
+                        <a href="#"><i class="icon-ellipsis"></i></a>
+                        <ul class="dropdown-list social-icons share type2">
+
+                            <li><a href="#" class="sh-twitter"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#" class="sh-google"><i class="icon-gplus"></i></a></li>
+                            <li><a href="#" class="sh-pinterest"><i class="icon-pinterest"></i></a></li>
+                            <li><a href="#" class="sh-mail"><i class="icon-mail"></i></a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="icon-print-6"></i></a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
         <div class="row">
-            <div class="col-xs-12">
-                <h2 class="ui-title-block">Related Cars</h2>
-                <div class="ui-decor"></div>
-                <div class="related-carousel owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel" data-min768="2" data-min992="3" data-min1200="3" data-margin="30" data-pagination="false" data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
-                    {% for car in car.get_related_cars_by_tags %}
-                    <div class="b-goods-feat">
-                        {% if car.car_def_image %}
-                        <div class="b-goods-feat__img">
-                            <img class="img-responsive" src="{{car.car_def_image}}" alt="foto" /><span class="b-goods-feat__label">${{car.car_price|intcomma}}{% if car.car_sub_price %}<span class="b-goods-feat__label_msrp">MSRP ${{car.car_sub_price|intcomma}}</span>{% endif %}</span>
+            <main id="main" class="col-md-8">
+
+                <div class="single-product-section">
+
+                    <div class="single-product-title">
+
+                        <h2 class="section-title">{{car.title}}</h2>
+                        <div class="flex-row flex-justify">
+                            <div class="product-price">
+                                ${{car.car_price}}
+                            </div>
+                            <div class="slash-list">
+                                {% if request.user.is_authenticated %}
+                                {% if watched %}
+                                <a href="{% url 'cars:watch_remove' car.slug %}" class="link-text2"><i class="licon-heart"></i>Wishlist </a>
+                                {% else %}
+                                <a href="{% url 'cars:watch_add' car.slug %}" class="link-text2"><i class="licon-heart"></i>Wishlist </a>
+                                {% endif %}
+                                {% endif %}
+                                <a href="#" class="link-text2"><i class="licon-copy"></i>Compare </a>
+                                <a href="" class="link-text2"><i class="licon-document2"></i>Car Brochure </a>
+                            </div>
                         </div>
-                        {% else %}
-                        <div class="b-goods-feat__img">
-                            <img class="img-responsive" src="{{car.get_image_url}}" alt="foto" /><span class="b-goods-feat__label">${{car.car_price|intcomma}}{% if car.car_sub_price %}<span class="b-goods-feat__label_msrp">MSRP ${{car.car_sub_price|intcomma}}</span>{% endif %}</span>
+
+                    </div>
+
+                    <div class="content-element3">
+
+                        <div class="carousel-type-4 type-2">
+
+                            <div class="carousel-tabs">
+
+                                <div id="tab1" class="tab-cont current">
+
+                                    <div class="owl-carousel" id="sync-carousel-1" data-max-items="1">
+                                        {% if car.image_set %}
+                                            {% for img in car.image_set.all  %}
+                                            <div class="item-carousel">
+                                                <a href="{% if img.img_url %}{{img.img_url}}{% else %}{{img.image.url}}{% endif %}" class="fancybox" data-fancybox="group"><img height="380" src="{% if img.img_url %}{{img.img_url}}{% else %}{{img.image.url}}{% endif %}" alt="{{car.title}} detail image"></a>
+                                            </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                                <div id="tab2" class="tab-cont">
+
+                                    <div class="responsive-iframe">
+
+                                        <iframe
+                                            src="{% if car.video %}{{car.video.url}}{% else %}https://www.youtube.com/embed/S5MsopCiWog?rel=0&amp;showinfo=0&amp;autohide=2&amp;controls=0&amp;playlist=J2Y_ld0KL-4&amp;enablejsapi=1{% endif %}"></iframe>
+
+                                    </div>
+
+                                </div> 
+                                <div id="tab2" class="tab-cont">
+
+                                    <div id="googleMap3" class="map-container"></div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="tabs tabs-section style-2 clearfix">
+                                <!--tabs navigation-->
+                                <ul class="tabs-nav clearfix">
+                                    <li data-tab="tab1">
+                                        <a href="#tab-1"><span class="licon-camera2"></span>Photos ({{car.image_set.all.count}})</a>
+                                    </li>
+                                    <li data-tab="tab2">
+                                        <a href="#tab-2"><span class="licon-camera"></span>Videos ({% if car.video.count %}{{car.video.count}}{% else %}0{% endif %})</a>
+                                    </li>
+                                    <li data-tab="tab3">
+                                        <a href="#tab-3"><span class="licon-map-marker"></span>Location</a>
+                                    </li>
+                                </ul>
+                                <!--tabs content-->
+                                <div class="tabs-content">
+                                    <div id="tab-1">
+
+                                        <!-- - - - - - - - - - - - - - Carousel Pagination - - - - - - - - - - - - - - - - -->
+
+                                        <div class="owl-carousel type-small" data-sync="#sync-carousel-1"
+                                            data-max-items="5" data-item-margin="20">
+
+                                            <!-- Carousel Item -->
+                                            {% if car.image_set %}
+                                            {% for img in car.image_set.all  %}
+                                            <div class="item-carousel">
+                                                <img height="97" src="{% if img.img_url %}{{img.img_url}}{% else %}{{img.image.url}}{% endif %}" alt="">
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+
+                                            <!-- Carousel Item -->
+                                        </div>
+
+                                        <!-- - - - - - - - - - - - - - End of Carousel Pagination - - - - - - - - - - - - - - - - -->
+
+                                    </div>
+                                    <div id="tab-2">
+                                    {% if car.video %}
+
+                                        <img src="{% static 'images/default/134x97_img1.jpg' %}" alt="">
+
+                                    {% endif %}
+                                    </div>
+                                    <div id="tab-3">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="content-element3">
+
+                        <h4><b>Vehicle Details</b></h4>
+                        <ul class="car-detail-list">
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>Mileage</span><span>{{car.car_mileage}}</span>
+                                </div>
+                                <div class="detail-col">
+                                    <span>Fuel</span><span>{{car.car_fuel_type}}</span>
+                                </div>
+
+                            </li>
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>Year</span><span>{{car.car_year}}</span>
+                                </div>
+                                <div class="detail-col">
+                                    <span>Body Style</span><span>{% if car.car_body %}{{car.car_body}}{% else %}N/A{% endif %}</span>
+                                </div>
+
+                            </li>
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>Stock Type</span><span>{{car.car_stock}}</span>
+                                </div>
+                                <div class="detail-col">
+                                    <span>Engine</span><span>{{car.car_engine}}</span>
+                                </div>
+
+                            </li>
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>VIN</span><span>{{car.car_vin}}</span>
+                                </div>
+                                <div class="detail-col">
+                                    <span>Transmission</span><span>{{car.car_transmission}}</span>
+                                </div>
+
+                            </li>
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>Exterior Color</span><span>{{car.car_ext_color}}</span>
+                                </div>
+                                <div class="detail-col">
+                                    <span>Interior Color</span><span>{{car.car_int_color}}</span>
+                                </div>
+
+                            </li>
+                            <li class="flex-row flex-justify">
+
+                                <div class="detail-col">
+                                    <span>Drivetype</span><span>{{car.car_drive_train}}</span>
+                                </div>
+                                <!-- <div class="detail-col">
+                                    <span>MPG</span><span>18 City / 24 Highway</span>
+                                </div> -->
+
+                            </li>
+                        </ul>
+                        <div class="brends flex-row flex-center">
+                            <a href="{{car.car_history}}"><img src="{% static 'images/default/93x41_img1.jpg' %}" alt=""></a>
+                            <a href="{{car.car_history}}"><img src="{% static 'images/default/93x41_img2.jpg' %}" alt=""></a>
+                            <a href="{{car.car_history}}" class="link-text2"><i class="icon-doc-text-2"></i>View AutoCheck Vehicle
+                                History</a>
+                        </div>
+
+                    </div>
+
+                    <div class="content-element3">
+
+                        <h4><b>Seller Comments</b></h4>
+                        <p>
+                            {{car.seller_note|safe}}
+                        </p>
+                        <a href="" class="link-text2 contact-button"><i
+                                class="icon-help-circled-alt"></i>Ask a
+                            Question</a>
+
+                    </div>
+
+                    <!-- <div class="content-element3">
+
+                        <h4><b>Features</b></h4>
+                        <div class="features-section">
+
+                            <div class="row">
+                                <div class="col-xs-6">
+
+                                    <ul class="custom-list type-5">
+
+                                        <li>10 Speakers</li>
+                                        <li>20" Wheels</li>
+                                        <li>3.27 Axle Ratio</li>
+                                        <li>4-Wheel Disc Brakes</li>
+                                        <li>8-Way Power Front Seats</li>
+
+                                    </ul>
+
+                                </div>
+                                <div class="col-xs-6">
+
+                                    <ul class="custom-list type-5">
+
+                                        <li>ABS brakes</li>
+                                        <li>AM/FM radio</li>
+                                        <li>Air Conditioning</li>
+                                        <li>Automatic temperature control</li>
+                                        <li>Automatically Dimming Interior & Exterior Mirrors</li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="row other-items">
+                                <div class="col-xs-6">
+
+                                    <ul class="custom-list type-5">
+
+                                        <li>10 Speakers</li>
+                                        <li>20" Wheels</li>
+                                        <li>3.27 Axle Ratio</li>
+                                        <li>4-Wheel Disc Brakes</li>
+                                        <li>8-Way Power Front Seats</li>
+
+                                    </ul>
+
+                                </div>
+                                <div class="col-xs-6">
+
+                                    <ul class="custom-list type-5">
+
+                                        <li>ABS brakes</li>
+                                        <li>AM/FM radio</li>
+                                        <li>Air Conditioning</li>
+                                        <li>Automatic temperature control</li>
+                                        <li>Automatically Dimming Interior & Exterior Mirrors</li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="#" class="show-more info-btn type2">Show All</a>
+
+                    </div> -->
+
+                    <div class="content-element3">
+
+                        <h4><b>Financing</b></h4>
+                        <div class="payment-area">
+                            <h5>Monthly Payments</h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <div>Estimated monthly payment: <span>{% if not car.monthly_payment %}NA{% else %}${{car.monthly_payment}}/mo{% endif %}</span></div>
+                                    <div>Price of car: <span>${{car.car_price}}</span></div>
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <a href="" class="btn btn-style-4 calc-button"><i
+                                            class="licon-calculator2"></i>Calculate Payments</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+            <aside id="sidebar" class="col-md-4">
+
+                <div class="content-element3">
+
+                    <div class="sidebar-item dealer-item style-2">
+
+                        <div class="dealer-title">
+                            <img src="{% if car.dealer.userprofile.profile_display %}{{car.dealer.userprofile.profile_display.url}}{% else %}{% static 'images/default/145x49_img1.jpg' %}{% endif %}" alt="">
+                            <div class="wrapper">
+                                <h5><a href="{{car.dealer.get_absolute_url}}">{{car.car_dealer_name}}</a></h5>
+                                <div class="rating-area">
+
+                                    <ul class="rating">
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li class="empty-half"><i class="licon-star"></i></li>
+                                    </ul>
+                                    <div class="rating-number">(4.5)</div>
+                                    <a href="#" class="review">7 reviews</a>
+                                    <a href="#" class="link-text2">Write a Review</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dealer-desc">
+
+                            <div class="contact-section">
+
+                                <div class="contact-item">
+                                    <h6 class="contact-title"><i class="licon-map-marker"></i><span>{{car.dealer.userprofile.address}}</span></h6>
+                                    <span class="contact-desc with-icon"><a href=""
+                                            class="link-text2 map-button">Map & Directions</a></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <a href="tel://{{car.car_dealer_phone}}" class="btn btn-big btn-style-3 sidebar-btn" content="telephone=no"><i
+                            class="licon-telephone"></i><b>{{car.car_dealer_phone}}</b></a>
+
+                    <div class="question-form bg-sidebar-item">
+
+                        <h5>Contact The Seller</h5>
+                        <p class="type-2">All fields are required.</p>
+
+                        <form action="{{car.get_absolute_url}}" method="POST">
+                            {% csrf_token %}
+                            {{form.non_field_errors}}
+                            {{form.source.errors}}
+                            {{form.source}}
+                            
+                            <div class="auto-custom-select">
+                                {{form.question}}
+                            </div>
+
+                            <div class="">
+                                {{form.message}}
+                                {{form.message.errors}}
+                            </div>
+                            <br>
+                            {{form.email}}
+                            <br>
+                            {{form.first_name}}
+                            <br>
+                            {{form.last_name}}
+                            <br>
+                            {{form.phone}}
+                            <button type="submit" class="btn btn-block mt-3 btn-style-3">Send Message</button>
+
+                        </form>
+
+
+                    </div>
+
+                    <a href="{{car.dealer.get_absolute_url}}" class="btn btn-big sidebar-btn"><i class="licon-profile"></i>Seller Profile</a>
+                    <a href="{% if car.car_dealer_name == 'car' %}{{car.car_url}}{% elif car.dealer.userprofile.website %}{{car.dealer.userprofile.website}}{% else %}{% endif %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Visit Seller Website</a>
+                    <a href="" class="btn btn-big sidebar-btn btn-style-4 contact-button"><i
+                            class="licon-car2"></i>Schedule a Test Drive</a>
+                    <a href="" class="btn btn-big sidebar-btn btn-style-4 contact-button"><i
+                            class="licon-bag-dollar"></i>Make an Offer Price</a>
+                    <a href="" class="btn btn-big sidebar-btn btn-style-4 contact-button"><i
+                            class="licon-wallet"></i>Apply For Credit</a>
+                    <a href="" class="btn btn-big sidebar-btn btn-style-4 calc-button"><i
+                            class="licon-calculator2"></i>Calculate Shipping</a>
+                    <a href="" class="btn btn-big sidebar-btn btn-style-4 trade-button"><i
+                            class="licon-receipt"></i>Trade-in Appraisal</a>
+
+                </div>
+
+                <h5 class="section-title">More from this Seller</h5>
+
+                <div class="products-holder view-list">
+
+                    <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                    {% for car in car.get_related_cars_by_dealer %}
+                    <div class="product">
+
+                        <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                        {% if car.get_image_url %}
+                        <div class="product-image">
+                            <a href="{{car.get_absolute_url}}"><img src="{{car.get_image_url}}" height="87" alt=""></a>
                         </div>
                         {% endif %}
-                        <ul class="b-goods-feat__desc list-unstyled">
-                            <li class="b-goods-feat__desc-item">Model: {{car.car_year}}</li>
-                            <li class="b-goods-feat__desc-item">{{car.car_drive_train|truncatechars:11}}</li>
-                            <li class="b-goods-feat__desc-item">{{car.car_engine}}</li>
-                        </ul>
-                        <h3 class="b-goods-feat__name"><a href="{{car.get_absolute_url}}">{{car.title}}</a></h3>
+                        
+                        <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+                        <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                        <div class="product-description">
+
+                            <h5 class="product-name"><a href="{{car.get_absolute_url}}">{{car.title}}</a></h5>
+
+                            <div class="pricing-area">
+
+                                <div class="product-price">
+                                    ${{car.car_price}}
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
                     </div>
-                    {% empty %}
-                    No Related Car
+
                     {% endfor %}
+
+
+                    <!-- - - - - - - - - - - - - - /Product - - - - - - - - - - - - - - - - -->
+
                 </div>
-                <!-- end .related-carousel-->
-            </div>
+
+                <a href="#" class="info-btn">View All Cars at This Seller</a>
+
+            </aside>
         </div>
+
     </div>
-</section>
-<!-- end .section-default_top-->
 
 </div>
-</div>
+
 {% endblock content %}

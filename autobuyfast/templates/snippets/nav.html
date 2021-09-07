@@ -28,7 +28,7 @@
                     <ul id="menu" class="clearfix">
                         <li class="{% if request.path == home_url %}current{% endif %}"><a
                                 href="{% url 'home' %}">How it works</a></li>
-                        <li class="dropdown has-megamenu {% if request.path == cars_url %}current{% endif %}"><a href="#">Inventory</a>
+                        <li class="dropdown has-megamenu {% if request.path == cars_url %}current{% endif %}"><a href="javascript:;">Inventory</a>
                             <!--sub menu-->
                             <div class="sub-menu-wrap mega-menu full-width-menu">
                                 <div class="mega-submenu">
@@ -43,21 +43,20 @@
                                     <h5>By Body Style</h5>
                                     <ul>
                                         <li><a href="{% url 'cars:list' %}">All</a></li>
-                                        <li><a href="#">Sedans</a></li>
-                                        <li><a href="#">Coupes</a></li>
-                                        <li><a href="#">SUVs</a></li>
-                                        <li><a href="#">Crossovers</a></li>
-                                        <li><a href="#">Hatchbacks</a></li>
+                                        <li><a href="/cars/search/?car_body=sedan">Sedans</a></li>
+                                        <li><a href="/cars/search/?car_body=convertible">Convertibles</a></li>
+                                        <li><a href="/cars/search/?car_body=coupe">Coupes</a></li>
+                                        <li><a href="/cars/search/?car_body=suv">SUVs</a></li>
+                                        <li><a href="/cars/search/?car_body=hatchback">Hatchbacks</a></li>
                                     </ul>
                                 </div>
                                 <div class="mega-submenu">
                                     <ul>
-                                        <li><a href="#">Hybrids</a></li>
-                                        <li><a href="#">Convertibles</a></li>
-                                        <li><a href="#">Sports Cars</a></li>
-                                        <li><a href="#">Minivan</a></li>
-                                        <li><a href="#">Vans</a></li>
-                                        <li><a href="#">Luxury Cars</a></li>
+                                        <li><a href="/cars/search/?car_body=hybrid">Hybrids</a></li>
+                                        <li><a href="/cars/search/?car_body=minivan">Minivan</a></li>
+                                        <li><a href="/cars/search/?car_body=cargo_van">Cargo Van</a></li>
+                                        <li><a href="/cars/search/?car_body=passenger_van">Passenger Van</a></li>
+                                        <li><a href="/cars/search/?car_body=wagon">Wagon</a></li>
                                     </ul>
                                 </div>
                                 <div class="mega-submenu">
@@ -100,13 +99,13 @@
                         <li class="{% if request.path == contact_url %}current{% endif %}"><a
                                 href="{% url 'contact' %}">Contact</a></li>
 
-                        <li class="dropdown"><a href="elements.html">Tools</a>
+                        <li class="dropdown"><a href="javascript:;">Tools</a>
                             <!--sub menu-->
                             <div class="sub-menu-wrap">
                                 <ul>
                                     <li><a href="">Car Compare</a></li>
                                     <li><a href="">Price Calculator</a></li>
-                                    <li><a href="">Shipping Calculator</a></li>
+                                    <li><a href="">Shipping Quote</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -117,16 +116,17 @@
 
             </div>
 
-            <div class="search-holder">
+            <!-- <div class="search-holder">
 
                 <button class="search-button"></button>
 
-            </div>
+            </div> -->
 
         </div>
 
     </div>
 
+    {% if request.user.is_authenticated %}
     <div class="shop-cart">
 
         <button class="sc-cart-btn dropdown-invoker"><span class="licon-cart" data-amount="7"></span></button>
@@ -208,7 +208,7 @@
         <!--/ .shopping-cart -->
 
     </div>
-
+    {% endif %}
 </div>
 
 

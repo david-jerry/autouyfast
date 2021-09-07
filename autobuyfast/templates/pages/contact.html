@@ -287,42 +287,34 @@ contact/
 
     <div class="container">
 
-        <h2><b>We Welcome Your Feedback and Comments</b></h2>
+        <h2><b>We Welcome Your feedback and inquiries</b></h2>
         <form id="contact-form" class="contact-form">
-
+            {% csrf_token %}
+            {{form.non_field_errors}}
+            {{form.source.errors}}
+            {{form.source}}
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
 
-                    <label class="required">You Name</label>
-                    <input type="text" name="cf-name">
-
-                    <label class="required">You email</label>
-                    <input type="text" name="cf-email">
+                    <!-- <label class="required">{{form.from_email.label_tag}}</label> -->
+                    {{form.from_email}}
+                    {{form.from_email.errors}}
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
 
-                    <label>Phone number</label>
-                    <input type="text" name="phone">
-
-                    <label>Department</label>
-                    <div class="custom-select">
-                        <div class="select-title">Service</div>
-                        <ul id="menu-type" class="select-list"></ul>
-                        <select class="hide">
-                            <option value="menu">Service 1</option>
-                            <option value="menu">Service 2</option>
-                            <option value="menu">Service 3</option>
-                        </select>
-                    </div>
+                    <!-- <label class="required">{{form.subject.label_tag}}</label> -->
+                    {{form.subject}}
+                    {{form.subject.errors}}
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-12 mt-3">
+                <br>
 
-                    <label>Message</label>
-                    <textarea name="cf-message" rows="5"></textarea>
-
-                    <button type="submit" class="btn btn-style-3" data-type="submit">Send Message</button>
+                    {{form.message}}
+                    {{form.message.errors}}
+                    <br>
+                    <button type="submit" class="btn btn-block btn-style-3" data-type="submit">Send Message</button>
 
                 </div>
             </div>
@@ -333,9 +325,8 @@ contact/
 
 </div>
 
-{% include "snippets/company_stat.html" %}
-{% include "snippets/showroom.html" %}
 {% include "snippets/testimonial.html" %}
+{% include "snippets/company_stat.html" %}
 {% include "snippets/buy_or_sell.html" %}
 {% endblock content %}
 

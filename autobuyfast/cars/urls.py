@@ -9,6 +9,7 @@ from autobuyfast.cars.views import (  # CarLikeFunc,
     car_detail_view,
     cars_list_view,
     filter_car_search_view,
+    filter_home_car_search_view,
     unwatch_car,
     watch_car,
 )
@@ -25,6 +26,7 @@ urlpatterns = [
     path("detail/<slug>/sold", view=CarSold, name="sold"),
     path("detail/<slug>/", view=car_detail_view, name="detail"),
     path("search/", view=filter_car_search_view, name="search"),
+    path("search/alt/", view=filter_home_car_search_view, name="home_search"),
     path("cars/watch/<slug>/", view=watch_car, name="watch_add"),
     path("cars/unwatch/<slug>/", view=unwatch_car, name="watch_remove"),
 ]

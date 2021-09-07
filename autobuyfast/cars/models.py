@@ -63,6 +63,13 @@ def post_image(instance, filename):
     return "cars/{new_filename}/{final_filename}".format(
         new_filename=new_filename, final_filename=final_filename
     )
+def car_vid_path(instance, filename):
+    new_filename = random.randint(1, 3910209312)
+    name, ext = get_filename_ext(filename)
+    final_filename = "{new_filename}{ext}".format(new_filename=new_filename, ext=ext)
+    return "cars/video/{new_filename}/{final_filename}".format(
+        new_filename=new_filename, final_filename=final_filename
+    )
 
 User = settings.AUTH_USER_MODEL
 
@@ -350,7 +357,6 @@ CAR_BODY = (
     ('cargo_van', 'cargo van'),
 )
 
-
 class AutoSearch(TimeStampedModel):
     UNPUBLISHED = "unpublished"
     PUBLISHED = "published"
@@ -364,10 +370,17 @@ class AutoSearch(TimeStampedModel):
     car_vin = CharField(_("Car VIN"), max_length=200, blank=True, null=True, unique=True) 
     car_stock = CharField(_("Car Stock Type"), max_length=25, blank=True, null=True, choices=CAR_STOCK, default="used", unique=False)
     dealer = ForeignKey(User, on_delete=SET_NULL, related_name='car', null=True)
-    car_year = CharField(_("Car Manufacturing Year"), max_length=10, blank=True, null=True, choices=CAR_YEAR, default=2000, unique=False)
+    car_year = IntegerField(_("Car Manufacturing Year"), blank=True, null=True, choices=CAR_YEAR, default=2000, unique=False)
     car_mileage = DecimalField(_("Car Mileage"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False) 
     car_price = DecimalField(_("Car Main Price"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False)
     car_sub_price = DecimalField(_("Car Old Price"), max_digits=40, blank=True, decimal_places=1, null=True, unique=False)
+    videos = FileField(
+        _("Upload Car Video"),
+        upload_to=car_vid_path,
+        null=True,
+        blank=True,
+    )
+    car_map_location = URLField(_("Paste your Google Location"), blank=True, null=True)
     car_door = CharField(_("Car Door"), max_length=15, blank=True, null=True, choices=CAR_DOOR, default="2")
     car_body = CharField(_("Car Body"), max_length=15, blank=True, null=True, choices=CAR_BODY, default="sedan")
     car_history = URLField(_("Car History Link"), max_length=700, blank=True, null=True, unique=True) 
@@ -391,8 +404,8 @@ class AutoSearch(TimeStampedModel):
         return self.title
 
     @property
-    def get_related_cars_by_tags(self):
-        return AutoSearch.objects.filter(car_stock__iexact=self.car_stock, car_year__iexact=str(self.car_year)).exclude(id=self.id)[:5]
+    def get_related_cars_by_dealer(self):
+        return AutoSearch.objects.filter(dealer=self.dealer).order_by("-car_year").exclude(id=self.id)[:3]
 
 
     def like_counts(self):
@@ -402,7 +415,7 @@ class AutoSearch(TimeStampedModel):
     def get_image_url(self):
         img = self.image_set.first()
         if img:
-            return img.image.url
+            return img.img_url
         return img #None
 
 
@@ -431,23 +444,26 @@ class AutoSearch(TimeStampedModel):
 
 
 class Image(TimeStampedModel):
-    car = ForeignKey(AutoSearch, on_delete=CASCADE, related_name='car')
-    img_url = CharField(_("Alternative Image Upload Field"), max_length=500, null=True, blank=True)
-    image = ResizedImageField(
-        _("Upload Car Image"), quality=75, force_format='JPEG', size=[400, 328], crop=['middle', 'center'], upload_to=post_image, null=True, blank=True, help_text="Size 400px x 328px"
+    car = ForeignKey(AutoSearch, on_delete=CASCADE)
+    img_url = URLField(_("Alternative Image Upload Field"), null=True, blank=True, unique=False)
+    image = ImageField(
+        _("Upload Car Image"), upload_to=post_image, null=True, blank=True
     )
 
     def __str__(self):
         return f"{self.car.title} photo"
 
-    def get_image_url(self):
-        if self.img_url and not self.image:
+    def get_remote_image(self):
+        if self.img_url and self.image:
             result = request.urlretrieve(self.img_url)
             self.image.save(
                 os.path.basename(self.img_url),
                 File(open(result[0], 'rb'))
                 )
-            self.save()
+
+    def save(self, *args, **kwargs):
+        self.get_remote_image()
+        super().save(*args, **kwargs)
 
 
     class Meta:

@@ -76,14 +76,14 @@ class Command(BaseCommand):
                 for img in car_images[1:]:
                     image = img['data-src']
                     c_id = get_object_or_404(AutoSearch, slug=car_slug)
-                    try:
-                        Image.objects.create(
-                            car = AutoSearch(id=c_id.id),
-                            img_url = image
-                        )
-                        print(f"Images added to {car_title}")
-                    except:
-                        print(f"No vehicle to associate the images to {car_title}")
+                    # try:
+                    Image.objects.create(
+                        car = AutoSearch(id=c_id.id),
+                        img_url = image
+                    )
+                    print(f"Images added to {car_title}")
+                    # except:
+                    #     print(f"No vehicle to associate the images to {car_title}")
                 
 
         self.stdout.write("Car Scraping Completed Successfully.")

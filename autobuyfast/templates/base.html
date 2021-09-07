@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block title %}AutobuyFast | Welcome to a new age of car shopping & shipping with convenience{% endblock title %}</title>
+  <title>{% block title %}AutobuyFast{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="telephone=no" name="format-detection" />
   <meta name="HandheldFriendly" content="true" />
@@ -83,7 +83,7 @@
 
 </head>
 
-<body>
+<body class="{% block bg %}{% endblock %}" {% block page_bg %}{% endblock page_bg %}>
   <div id="loader">
     <div class="box loading"></div>
   </div>
@@ -114,7 +114,7 @@
     {% include "snippets/slider.html" %}
     {% endblock slider %}
   
-    <main id="content">
+    <main id="content" {% block pcw %}{% endblock pcw %}>
     {% block content %}
     {% endblock content %}
     </main>

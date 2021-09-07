@@ -71,7 +71,7 @@ class Command(BaseCommand):
                 car_stock = car.find('p', class_='stock-type').text
                 car_title = car.find('a', class_='vehicle-card-link').find('h2').text
                 car_slug = slugify(car_title)
-                car_year = car_title[:4]
+                car_year = int(car_title[:4])
                 car_url = 'https://www.cars.com' + str(car.find('a', class_='vehicle-card-link')['href'])
                 car_mileage = car.find('div', class_='mileage').text.replace(',','').replace('mi','').replace(' .','')
                 car_price = car.find('span', class_='primary-price').text.replace(',','').replace('$','').replace(' ','')
@@ -119,7 +119,5 @@ class Command(BaseCommand):
                 except:
                     print(f'{car_title} already exists')
 
-
-                                        
 
         self.stdout.write("Car Scraping Completed Successfully.")

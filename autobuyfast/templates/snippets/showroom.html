@@ -4,7 +4,7 @@
 
     <div class="container">
 
-        <h2 class="section-title align-center">Our Showroom</h2>
+        <h2 class="section-title align-center">Car Ads</h2>
         <div class="carousel-type-3 portfolio-holder style-2">
 
             <div class="owl-carousel" data-max-items="3" data-item-margin="30">
@@ -21,7 +21,7 @@
 
                         <div class="project-image">
 
-                            <img src="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" alt="{{sr.title}} showroom section image">
+                            <img src="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}"  height="240" alt="{{sr.title}} showroom section image">
                             <a href="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" class="project-link project-action fancybox"
                                 data-fancybox="group"></a>
 

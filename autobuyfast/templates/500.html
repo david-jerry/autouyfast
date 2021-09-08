@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{% if exception %}{{ exception }}{% else %} Server Error{% endblock %}
+{% block title %}{% if exception %}{{ exception }}{% else %} 500 Server Error{% endif %}{% endblock %}
+
+{% block slider %}
+  
+{% endblock slider %}
 
 {% block content %}
 <div class="page-404-section" data-bg="{% static 'images/default/1920x678_bg1.jpg' %}">
@@ -9,8 +13,8 @@
     <div class="container">
 
         <div class="inner-404">
-            <h1>{% if exception %}{{ exception }}{% else %}</h1>
-            <h2>Server Error</h2>
+            <h1>{% if exception %}{{ exception }}{% else %}500{% endif %}</h1>
+            <h2>Internal Server Error</h2>
 
             <p>{% if exception %}{{ exception }}{% else %} This indicates that there is an error with our server.{% endif %}</p>
             <p>We're sorry, that you had to see this. <br> Go <a href="{% url 'home' }">Home</a></p>

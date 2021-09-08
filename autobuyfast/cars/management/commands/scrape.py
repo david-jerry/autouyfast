@@ -91,14 +91,14 @@ class Command(BaseCommand):
                     engine = detail_cars.find("dt",text="Engine").findNext("dd").string
                     transmission = detail_cars.find("dt",text="Transmission").findNext("dd").string
 
-                # try:
+                try:
                     AutoSearch.objects.create(
                         title = car_title,
                         slug = car_slug,
                         car_url = car_url,
                         car_vin = vin,
                         car_stock = car_stock,
-                        dealer = User(id=1),
+                        dealer = User(id=2),
                         car_year = car_year,
                         car_mileage = format(int(car_mileage), ".2f"),
                         car_price = format(int(car_price), ".2f"),
@@ -116,8 +116,8 @@ class Command(BaseCommand):
                         car_engine = engine,
                     )
                     print(f'{car_title} was added')
-                # except:
-                #     print(f'{car_title} already exists')
+                except:
+                    print(f'{car_title} already exists')
 
 
         self.stdout.write("Car Scraping Completed Successfully.")

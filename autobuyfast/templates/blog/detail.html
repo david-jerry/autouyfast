@@ -6,8 +6,7 @@
 {% endblock blog_title %}
 
 {% block blog_desc %}
-{{post.content|safe|truncatewords:70}}
-{% endblock %}
+{% endblock blog_desc %}
 
 {% block blog_author %}
 {{post.author}}
@@ -15,27 +14,26 @@
 
 {% block blog_og_title %}
 {{post.title}}
-{% endblock %}
+{% endblock blog_og_title %}
 
 {% block blog_og_url %}
 {{post.get_absolute_url}}
-{% endblock %}
+{% endblock blog_og_url %}
 
 {% block blog_tw_title %}
 {{post.title}}
-{% endblock %}
+{% endblock blog_tw_title %}
 
 {% block blog_tw_desc %}
-{{post.content|safe|truncatewords:70}}
-{% endblock %}
+{% endblock blog_tw_desc %}
 
 {% block blog_can_link %}
 blog/{{post.slug}}/
-{% endblock %}
+{% endblock blog_can_link %}
 
 {% block blog_breadcrum_title %}
 {{post.title}}
-{% endblock %}
+{% endblock blog_breadcrum_title %}
 
 {% block breadcrum %}
 {{post.slug}}

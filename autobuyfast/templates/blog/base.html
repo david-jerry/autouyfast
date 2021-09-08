@@ -1,38 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_bg %}
+{% endblock page_bg %}
 
 {% block title %}
 {% block blog_title %}{% endblock blog_title %} | {{ block.super }}
 {% endblock title %}
 
 {% block description %}
-{% block blog_desc %}{% endblock %}
-{% endblock %}
+{% block blog_desc %}{% endblock blog_desc %}
+{% endblock description %}
 
 {% block og_author %}
 {% block blog_author %}{% endblock blog_author %}
-{% endblock %}
+{% endblock og_author %}
 
 {% block og_title %}
-{% block blog_og_title %}{% endblock %}
-{% endblock %}
+{% block blog_og_title %}{% endblock blog_og_title %}
+{% endblock og_title %}
 
 {% block og_url %}
-{% block blog_og_url %}{% endblock %}
-{% endblock %}
+{% block blog_og_url %}{% endblock blog_og_url %}
+{% endblock og_url %}
 
 {% block twitter_title %}
-{% block blog_tw_title %}{% endblock %}
-{% endblock %}
+{% block blog_tw_title %}{% endblock blog_tw_title %}
+{% endblock twitter_title %}
 
 {% block twitter_desc %}
-{% block blog_tw_desc %}{% endblock %}
-{% endblock %}
+{% block blog_tw_desc %}{% endblock blog_tw_desc %}
+{% endblock twitter_desc %}
 
 {% block can_link %}
-{% block blog_can_link %}{% endblock %}
-{% endblock %}
+{% block blog_can_link %}{% endblock blog_can_link %}
+{% endblock can_link %}
 
 
 {% block slider %}

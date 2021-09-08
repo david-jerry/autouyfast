@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block page_bg %}
 {% endblock page_bg %}
@@ -38,14 +38,30 @@
 
 
 {% block slider %}
-{% endblock slider %}
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img2.jpg' %}">
+
+    <div class="container">
+  
+        <h1 class="page-title">Account</h1>
+  
+        <ul class="breadcrumbs">
+  
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>{% block acc_bc %}{% endblock acc_bc %}</li>
+  
+        </ul>
+  
+    </div>
+  
+  </div>
+  {% endblock slider %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 offset-md-3">
-      {% block inner %}{% endblock %}
+<div class="page-section">
+    <div class="container">
+        <div class="row">
+        {% block inner %}{% endblock %}
+        </div>
     </div>
-  </div>
 </div>
 {% endblock content %}

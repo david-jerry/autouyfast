@@ -8,25 +8,12 @@
 
 {% url 'signup_select' as signup_url %}
 
+{% block acc_bc %}
+{% trans "Sign In" %}
+{% endblock acc_bc %}
+
 {% block inner %}
-<div class="row">
-  <div class="col-md-4">
-    <div class="b-bnr">
-      <div class="b-bnr__label" style="margin-bottom:10px">Best &amp; Low Cost</div>
-      <div class="b-bnr__title">CAR PURCHASE</div>
-      <div class="b-bnr__info">We have Effective and Efficient Vehicles for Car Purchases to meet all your needs!</div>
-      <ul class="b-bnr__list list list-mark-3">
-          <li>Instant Quotes</li>
-          <li>Unlimited Mileage</li>
-          <li>No Hidden Costs</li>
-          <li>Hassle-Free Service</li>
-          <li>Guranteed Reservations</li>
-          <li>Watch List</li>
-          <li>Availability Notifications</li>
-      </ul>
-  </div>
-  </div>
-  <div class="col-md-7">
+<div class="col-sm-12">
 
     <h1>{% trans "Sign In" %}</h1>
 
@@ -65,6 +52,5 @@
       <br>
       <button class="primaryAction btn btn-primary btn-block" type="submit">{% trans "Sign In" %}</button>
     </form>
-  </div>
 </div>
 {% endblock %}

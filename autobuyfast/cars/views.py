@@ -140,7 +140,7 @@ def CarSold(request, slug):
 class CarsListview(ListView):
     model = AutoSearch
     template_name = 'cars/list.html'
-    ordering = ["car_year"]
+    ordering = ["-car_year"]
     page_kwarg = 'page'
     paginate_by = 20
     allow_empty = True
@@ -184,6 +184,7 @@ cars_list_view = CarsListview.as_view()
 class CarsSearchListview(ListView):
     model = AutoSearch
     template_name = 'cars/search_list.html'
+    ordering = ["-car_year"]
     page_kwarg = 'page'
     paginate_by = 15
     allow_empty = True
@@ -206,6 +207,7 @@ filter_car_search_view = CarsSearchListview.as_view()
 class CarsHomeSearchListview(ListView):
     model = AutoSearch
     template_name = 'cars/home_search_list.html'
+    ordering = ["-car_year"]
     page_kwarg = 'page'
     paginate_by = 15
     allow_empty = True
@@ -276,6 +278,7 @@ def unwatch_car(request, slug):
 class CarDetailView(FormMixin, SuccessMessageMixin, DetailView):
     model = AutoSearch
     template_name='cars/detail.html'
+    ordering = ["-car_year"]
     context_object_name = "car"
     form_class = ContactCarDealerForm
     success_message = "Your Message has been sent to the dealer"

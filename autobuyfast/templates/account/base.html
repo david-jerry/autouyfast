@@ -1,34 +1,43 @@
 {% extends "base.html" %}
-{% block title %}{% block head_title %}{% endblock head_title %} - {{ block.super }}{% endblock title %}
+
+
+{% block page_bg %}
+{% endblock page_bg %}
+
+{% block title %}
+{% block head_title %}{% endblock %} | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+{% block admin_desc %}{% endblock %}
+{% endblock description %}
+
+{% block og_author %}
+{% block admin_author %}{% endblock %}
+{% endblock og_author %}
+
+{% block og_title %}
+{% block admin_og_title %}{% endblock %}
+{% endblock og_title %}
+
+{% block og_url %}
+{% block admin_og_url %}{% endblock %}
+{% endblock og_url %}
+
+{% block twitter_title %}
+{% block admin_tw_title %}{% endblock %}
+{% endblock twitter_title %}
+
+{% block twitter_desc %}
+{% block admin_tw_desc %}{% endblock %}
+{% endblock twitter_desc %}
+
+{% block can_link %}
+{% block admin_can_link %}{% endblock %}
+{% endblock can_link %}
+
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100;">
-    <div class="area-bg__inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1 class="b-title-page bg-primary_a">Accounts</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <ol class="breadcrumb">
-                    <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-                    </li>
-                    <li class="active">User Accounts</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb-->
-
 {% endblock slider %}
 
 {% block content %}
@@ -39,4 +48,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock content %}

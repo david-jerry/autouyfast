@@ -26,6 +26,14 @@ class CompareCreateView(SuccessMessageMixin, CreateView):
     fields = ["car_one", "car_two", "car_three"]
     success_message = _("Successfully Compared our car ads")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["results"] = CarCompare.objects.filter()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('cars:compare')#, kwargs={'slug':self.object.slug})
+
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AutoSearch
     template_name = 'cars/create.html'

@@ -28,6 +28,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # get html link
+        User.objects.get_or_create(username="cars", email="info@cars.com"),
         n = [0,1,2,3,4,5]
         for i, id in enumerate(n):
             car_id = id

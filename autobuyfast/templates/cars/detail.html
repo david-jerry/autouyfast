@@ -94,7 +94,7 @@ cars/{{car.slug}}
                                 <a href="{% url 'cars:watch_add' car.slug %}" class="link-text2"><i class="licon-heart"></i>Wishlist </a>
                                 {% endif %}
                                 {% endif %}
-                                <a href="{% url 'cars:compare' %}" class="link-text2"><i class="licon-copy"></i>Compare </a>
+                                <a href="{% url 'cars:compare_detail' 'result' %}" class="link-text2"><i class="licon-copy"></i>Compare </a>
                                 <a href="" class="link-text2"><i class="licon-document2"></i>Car Brochure </a>
                             </div>
                         </div>

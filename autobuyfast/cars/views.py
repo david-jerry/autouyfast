@@ -30,17 +30,17 @@ class CompareCreateView(SuccessMessageMixin, UpdateView):
     def get_object(self, queryset=None):
         pk = self.kwargs.get(self.pk_url_kwarg)
         if pk is not None:
-            queryset = queryset.filter(pk=pk)
+            queryset = CarCompare.objects.filter(pk=pk)
         # try:
         #     obj = queryset.get()
         # except queryset.model.DoesNotExist:
         #     raise Http404(_("No %(verbose_name)s found matching the query") % {'verbose_name': queryset.model._meta.verbose_name}))
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["results"] = CarCompare.objects.filter()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["results"] = self.get_object()
+    #     return context
 
     def get_success_url(self):
         return reverse_lazy('cars:compare')#, kwargs={'slug':self.object.slug})

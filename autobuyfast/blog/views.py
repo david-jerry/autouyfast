@@ -72,9 +72,6 @@ class PostList(ListView):
         return context
 
 def reviews_posts(request):
-    # site = get_object_or_404(Site, name="autobuyfast")
-    cat = get_object_or_404(Category, slug="reviews")
-    # cat = Category.objects.get_or_create(title="reviews", subtitle="reviews", slug="reviews", sites__set="1")
     object_list = Post.objects.all_posts().filter(categories__slug="reviews")
     tags = Tag.objects.all().filter(categories__slug="reviews")
 
@@ -140,17 +137,14 @@ class SearchPostList(ListView):
         context = super().get_context_data(*args, **kwargs)
         request = self.request
         tags = Tag.objects.all()
-        categories = Category.objects.all()
-        recent_posts = Post.objects.recent_posts()[:5]
         context["tags"] = tags
-        context["categories"] = categories
-        context["recent_posts"] = recent_posts
         return context
 
 
+# "all_news_category": Post.objects.all_posts().filter(categories__slug="news"),
 
 def tag_posts(request, tag_slug=None):
-    object_list = Post.objects.all()
+    object_list = Post.objects.all_posts()
     tag = None
 
     if tag_slug:
@@ -159,8 +153,6 @@ def tag_posts(request, tag_slug=None):
         print("tag object id = ", object_list)
 
     tags = Tag.objects.all()
-    categories = Category.objects.all()
-    recent_posts = Post.objects.recent_posts()[:5]
 
     paginator = Paginator(object_list, 5)
     page = request.GET.get('page')
@@ -176,46 +168,44 @@ def tag_posts(request, tag_slug=None):
         'page': page,
         'posts': posts,
         'tags': tags,
-        'categories': categories,
-        'recent_posts': recent_posts,
         'tag': tag
     }        
     return render(request, 'blog/tags.html', data)
 
 
 
-def cat_posts(request, cat_slug=None):
-    object_list = Post.objects.all()
-    cat = None
+# def cat_posts(request, cat_slug=None):
+#     object_list = Post.objects.all()
+#     cat = None
 
-    if cat_slug:
-        cat = get_object_or_404(Category, slug=cat_slug)
-        object_list = object_list.filter(categories__in=[cat], status="published")
-        print("tag object id = ", object_list)
+#     if cat_slug:
+#         cat = get_object_or_404(Category, slug=cat_slug)
+#         object_list = object_list.filter(categories__in=[cat], status="published")
+#         print("tag object id = ", object_list)
 
-    tags = Tag.objects.all()
-    categories = Category.objects.all()
-    recent_posts = Post.objects.recent_posts()[:5]
+#     tags = Tag.objects.all()
+#     categories = Category.objects.all()
+#     recent_posts = Post.objects.recent_posts()[:5]
 
-    paginator = Paginator(object_list, 5)
-    page = request.GET.get('page')
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer deliver the first page
-        posts = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range deliver last page of results
-        posts = paginator.page(paginator.num_pages)
-    data = {
-        'page': page,
-        'posts': posts,
-        'tags': tags,
-        'categories': categories,
-        'recent_posts': recent_posts,
-        'cat': cat
-    }        
-    return render(request, 'blog/categories.html', data)
+#     paginator = Paginator(object_list, 5)
+#     page = request.GET.get('page')
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer deliver the first page
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range deliver last page of results
+#         posts = paginator.page(paginator.num_pages)
+#     data = {
+#         'page': page,
+#         'posts': posts,
+#         'tags': tags,
+#         'categories': categories,
+#         'recent_posts': recent_posts,
+#         'cat': cat
+#     }        
+#     return render(request, 'blog/categories.html', data)
 
 
 def post_share(request, slug):
@@ -261,8 +251,6 @@ def post_share(request, slug):
 def PostDetail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     tags = Tag.objects.all()
-    categories = Category.objects.all()
-    recent_posts = Post.objects.recent_posts().exclude(id=post.id)[:5]
     post_tags_ids = post.tags.values_list('id', flat=True)
     related_posts = Post.objects.all_posts().filter(tags__in=post_tags_ids).exclude(id=post.id)
     related_posts = related_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-pub_date')[:5]
@@ -277,8 +265,6 @@ def PostDetail(request, slug):
     data = {
         "post": post,
         'posts': qs,
-        'categories': categories,
-        'recent_posts': recent_posts,
         'related_posts': related_posts,
         'newest': newest,
         'next_post': second_newest,

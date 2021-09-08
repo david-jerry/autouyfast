@@ -2,11 +2,11 @@
 {% load static humanize i18n %}
 
 {% block blog_title %}
-{{tag.title}
+{{tag.title}}
 {% endblock blog_title %}
 
 {% block blog_desc %}
-posts under {{tag.title}
+posts under {{tag.title}}
 {% endblock %}
 
 {% block blog_author %}
@@ -14,7 +14,7 @@ Jeremiah David
 {% endblock blog_author %}
 
 {% block blog_og_title %}
-{{tag.title}
+{{tag.title}}
 {% endblock %}
 
 {% block blog_og_url %}
@@ -22,11 +22,11 @@ Jeremiah David
 {% endblock %}
 
 {% block blog_tw_title %}
-{{tag.title}
+{{tag.title}}
 {% endblock %}
 
 {% block blog_tw_desc %}
-posts under {{tag.title}
+posts under {{tag.title}}
 {% endblock %}
 
 {% block blog_can_link %}
@@ -43,6 +43,7 @@ News
 {% endblock breadcrum %}
 
 {% block blog_content %}
+
 <main id="main" class="col-md-8 col-sm-12">
 
     <div class="entries-holder entry-big">
@@ -91,12 +92,12 @@ News
                 </div>
 
             </div>
-            <p>{{post.content|safe|truncatechars:160}}</p>
+            <p>{{post.content|safe|truncatewords:70}}</p>
             <a href="{{post.get_absolute_url}}" class="info-btn">Continue Reading</a>
             {% elif not post.image_set and not post.video and not post.url %}
             <div class="blockquote-holder" data-bg="images/750x132_bg1.jpg">
                 <blockquote>
-                    <p>{{post.content|safe|truncatechars:160}}</p>
+                    <p>{{post.content|safe|truncatewords:70}}</p>
                     <div class="author">{{post.author}}</div>
                 </blockquote>
             </div>
@@ -121,7 +122,7 @@ News
 
             </div>
 
-            <p>{{post.content|safe|truncatechars:160}}</p>
+            <p>{{post.content|safe|truncatewords:70}}</p>
             <a href="{{post.get_absolute_url}}" class="info-btn">Continue Reading</a>
             {% endif %}
 
@@ -208,8 +209,7 @@ News
         <article class="entry">
 
             <div class="thumbnail-attachment">
-                <div class="review-label size3">{{post.rating}}</div>
-                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
             </div>
             <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 
@@ -254,7 +254,7 @@ News
             <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
             <div class="thumbnail-attachment">
                 <div class="review-label size3">{{post.rating}}</div>
-                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
             </div>
             <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 

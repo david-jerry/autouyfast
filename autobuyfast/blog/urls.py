@@ -4,7 +4,6 @@ from .views import (
     PostDetail,
     PostList,
     SearchPostList,
-    cat_posts,
     post_share,
     reviews_posts,
     tag_posts,
@@ -18,5 +17,4 @@ urlpatterns = [
     path('<slug>/', PostDetail, name='detail'),
     path('<slug>/share/', post_share, name='share'),
     path('tag/<slug:tag_slug>/', tag_posts, name='posts_by_tag'),
-    path('category/<slug:cat_slug>/', cat_posts, name='posts_by_cat'),
 ]

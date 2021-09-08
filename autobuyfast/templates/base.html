@@ -74,7 +74,6 @@
   {% include "snippets/js.html" %}
 
   <!-- place project specific Javascript in this file -->
-  <script defer src="{% static 'js/iziToast.min.js' %}"></script>
   {% compress js inline %}
   {% endcompress %}
   {% endblock javascript %}
@@ -94,7 +93,7 @@
     <div id="mobile-advanced" class="mobile-advanced"></div>
     
     <header id="header" class="header-2">
-        <div class="searchform-wrap">
+        <!-- <div class="searchform-wrap">
           <div class="vc-child h-inherit relative">
 
             <form>
@@ -104,20 +103,21 @@
 
           </div>
           <button class="close-search-form"></button>
-        </div>
+        </div> -->
 
         {% include "snippets/header.html" %}
         {% include "snippets/nav.html" %}
     </header>
 
+  
+    <div id="content" {% block pcw %}{% endblock pcw %}>
     {% block slider %}
     {% include "snippets/slider.html" %}
     {% endblock slider %}
-  
-    <main id="content" {% block pcw %}{% endblock pcw %}>
+
     {% block content %}
     {% endblock content %}
-    </main>
+    </div>
 
     {% include "snippets/footer.html" %}
 
@@ -125,12 +125,8 @@
 
   {% block modal %}{% endblock modal %}
   {# izi message signals for django #}
+  <script async src="{% static 'js/iziToast.min.js' %}"></script>
   <script type=text/javascript>
-    jQuery('.home-date').datepicker({
-      autoclose: true,
-      startDate: "today",
-    });
-
     {% for message in messages %}
     iziToast.settings({
       timeout: 9000,
@@ -157,27 +153,8 @@
     {% endfor %}
   </script>
 
-  {# tiny mce settings configuration #}
   
   {% block inline_javascript %}
-  <!-- <script >
-    tinymce.init({
-      selector: 'textarea',
-      menubar: false,
-      plugins: [
-        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-        "searchreplace wordcount visualblocks visualchars code fullscreen",
-        "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor colorpicker textpattern"
-      ],
-      setup: function (editor) {
-        editor.on('change', function (e) {
-          editor.save();
-        });
-      }
-    });
-</script> -->
-  {# Script tags with only code, no src (defer by default) #}
   {% endblock inline_javascript %}
 </body>
 

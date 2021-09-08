@@ -91,12 +91,12 @@ News
                 </div>
 
             </div>
-            <p>{{post.content|safe|truncatechars:160}}</p>
+            <p>{{post.content|safe|truncatewords:70}}</p>
             <a href="{{post.get_absolute_url}}" class="info-btn">Continue Reading</a>
             {% elif not post.image_set and not post.video and not post.url %}
             <div class="blockquote-holder" data-bg="images/750x132_bg1.jpg">
                 <blockquote>
-                    <p>{{post.content|safe|truncatechars:160}}</p>
+                    <p>{{post.content|safe|truncatewords:70}}</p>
                     <div class="author">{{post.author}}</div>
                 </blockquote>
             </div>
@@ -121,7 +121,7 @@ News
 
             </div>
 
-            <p>{{post.content|safe|truncatechars:160}}</p>
+            <p>{{post.content|safe|truncatewords:70}}</p>
             <a href="{{post.get_absolute_url}}" class="info-btn">Continue Reading</a>
             {% endif %}
 
@@ -208,8 +208,7 @@ News
         <article class="entry">
 
             <div class="thumbnail-attachment">
-                <div class="review-label size3">{{post.rating}}</div>
-                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
             </div>
             <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 
@@ -254,7 +253,7 @@ News
             <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
             <div class="thumbnail-attachment">
                 <div class="review-label size3">{{post.rating}}</div>
-                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+                <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
             </div>
             <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 

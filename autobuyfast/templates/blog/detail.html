@@ -1,12 +1,12 @@
 {% extends "blog/base.html" %}
-{% load static i18n humanize comment_tags crispy_forms_tags %}
+{% load static humanize i18n %}
 
 {% block blog_title %}
 {{post.title}}
 {% endblock blog_title %}
 
 {% block blog_desc %}
-{{post.content|safe|truncatechars:160}}
+{{post.content|safe|truncatewords:70}}
 {% endblock %}
 
 {% block blog_author %}
@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block blog_tw_desc %}
-{{post.content|safe|truncatechars:160}}
+{{post.content|safe|truncatewords:70}}
 {% endblock %}
 
 {% block blog_can_link %}
@@ -49,56 +49,57 @@ blog/{{post.slug}}/
 
     <div class="review-section">
 
-      <article class="entry review-item">
-
-        <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
-
+      <div class="content-element7">
         {% if post.image_set and not post.video and not post.url %}
         <div class="entry-attachment">
+          
+          <div class="carousel-type-4">
 
-            <div class="carousel-type-4">
-
-                <div class="owl-carousel" data-max-items="1">
-                    {% for image in post.image_set.all %}
-                    <div class="item-carousel">
-                        <img src="{{image.url}}" alt="">
-                    </div>
-                    {% endfor %}
-                </div>
-
+            <div class="owl-carousel" data-max-items="1">
+              {% for image in post.image_set.all %}
+              <div class="item-carousel">
+                <img src="{{image.image.url}}" height="430" alt="">
+              </div>
+              {% endfor %}
             </div>
+
+          </div>
 
         </div>
         {% elif not post.image_set and not post.video and not post.url %}
         <div class="blockquote-holder" data-bg="{% static 'images/default/750x132_bg1.jpg' %}">
-            <blockquote>
-                <p>{{post.content|safe|truncatechars:160}}</p>
-                <div class="author">{{post.author}}</div>
-            </blockquote>
+          <blockquote>
+            <p>{{post.content|safe|truncatewords:70}}</p>
+            <div class="author">{{post.author}}</div>
+          </blockquote>
         </div>
         {% elif not post.image_set and not post.video and post.url %}
         <div class="thumbnail-attachment">
 
-            <a href="{{post.url}}" class="link-attachment">
+          <a href="{{post.url}}" class="link-attachment">
 
-                <span class="licon-link"></span>{{post.title}}
+            <span class="licon-link"></span>{{post.title}}
 
-            </a>
+          </a>
 
         </div>
         {% elif not post.image_set and post.video and post.url %}
         <div class="entry-attachment">
 
-            <div class="responsive-iframe">
+          <div class="responsive-iframe">
 
-                <iframe src="{{post.video.url}}"></iframe>
+            <iframe src="{{post.video.url}}"></iframe>
 
-            </div>
+          </div>
 
         </div>
         {% endif %}
 
+      </div>
 
+      <article class="entry">
+
+        <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
 
         <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 
@@ -111,9 +112,9 @@ blog/{{post.slug}}/
           <div class="entry-meta">
 
             <time class="entry-date" datetime="{{post.pub_date}}">{{post.pub_date}}</time>
-            <a href="javascript:;" class="entry-cat">{% for cat in post.categories.all %}{{cat.title.}}{% endfor %}</a>
+            {% for cat in post.categories.all %}<a href="javascript:;" class="entry-cat">{{cat.title}}</a>{% endfor %}
             <!-- <a href="#" class="entry-comments-link">3 comments</a> -->
-            <span class="entry-byline">by<a href="javascript:;"> {{post.author}}</a></span>
+            <span class="entry-byline">by <a href="javascript:;"> {{post.author}}</a></span>
 
           </div>
 
@@ -123,11 +124,13 @@ blog/{{post.slug}}/
 
         <!-- - - - - - - - - - - - - - End of Entry body - - - - - - - - - - - - - - - - -->
 
+      </article>
+
+      <div class="content-element7">
         <p>
           {{post.content|safe}}
         </p>
-
-      </article>
+      </div>
 
       <div class="content-element7">
 
@@ -200,7 +203,9 @@ blog/{{post.slug}}/
 
             <div class="team-member">
               <a href="#" class="member-photo">
-                <img src="{% if post.author.userprofile.profile_display %}{{post.author.userprofile.profile_display.url}}{% else %}{% static 'images/default/100x100_photo2.jpg' %}{% endif %}" alt="">
+                <img
+                  src="{% if post.author.userprofile.profile_display %}{{post.author.userprofile.profile_display.url}}{% else %}{% static 'images/default/100x100_photo2.jpg' %}{% endif %}"
+                  alt="">
               </a>
               <div class="wrapper">
                 <h5 class="member-name"><a href="javascript:;">{{post.author}}</a></h5>
@@ -510,8 +515,7 @@ blog/{{post.slug}}/
     <article class="entry">
 
       <div class="thumbnail-attachment">
-        <div class="review-label size3">{{post.rating}}</div>
-        <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+        <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
       </div>
       <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 
@@ -556,7 +560,7 @@ blog/{{post.slug}}/
       <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
       <div class="thumbnail-attachment">
         <div class="review-label size3">{{post.rating}}</div>
-        <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" alt="{{post.title}}"></a>
+        <a href="{{post.get_absolute_url}}"><img src="{{post.get_image_url}}" height="87" width="130" alt="{{post.title}}"></a>
       </div>
       <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
 

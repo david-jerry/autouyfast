@@ -55,10 +55,9 @@ class PostList(ListView):
     slug_url_kwarg = "slug"
 
     def get_queryset(self): # new
-        site = Site.objects.get_or_create(id=2, domain="autobuyfast.com", name="autobuyfast")
-        # cat = Category.objects.get_or_create(id=5, title="news", subtitle="news", slug="news", sites__domain__in=[site])
-        cat = get_object_or_404(Category, slug="news")
-        object_list = Post.objects.all_posts().filter(categories__slug__in=[cat])
+        # cat = get_object_or_404(Category, slug="news")
+        # object_list = Post.objects.all_posts().filter(categories__slug__in=[cat])
+        object_list = Post.objects.all_posts().filter(categories__slug="news")
         return object_list
 
 
@@ -68,23 +67,16 @@ class PostList(ListView):
         # site = Site.objects.get_or_create(id=settings.SITE_ID, domain="autobuyfast.com", name="autobuyfast.com")
         # site = Site.objects.get_or_create(id=2, domain="autobuyfast.com", name="autobuyfast")
         cat = get_object_or_404(Category, slug="news")
-        tags = Tag.objects.all().filter(categories__slug__in=[cat])
-        categories = Category.objects.filter(slug="news")
-        recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
+        tags = Tag.objects.all().filter(categories__slug="news")
         context["tags"] = tags
-        context["categories"] = categories
-        context["recent_posts"] = recent_posts
         return context
 
 def reviews_posts(request):
     # site = get_object_or_404(Site, name="autobuyfast")
     cat = get_object_or_404(Category, slug="reviews")
     # cat = Category.objects.get_or_create(title="reviews", subtitle="reviews", slug="reviews", sites__set="1")
-    object_list = Post.objects.all_posts().filter(categories__slug__in=[cat], status="published")
-    recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
-    tags = Tag.objects.all().filter(categories__slug__in=[cat])
-    categories = Category.objects.filter(slug="reviews")
-    recent_posts = Post.objects.recent_posts().filter(categories__slug__in=[cat])[:5]
+    object_list = Post.objects.all_posts().filter(categories__slug="reviews")
+    tags = Tag.objects.all().filter(categories__slug="reviews")
 
     paginator = Paginator(object_list, 5)
     page = request.GET.get('page')
@@ -100,8 +92,6 @@ def reviews_posts(request):
         'page': page,
         'posts': posts,
         'tags': tags,
-        'categories': categories,
-        'recent_posts': recent_posts,
     }        
     return render(request, 'blog/review_list.html', data)
 

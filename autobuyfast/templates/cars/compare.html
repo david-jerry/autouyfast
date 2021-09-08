@@ -18,7 +18,7 @@ compare cars
 {% endblock %}
 
 {% block og_url %}
-{% url 'cars:compare' %}
+{% url 'cars:compare' 'result' %}
 {% endblock %}
 
 {% block twitter_title %}
@@ -94,7 +94,7 @@ compare-cars/
 
         </div>
 
-        <form action="{% url 'cars:compare' %}" method="post">
+        <form action="{% url 'cars:compare' 'result' %}" method="post">
             {% csrf_token %}
             {{form.non_field_errors}}
             {{form.source.errors}}
@@ -128,7 +128,7 @@ compare-cars/
             </div>
         </form>
 
-        
+
     </div>
 </div>
 {% endblock content %}

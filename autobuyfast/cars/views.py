@@ -37,7 +37,7 @@ class CompareCreateView(SuccessMessageMixin, UpdateView):
 
 class CompareView(DetailView):
     model = CarCompare
-    context_object_name = "results"
+    context_object_name = "result"
     template_name = "cars/compare_detail.html"
     slug_field = "slug"
     slug_url_kwarg = "slug"

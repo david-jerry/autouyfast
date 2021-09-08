@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}
+Compare Cars | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+compare 1-3 cars all at ones
+{% endblock %}
+
+{% block og_author %}
+Jeremiah David
+{% endblock %}
+
+{% block og_title %}
+compare cars
+{% endblock %}
+
+{% block og_url %}
+{% url 'cars:compare' %}
+{% endblock %}
+
+{% block twitter_title %}
+compare cars
+{% endblock %}
+
+{% block twitter_desc %}
+compare 1-3 cars all at ones
+{% endblock %}
+
+{% block can_link %}
+compare-cars/
+{% endblock %}
+
+{% block bg %}
+{% endblock bg %}
+
+{% block slider %}
+<div class="breadcrumbs-wrap" data-bg="{% static 'images/default/1920x200_img2.jpg' %}">
+
+    <div class="container">
+      
+      <h1 class="page-title">Compare Vehicles</h1>
+
+      <ul class="breadcrumbs">
+
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'cars:list' %}">Car Ads</a></li>
+        <li>Compare Vehicles</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+{% endblock slider %}
+
+{% block page_bg %}{% endblock page_bg %}
+
+{% block pcw %}{% endblock pcw %}
+
+{% block content %}
+<div class="page-section">
+    <div class="container">
+        <div class="share-section flex-row flex-justify flex-center">
+
+            <a href="{% url 'cars:list' %}" class="link-text2"><i class="icon-reply-4"></i>Back to Results</a>
+            <div class="page-nav">
+                <!-- <a href="#" class="page-prev">Prev</a>
+          <span>2/38 Listings</span>
+          <a href="#" class="page-next">Next</a> -->
+            </div>
+            <div class="share-list flex-row flex-center">
+
+                <span>Share</span>
+                <ul>
+                    <li><a href="#" class="sh-facebook"><i class="icon-facebook"></i></a></li>
+                    <li class="share-menu">
+                        <a href="#"><i class="icon-ellipsis"></i></a>
+                        <ul class="dropdown-list social-icons share type2">
+
+                            <li><a href="#" class="sh-twitter"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#" class="sh-google"><i class="icon-gplus"></i></a></li>
+                            <li><a href="#" class="sh-pinterest"><i class="icon-pinterest"></i></a></li>
+                            <li><a href="#" class="sh-mail"><i class="icon-mail"></i></a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="icon-print-6"></i></a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <form action="{% url 'cars:compare' %}" method="post">
+            {% csrf_token %}
+            {{form.non_field_errors}}
+            {{form.source.errors}}
+            {{form.source}}
+            <div class="row">
+                <div class="col-sm-4">
+                    <h6 class="a-title">{{form.car_one.label_tag}}</h6>
+                    <div class="auto-custom-select">
+                        {{form.car_one}}
+                        {{form.car_one.errors}}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h6 class="a-title">{{form.car_two.label_tag}}</h6>
+                    <div class="auto-custom-select">
+                        {{form.car_two}}
+                        {{form.car_two.errors}}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h6 class="a-title">{{form.car_three.label_tag}}</h6>
+                    <div class="auto-custom-select">
+                        {{form.car_three}}
+                        {{form.car_three.errors}}
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <br>
+                    <button type="submit" class="btn btn-block btn-style-3" data-type="submit">Compare Cars</button>
+                </div>
+            </div>
+        </form>
+
+        
+    </div>
+</div>
+{% endblock content %}

@@ -39,8 +39,8 @@
                                     <li><a href="{% url 'account_login' %}" class="btn btn-style-6 btn-small">Login</a></li>
                                     <li><a href="{% url 'signup_select' %}" class="btn btn-style-3 btn-small">Signup</a></li>
                                 {% else %}
-                                    <li><a href="{% url 'users:detail' request.user.username %}" class="btn btn-style-6 btn-small">{{request.user.fullname}}</a></li>
-                                    <li><a href="{% url 'account_logout' %}" class="btn btn-style-3 btn-small">Logout</a></li>
+                                    <li><a href="{% url 'users:detail' request.user.username %}" class="btn btn-style-6 btn-small">{{request.user.fullname|truncatechars:8}}</a></li>
+                                    <li><a href="{% url 'account_logout' %}" class="btn btn-style-3 btn-small"><i class="licon-power-switch"></i> E</a></li>
                                 {% endif %}
                             </ul>
                         </div>

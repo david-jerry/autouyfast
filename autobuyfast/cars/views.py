@@ -21,29 +21,27 @@ User = get_user_model()
 
 # Create your views here.
 
-class CompareCreateView(FormMixin, SuccessMessageMixin, DetailView):
+class CompareCreateView(SuccessMessageMixin, UpdateView):
     model = CarCompare
-    context_object_name = "results"
     template_name = "cars/compare.html"
     fields = ["car_one", "car_two", "car_three"]
     success_message = _("Successfully Compared our car ads")
-    pk_url_kwarg = "pk"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
 
-    def get_object(self, queryset=None):
-        pk = self.kwargs.get(self.pk_url_kwarg)
-        if pk is not None:
-            queryset = CarCompare.objects.filter(pk=pk)
-        return queryset
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["results"] = self.get_object()
-    #     return context
 
     def get_success_url(self):
-        object = self.get_object()
-        pk = object.pk
-        return reverse_lazy('cars:compare', kwargs={'pk':pk})
+        slug = self.object.slug
+        return reverse_lazy('cars:compare_detail', kwargs={'slug':'result'})
+
+
+class CompareView(DetailView):
+    model = CarCompare
+    context_object_name = "results"
+    template_name = "cars/compare_detail.html"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
 
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AutoSearch

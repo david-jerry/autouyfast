@@ -14,11 +14,18 @@ from django.views.generic.edit import CreateView, DeleteView, FormMixin, UpdateV
 
 from .filters import CarFilter, CarSearchFilter, HomeSearchFilter
 from .forms import AutoSearchForm, CarImageFormset, ContactCarDealerForm
-from .models import AutoSearch, WatchCars
+from .models import AutoSearch, CarCompare, WatchCars
 
 User = get_user_model()
 
 # Create your views here.
+
+class CompareCreateView(SuccessMessageMixin, CreateView):
+    model = CarCompare
+    template_name = "cars/compare.html"
+    field = ["car_one", "car_two", "car_three"]
+    success_message = _("Successfully Compared our car ads")
+
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AutoSearch
     template_name = 'cars/create.html'

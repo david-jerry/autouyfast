@@ -501,26 +501,26 @@ class WatchCars(TimeStampedModel):
 
     def send_price_change_mail(self):
         if self.car.car_sub_price > 0 and self.user.car_price_notif:
-            send_mail = send_mail(
+            send_email = send_mail(
                 f"Watched Car - {self.car.title} Price change",
                 f"There has been a chnage to {self.car.title} price you are watching, \n Please check your watch list to confirm.",
                 "notif@autobuyfast.com",
                 [self.user.email],
                 fail_silently=False
             )
-            return send_mail
+            return send_email
         return False
 
     def send_sold_change_mail(self):
         if not self.car.available and self.user.car_sold_notif:
-            send_mail = send_mail(
+            send_email = send_mail(
                 f"Watched Car - {self.car.title} Sold",
                 f"This vehicle {self.car.title} has been sold, \n Please check your watch list to confirm.",
                 "notif@autobuyfast.com",
                 [self.user.email],
                 fail_silently=False
             )
-            return send_mail
+            return send_email
         return False
 
     class Meta:
@@ -529,4 +529,15 @@ class WatchCars(TimeStampedModel):
         verbose_name_plural = "Car Watch"
         ordering = ["-created"]
 
+
+class CarCompare(TimeStampedModel):
+    car_one = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="carone")
+    car_two = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="cartwo")
+    car_three = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="carthree")
+
+    class Meta:
+        managed = True
+        verbose_name = "Car Compare"
+        verbose_name_plural = "Cars Compared"
+        ordering = ["-created"]
 

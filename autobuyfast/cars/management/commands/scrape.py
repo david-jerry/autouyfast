@@ -28,7 +28,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # get html link
-        User.objects.get_or_create(username="cars", email="info@cars.com"),
         n = [0,1,2,3,4,5]
         for i, id in enumerate(n):
             car_id = id
@@ -98,7 +97,7 @@ class Command(BaseCommand):
                         car_url = car_url,
                         car_vin = vin,
                         car_stock = car_stock,
-                        dealer = User(id=1, username="cars"),
+                        dealer = User(id=1),
                         car_year = car_year,
                         car_mileage = format(int(car_mileage), ".2f"),
                         car_price = format(int(car_price), ".2f"),

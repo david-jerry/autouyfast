@@ -22,7 +22,7 @@ app_name = "cars"
 urlpatterns = [
     path("", view=cars_list_view, name="list"),
     path("create/", view=CarCreateView.as_view(), name="create"),
-    path("compare-cars/", view=CompareCreateView.as_view(), name="compare"),
+    path("compare-cars/<pk>/", view=CompareCreateView.as_view(), name="compare"),
     path("detail/<slug>/update", view=CarUpdateView.as_view(), name="update"),
     path("detail/<slug>/delete", view=CarDeleteView, name="delete"),
     path("detail/<slug>/sold", view=CarSold, name="sold"),

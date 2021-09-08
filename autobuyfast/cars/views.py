@@ -6,6 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import BadHeaderError, EmailMessage, send_mail, send_mass_mail
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -20,11 +21,21 @@ User = get_user_model()
 
 # Create your views here.
 
-class CompareCreateView(SuccessMessageMixin, CreateView):
+class CompareCreateView(SuccessMessageMixin, UpdateView):
     model = CarCompare
     template_name = "cars/compare.html"
     fields = ["car_one", "car_two", "car_three"]
     success_message = _("Successfully Compared our car ads")
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        if pk is not None:
+            queryset = queryset.filter(pk=pk)
+        # try:
+        #     obj = queryset.get()
+        # except queryset.model.DoesNotExist:
+        #     raise Http404(_("No %(verbose_name)s found matching the query") % {'verbose_name': queryset.model._meta.verbose_name}))
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

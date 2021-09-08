@@ -531,10 +531,10 @@ class WatchCars(TimeStampedModel):
 
 
 class CarCompare(TimeStampedModel):
-    car_one = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="carone")
-    car_two = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="cartwo")
-    car_three = ForeignKey(AutoSearch, on_delete=SET_NULL, null=True, related_name="carthree")
-
+    car_one = ForeignKey(AutoSearch, on_delete=SET_NULL, default=4, null=True, related_name="carone")
+    car_two = ForeignKey(AutoSearch, on_delete=SET_NULL, default=9, null=True, related_name="cartwo")
+    car_three = ForeignKey(AutoSearch, on_delete=SET_NULL, default=3, null=True, related_name="carthree")
+    slug = SlugField(max_length=800, blank=True, null=True, unique=True, default="result")
     class Meta:
         managed = True
         verbose_name = "Car Compare"

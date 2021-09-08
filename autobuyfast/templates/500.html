@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Server Error{% endblock %}
+{% block title %}{% if exception %}{{ exception }}{% else %} Server Error{% endblock %}
 
 {% block content %}
-<h1>Ooops!!! 500</h1>
+<div class="page-404-section" data-bg="{% static 'images/default/1920x678_bg1.jpg' %}">
 
-<h3>Looks like something went wrong!</h3>
+    <div class="container">
 
-<p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
+        <div class="inner-404">
+            <h1>{% if exception %}{{ exception }}{% else %}</h1>
+            <h2>Server Error</h2>
+
+            <p>{% if exception %}{{ exception }}{% else %} This indicates that there is an error with our server.{% endif %}</p>
+            <p>We're sorry, that you had to see this. <br> Go <a href="{% url 'home' }">Home</a></p>
+        </div>
+    </div>
+</div>
 {% endblock content %}

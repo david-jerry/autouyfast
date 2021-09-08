@@ -1,9 +1,20 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}{% if exception %}{{ exception }}{% else %} Page not found{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
+<div class="page-404-section" data-bg="{% static 'images/default/1920x678_bg1.jpg' %}">
 
-<p>{% if exception %}{{ exception }}{% else %}This is not the page you were looking for.{% endif %}</p>
+    <div class="container">
+
+        <div class="inner-404">
+            <h1>{% if exception %}{{ exception }}{% else %}</h1>
+            <h2>Page not found</h2>
+
+            <p>{% if exception %}{{ exception }}{% else %}This is not the page you were looking for.{% endif %}</p>
+            <p>We're sorry, but we can't find the page you were looking for. <br> Go <a href="{% url 'home' }">Home</a></p>
+        </div>
+    </div>
+</div>
 {% endblock content %}

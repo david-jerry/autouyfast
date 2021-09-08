@@ -1,9 +1,21 @@
-{% extends "base.html" %}
 
-{% block title %}Forbidden (403){% endblock %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}403 Forbidden Access{% endblock %}
 
 {% block content %}
-<h1>Forbidden (403)</h1>
+<div class="page-404-section" data-bg="{% static 'images/default/1920x678_bg1.jpg' %}">
 
-<p>{% if exception %}{{ exception }}{% else %}You're not allowed to access this page.{% endif %}</p>
+    <div class="container">
+
+        <div class="inner-404">
+            <h1>403 Forbidden</h1>
+            <h2>Demied Permission</h2>
+
+            <p>{% if exception %}{{ exception }}{% else %} You're not allowed to access this page.{% endif %}</p>
+            <p>This page is for staffs only. <br> Go <a href="{% url 'home' }">Home</a></p>
+        </div>
+    </div>
+</div>
 {% endblock content %}

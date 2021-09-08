@@ -116,7 +116,7 @@ compare-cars/
                       <button class="item-close close-product" data-id="item1"></button>
                       
                       <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
-                      <a href="{{result.car_one.get_absolute_url}}"><img src="{% if result.car_one.image_set %}{{result.car_one.image_set.img_url.first.url }}{% else %}{% static 'images/default/262x173_img11.jpg' %}{% endif %}" height="173" alt=""></a>
+                      <a href="{{result.car_one.get_absolute_url}}"><img src="{% if result.car_one.image_set %}{{result.car_one.get_image_url}}{% else %}{% static 'images/default/262x173_img11.jpg' %}{% endif %}" height="173" alt=""></a>
                       <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
 
                       <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
@@ -127,7 +127,7 @@ compare-cars/
                         <div class="pricing-area">
 
                           <div class="product-price">
-                            $30,699
+                            ${{result.car_one.car_price}}
                           </div>
 
                         </div>
@@ -146,18 +146,18 @@ compare-cars/
                       <button class="item-close close-product" data-id="item2"></button>
                       
                       <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
-                      <a href="#"><img src="images/262x173_img12.jpg" alt=""></a>
+                      <a href="{{result.car_two.get_absolute_url}}"><img src="{% if result.car_two.image_set %}{{result.car_two.get_image_url}}{% else %}{% static 'images/default/262x173_img11.jpg' %}{% endif %}" height="173" alt=""></a>
                       <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
 
                       <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
                       <div class="product-description">
 
-                        <h5 class="product-name"><a href="#">2016 BMW 440 i xDrive</a></h5>
+                        <h5 class="product-name"><a href="{{result.car_two.get_absolute_url}}">{{result.car_two.title}}</a></h5>
 
                         <div class="pricing-area">
 
                           <div class="product-price">
-                            $69,998
+                            ${{result.car_two.car_price}}
                           </div>
 
                         </div>
@@ -173,97 +173,85 @@ compare-cars/
                     <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
                     <div class="product">
 
-                      <button class="item-close close-product" data-id="item3"></button>
-                      
-                      <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
-                      <a href="#"><img src="images/262x173_img9.jpg" alt=""></a>
-                      <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
-
-                      <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
-                      <div class="product-description">
-
-                        <h5 class="product-name"><a href="#">2011 Dodge Grand Caravan</a></h5>
-
-                        <div class="pricing-area">
-
-                          <div class="product-price">
-                            $19,699
+                        <button class="item-close close-product" data-id="item2"></button>
+                        
+                        <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                        <a href="{{result.car_three.get_absolute_url}}"><img src="{% if result.car_three.image_set %}{{result.car_three.get_image_url}}{% else %}{% static 'images/default/262x173_img11.jpg' %}{% endif %}" height="173" alt=""></a>
+                        <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+  
+                        <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                        <div class="product-description">
+  
+                          <h5 class="product-name"><a href="{{result.car_three.get_absolute_url}}">{{result.car_three.title}}</a></h5>
+  
+                          <div class="pricing-area">
+  
+                            <div class="product-price">
+                              ${{result.car_three.car_price}}
+                            </div>
+  
                           </div>
-
                         </div>
+                        <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+  
                       </div>
-                      <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
-
-                    </div>
-                    <!-- /Carousel Item --> 
-
+                      <!-- /Carousel Item --> 
+  
                   </td>
                 </tr>
                 <tr>
                   <th>Body Style</th>
-                  <td data-title="Body Style"><div data-id="item1" >SUV</div></td>
-                  <td data-title="Body Style"><div data-id="item2">SUV</div></td>
-                  <td data-title="Body Style"><div data-id="item3">SUV</div></td>
+                  <td data-title="Body Style"><div data-id="item1">{{result.car_one.car_body}}</div></td>
+                  <td data-title="Body Style"><div data-id="item2">{{result.car_two.car_body}}</div></td>
+                  <td data-title="Body Style"><div data-id="item3">{{result.car_three.car_body}}</div></td>
                 </tr>
                 <tr>
                   <th>Mileage</th>
-                  <td data-title="Mileage"><div data-id="item1">36,000</div></td>
-                  <td data-title="Mileage"><div data-id="item2">10,000</div></td>
-                  <td data-title="Mileage"><div data-id="item3">36,000</div></td>
+                  <td data-title="Mileage"><div data-id="item1">{{result.car_one.car_mileage}}</div></td>
+                  <td data-title="Mileage"><div data-id="item2">{{result.car_two.car_mileage}}</div></td>
+                  <td data-title="Mileage"><div data-id="item3">{{result.car_three.car_mileage}}</div></td>
                 </tr>
                 <tr>
                   <th>Year</th>
-                  <td data-title="Year"><div data-id="item1">2016</div></td>
-                  <td data-title="Year"><div data-id="item2">2016</div></td>
-                  <td data-title="Year"><div data-id="item3">2011</div></td>
-                </tr>
-                <tr>
-                  <th>Seating Capacity</th>
-                  <td data-title="Seating Capacity"><div data-id="item1">5</div></td>
-                  <td data-title="Seating Capacity"><div data-id="item2">5</div></td>
-                  <td data-title="Seating Capacity"><div data-id="item3">7</div></td>
+                  <td data-title="Year"><div data-id="item1">{{result.car_one.car_year}}</div></td>
+                  <td data-title="Year"><div data-id="item2">{{result.car_two.car_year}}</div></td>
+                  <td data-title="Year"><div data-id="item3">{{result.car_three.car_year}}</div></td>
                 </tr>
                 <tr>
                   <th>Fuel</th>
-                  <td data-title="Fuel"><div data-id="item1">Gasoline</div></td>
-                  <td data-title="Fuel"><div data-id="item2">Gasoline</div></td>
-                  <td data-title="Fuel"><div data-id="item3">Gasoline</div></td>
+                  <td data-title="Fuel"><div data-id="item1">{{result.car_one.car_fuel_type}}</div></td>
+                  <td data-title="Fuel"><div data-id="item2">{{result.car_two.car_fuel_type}}</div></td>
+                  <td data-title="Fuel"><div data-id="item3">{{result.car_three.car_fuel_type}}</div></td>
                 </tr>
                 <tr>
                   <th>Engine</th>
-                  <td data-title="Engine"><div data-id="item1">3.6L V6 24V GDI DOHC Twin Turbo</div></td>
-                  <td data-title="Engine"><div data-id="item2">Turbo Premium Unleaded I-4 2.0 L/122</div></td>
-                  <td data-title="Engine"><div data-id="item3">3.6L V6 24V MPFI DOHC Flexible Fuel</div></td>
+                  <td data-title="Engine"><div data-id="item1">{{result.car_one.car_engine}}</div></td>
+                  <td data-title="Engine"><div data-id="item2">{{result.car_two.car_engine}}</div></td>
+                  <td data-title="Engine"><div data-id="item3">{{result.car_three.car_engine}}</div></td>
                 </tr>
                 <tr>
                   <th>Transmission</th>
-                  <td data-title="Transmission"><div data-id="item1">8-Speed Automatic</div></td>
-                  <td data-title="Transmission"><div data-id="item2">8-Speed Automatic</div></td>
-                  <td data-title="Transmission"><div data-id="item3">Automatic</div></td>
+                  <td data-title="Transmission"><div data-id="item1">{{result.car_one.car_transmission}}</div></td>
+                  <td data-title="Transmission"><div data-id="item2">{{result.car_two.car_transmission}}</div></td>
+                  <td data-title="Transmission"><div data-id="item3">{{result.car_three.car_transmission}}</div></td>
                 </tr>
                 <tr>
                   <th>Drivetype</th>
-                  <td data-title="Drivetype"><div data-id="item1">AWD</div></td>
-                  <td data-title="Drivetype"><div data-id="item2">AWD</div></td>
-                  <td data-title="Drivetype"><div data-id="item3">FWD</div></td>
-                </tr>
-                <tr>
-                  <th>MPG</th>
-                  <td data-title="MPG"><div data-id="item1">18 City / 24 Highway</div></td>
-                  <td data-title="MPG"><div data-id="item2">15 City / 20 Highway</div></td>
-                  <td data-title="MPG"><div data-id="item3">22 City / 27 Highway</div></td>
+                  <td data-title="Drivetype"><div data-id="item1">{{result.car_one.car_drive_train}}</div></td>
+                  <td data-title="Drivetype"><div data-id="item2">{{result.car_two.car_drive_train}}</div></td>
+                  <td data-title="Drivetype"><div data-id="item3">{{result.car_three.car_drive_train}}</div></td>
                 </tr>
                 <tr>
                   <th>Exterior Color</th>
-                  <td data-title="Exterior Color"><div data-id="item1">Black</div></td>
-                  <td data-title="Exterior Color"><div data-id="item2">White</div></td>
-                  <td data-title="Exterior Color"><div data-id="item3">Black</div></td>
+                  <td data-title="Exterior Color"><div data-id="item1">{{result.car_one.car_ext_color}}</div></td>
+                  <td data-title="Exterior Color"><div data-id="item2">{{result.car_two.car_ext_color}}</div></td>
+                  <td data-title="Exterior Color"><div data-id="item3">{{result.car_three.car_ext_color}}</div></td>
                 </tr>
                 <tr>
                   <th>Interior Color</th>
-                  <td data-title="Interior Color"><div data-id="item1">Gray</div></td>
-                  <td data-title="Interior Color"><div data-id="item2">Black</div></td>
-                  <td data-title="Interior Color"><div data-id="item3">Gray</div></td>
+                  <td data-title="Interior Color"><div data-id="item1">{{result.car_one.car_int_color}}</div></td>
+                  <td data-title="Interior Color"><div data-id="item2">{{result.car_two.car_int_color}}</div></td>
+                  <td data-title="Interior Color"><div data-id="item3">{{result.car_three.car_int_color}}</div></td>
                 </tr>
                 <tr>
                   <th>History</th>
@@ -274,236 +262,21 @@ compare-cars/
                   <td data-title="History"><div data-id="item3">
                     <a href="#" class="link-text2"><i class="icon-doc-text-2"></i>View AutoCheck Vehicle History </a>
                   </div></td>
-                </tr>
-                <tr class="title">
-                  <th>Safety</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th>Rollover Resisitance</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td><div data-id="item2">Information unavailable</div></td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Driver Crash Grade</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td><div data-id="item2">Information unavailable</div></td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Passenger Crash Grade</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td><div data-id="item2">Information unavailable</div></td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Side Impact Crash-front</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td><div data-id="item2">Information unavailable</div></td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Side Impact Crash-rear</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li class="empty"><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td><div data-id="item2">Information unavailable</div></td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="rating">
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                        <li><i class="licon-star"></i></li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="title top-side">
-                  <th>Other Features</th>
-                  <td>
-                    <div data-id="item1">
-                      <ul class="custom-list type-5">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <ul class="custom-list type-5 other-items">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div data-id="item2">
-                      <ul class="custom-list type-5">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <ul class="custom-list type-5 other-items">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div data-id="item3">
-                      <ul class="custom-list type-5">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <ul class="custom-list type-5 other-items">
-                      
-                        <li>10 Speakers</li>
-                        <li>20" Wheels</li>
-                        <li>3.27 Axle Ratio</li>
-                        <li>4-Wheel Disc Brakes</li>
-                        <li>8-Way Power Front Seats</li>
-                      
-                      </ul>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
-                    </div>
-                  </td>
-                </tr>
                 <tr class="title top-side">
                   <th>Seller Comments</th>
                   <td>
                     <div data-id="item1">
-                      <p>Nulla venenatis. In pede mi, aliquet sit amet, euismod in,auctor ut, ligula. Aliquam dapibus tincidunt metus. Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar ac, </p>
-                      <p class="other-items">Nulla venenatis. In pede mi, aliquet sit amet, euismod in,auctor ut, ligula. Aliquam dapibus tincidunt metus. Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar ac, </p>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
+                      {{result.car_one.seller_note|safe}}
                     </div>
                   </td>
                   <td>
                     <div data-id="item2">
-                      <p>Dignissim, pulvinar ac, lorem. Vestibulum sed ante. Donec sagittis euismod purus. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque lau</p>
-                      <p class="other-items">Nulla venenatis. In pede mi, aliquet sit amet, euismod in,auctor ut, ligula. Aliquam dapibus tincidunt metus. Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar ac, </p>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
+                        {{result.car_two.seller_note|safe}}
                     </div>
                   </td>
                   <td>
                     <div data-id="item3">
-                      <p>Laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas  </p>
-                      <p class="other-items">Nulla venenatis. In pede mi, aliquet sit amet, euismod in,auctor ut, ligula. Aliquam dapibus tincidunt metus. Praesent justo dolor, lobortis quis, lobortis dignissim, pulvinar ac, </p>
-                      <a href="#javascript" class="show-more info-btn type2">Show All</a>
+                        {{result.car_three.seller_note|safe}}
                     </div>
                   </td>
                 </tr>

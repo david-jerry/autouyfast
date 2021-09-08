@@ -296,7 +296,7 @@ News
         <div class="tagcloud">
 
             {% for tag in tags %}
-            <a href="">{{tag.title}}</a>
+            <a href="{% url 'blogs:posts_by_tag' tag.slug %}">{{tag.title}}</a>
             {% empty %}
             <a href="javascript;:">No Tags</a>
             {% endfor %}

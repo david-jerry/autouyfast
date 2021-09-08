@@ -61,7 +61,7 @@ blog/{{post.slug}}/
                 <div class="owl-carousel" data-max-items="1">
                     {% for image in post.image_set.all %}
                     <div class="item-carousel">
-                        <img src="{{image.image.url}}" alt="">
+                        <img src="{{image.url}}" alt="">
                     </div>
                     {% endfor %}
                 </div>
@@ -70,7 +70,7 @@ blog/{{post.slug}}/
 
         </div>
         {% elif not post.image_set and not post.video and not post.url %}
-        <div class="blockquote-holder" data-bg="images/750x132_bg1.jpg">
+        <div class="blockquote-holder" data-bg="{% static 'images/default/750x132_bg1.jpg' %}">
             <blockquote>
                 <p>{{post.content|safe|truncatechars:160}}</p>
                 <div class="author">{{post.author}}</div>
@@ -111,7 +111,7 @@ blog/{{post.slug}}/
           <div class="entry-meta">
 
             <time class="entry-date" datetime="{{post.pub_date}}">{{post.pub_date}}</time>
-            <a href="javascript:;" class="entry-cat">{{post.categories.all}}</a>
+            <a href="javascript:;" class="entry-cat">{% for cat in post.categories.all %}{{cat.title.}}{% endfor %}</a>
             <!-- <a href="#" class="entry-comments-link">3 comments</a> -->
             <span class="entry-byline">by<a href="javascript:;"> {{post.author}}</a></span>
 
@@ -200,12 +200,11 @@ blog/{{post.slug}}/
 
             <div class="team-member">
               <a href="#" class="member-photo">
-                <img src="images/100x100_photo2.jpg" alt="">
+                <img src="{% if post.author.userprofile.profile_display %}{{post.author.userprofile.profile_display.url}}{% else %}{% static 'images/default/100x100_photo2.jpg' %}{% endif %}" alt="">
               </a>
               <div class="wrapper">
-                <h5 class="member-name"><a href="#">Alan Smith</a></h5>
-                <p class="member-about">Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit
-                  amet eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+                <h5 class="member-name"><a href="javascript:;">{{post.author}}</a></h5>
+                <p class="member-about">A content creator working with autobuyfast Writing and Review team.</p>
                 <ul class="social-icons style-2">
 
                   <li class="fb-icon"><a href="#"><i class="icon-facebook"></i></a></li>
@@ -229,6 +228,7 @@ blog/{{post.slug}}/
         <div class="entry-area">
 
           <div class="row">
+            {% for post in post.get_related_posts_by_tags%}
             <div class="col-sm-4">
 
               <article class="entry">
@@ -262,6 +262,7 @@ blog/{{post.slug}}/
               </article>
 
             </div>
+            {% empty %}
             <div class="col-sm-4">
 
               <article class="entry">
@@ -295,39 +296,7 @@ blog/{{post.slug}}/
               </article>
 
             </div>
-            <div class="col-sm-4">
-
-              <article class="entry">
-
-                <!-- - - - - - - - - - - - - - Attachment - - - - - - - - - - - - - - - - -->
-                <div class="thumbnail-attachment">
-                  <a href="#"><img src="images/230x154_img6.jpg" alt=""></a>
-                </div>
-                <!-- - - - - - - - - - - - - - End of Attachment - - - - - - - - - - - - - - - - -->
-
-                <!-- - - - - - - - - - - - - - Entry body - - - - - - - - - - - - - - - - -->
-
-                <div class="entry-body">
-
-                  <!-- - - - - - - - - - - - - - Entry Meta - - - - - - - - - - - - - - - - -->
-
-                  <div class="entry-meta">
-
-                    <time class="entry-date" datetime="2018-10-19">October 19, 2018</time>
-
-                  </div>
-
-                  <!-- - - - - - - - - - - - - - End of Meta - - - - - - - - - - - - - - - - -->
-
-                  <h5 class="entry-title"><a href="#">Mauris Fermentum Dictum Magna</a></h5>
-
-                </div>
-
-                <!-- - - - - - - - - - - - - - End of Entry body - - - - - - - - - - - - - - - - -->
-
-              </article>
-
-            </div>
+            {% endfor %}
           </div>
 
         </div>

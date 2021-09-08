@@ -23,7 +23,7 @@ User = get_user_model()
 class CompareCreateView(SuccessMessageMixin, CreateView):
     model = CarCompare
     template_name = "cars/compare.html"
-    field = ["car_one", "car_two", "car_three"]
+    fields = ["car_one", "car_two", "car_three"]
     success_message = _("Successfully Compared our car ads")
 
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

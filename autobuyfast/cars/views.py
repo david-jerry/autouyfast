@@ -31,7 +31,6 @@ class CompareCreateView(SuccessMessageMixin, UpdateView):
 
 
     def get_success_url(self):
-        slug = self.object.slug
         return reverse_lazy('cars:compare_detail', kwargs={'slug':'result'})
 
 
@@ -42,7 +41,9 @@ class CompareView(DetailView):
     slug_field = "slug"
     slug_url_kwarg = "slug"
 
-
+    def get_queryset(self):
+        qs = CarCompare.objects.filter(slug="result")
+        return qs
 class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = AutoSearch
     template_name = 'cars/create.html'
@@ -139,13 +140,18 @@ def CarSold(request, slug):
 class CarsListview(ListView):
     model = AutoSearch
     template_name = 'cars/list.html'
-    ordering = ["-car_year", "-created"]
+    ordering = ["car_year"]
     page_kwarg = 'page'
     paginate_by = 20
     allow_empty = True
     context_object_name = "cars"
     slug_field = "slug"
     slug_url_kwarg = "slug"
+
+    def get_queryset(self):
+        request = self.request
+        queryset = super().get_queryset()
+        return CarSearchFilter(request.GET, queryset=queryset).qs.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

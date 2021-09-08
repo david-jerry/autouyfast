@@ -16,9 +16,6 @@ from autobuyfast.cars.views import (  # CarLikeFunc,
     watch_car,
 )
 
-from .filters import CarFilter
-from .models import AutoSearch
-
 app_name = "cars"
 urlpatterns = [
     path("", view=cars_list_view, name="list"),

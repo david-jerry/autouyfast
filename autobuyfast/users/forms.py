@@ -93,7 +93,13 @@ class BuyerProfileForm(forms.ModelForm):
             "security_quest",
             "security_answer"
         ]
-
+        widgets = {
+            'country': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Country'}),
+            'address': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Address'}),
+            'city': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'City'}),
+            'zipcode': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Zipcode'}),
+            'security_answer': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Security Answer'}),
+        }
 
 class SellerProfileForm(forms.ModelForm):
     class Meta:
@@ -111,13 +117,22 @@ class SellerProfileForm(forms.ModelForm):
             "security_quest",
             "security_answer"
         ]
-
+        widgets = {
+            'website': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Website'}),
+            'dealership_name': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Dealership Name'}),
+            'address': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Address'}),
+            'city': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'City'}),
+            'zipcode': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Zipcode'}),
+            'security_answer': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Security Answer'}),
+        }
 
 class TestimonyForm(forms.ModelForm):
     class Meta:
         model = Testimonial
         fields = ["testimony"]
-
+        widgets = {
+            'testimony': forms.TextInput(attrs={'class':'textinput textInput form-control',  'placeholder': 'Testimony'}),
+        }
 
 class AlertSettingsForm(forms.ModelForm):
     class Meta:
@@ -127,7 +142,11 @@ class AlertSettingsForm(forms.ModelForm):
             "car_sold_notif", 
             "car_price_notif"
         ]
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['car_sold_notif'].widget.attrs.update({'style': 'margin-botom:10px'})
+        self.fields['car_price_notif'].widget.attrs.update({'style': 'margin-botom:10px'})
+        self.fields['newsletter_notif'].widget.attrs.update({'style': 'margin-botom:10px'})
 
 class CarRequestForm(forms.ModelForm):
     class Meta:

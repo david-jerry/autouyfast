@@ -1,19 +1,49 @@
 {% extends "users/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block user_title %}Notification Settings{% endblock %}
-{% block user_page_title %}Notification Settings{% endblock %}
-{% block user_breadcrum %}Notification Settings{% endblock %}
-{% block user_section_title %}Notification Settings{% endblock %}
-{% block user_section_title_desc %}Set alerts for saved cars and searches{% endblock %}
+{% block user_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
 
 
 {% block user_content %}
 <div class="b-car-details__section" style="margin-left: 10px;">
     <form class="form-horizontal" method="post" action="{% url 'users:update_notification' %}">
         {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary btn-block">Update</button>
+        <div id="div_id_newsletter_notif" class="form_check" style="margin-bottom:10px;">
+            {{form.newsletter_notif}}
+            <label for="id_newsletter_notif" class="form-check-label">{{form.newsletter_notif.label}}</label>
+        </div>
+        <div id="div_id_car_sold_notif" class="form_check" style="margin-bottom:10px;">
+            {{form.car_sold_notif}}
+            <label for="id_car_sold_notif" class="form-check-label">{{form.car_sold_notif.label}}</label>
+        </div>
+        <div id="div_id_car_price_notif" class="form_check" style="margin-bottom:10px;">
+            {{form.car_price_notif}}
+            <label for="id_car_price_notif" class="form-check-label">{{form.car_price_notif.label}}</label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-style-3 btn-block">Update</button>
     </form>    
 </div>
 {% endblock user_content %}

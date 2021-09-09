@@ -146,19 +146,7 @@ user_redirect_view = UserRedirectView.as_view()
 class UserSellerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = Profile
-    fields = [
-            "profile_display",
-            "banner_display",
-            "dealership_name",
-            "bio",
-            "website",
-            "country",
-            "address",
-            "city",
-            "zipcode",
-            "security_quest",
-            "security_answer"
-        ]
+    form_class = SellerProfileForm
     success_message = "You have successfully updated your profile."
     template_name = "users/seller_update.html"
 
@@ -196,15 +184,7 @@ def car_request_view(request):
 class UserBuyerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = Profile
-    fields = [
-            "profile_display",
-            "country",
-            "address",
-            "city",
-            "zipcode",
-            "security_quest",
-            "security_answer"
-        ]
+    form_class = BuyerProfileForm
     success_message = "You have successfully updated your profile."
     template_name = "users/buyer_update.html"
 
@@ -262,11 +242,7 @@ testimony_create_view = TestimonyView.as_view()
 
 class NotificationSettingsView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
-    fields = [
-            "newsletter_notif", 
-            "car_sold_notif", 
-            "car_price_notif"
-        ]
+    form_class = AlertSettingsForm
     success_message = "You have successfully updated your notification settings."
     template_name = "users/notification_setting.html"
 

@@ -42,6 +42,40 @@
 {% block pcw %}class="page-content-wrap"{% endblock pcw %}
 
 
+{% block css_inline %}
+<style>
+  input[type="text"],
+  input[type="email"],
+  input[type="url"] {
+    background-color: #f2f3f3;
+  }
+  input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  input[type="file"] + label {
+    color: white !important;
+    background-color: #851818 !important;
+    display: inline-block;
+    font-weight: 700;
+    cursor: pointer;
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+  }  
+  input[type="file"] + label * {
+    pointer-events: none;
+  }
+  input[type="file"]:focus + label
+  input[type="file"] + label:hover {
+    background-color: red;
+  }
+</style>
+{% endblock css_inline %}
+
 {% block slider %}
 {% endblock slider %}
 
@@ -148,34 +182,36 @@
         </div>
       </div>
       <div class="col-md-8 col-sm-12">
-        <div class="content-element7">
+        <div class="dealer-single">
+          <div class="content-element7">
 
-          <div class="flex-row flex-justify flex-center">
-
-            <div class="dealer-title">
-              {% if request.user.is_seller %}
-              <h2 class="section-title"><a href="javascript:;">{{request.user.userprofile.dealership_name }}</a></h2>
-              <div class="rating-area">
-                <div class="rating-number">Company Phone</div>
-                <div class="slash-list">
-                  <div class="link-text2">{{request.user.phone_no}}</div>
+            <div class="flex-row flex-justify flex-center">
+  
+              <div class="dealer-title">
+                {% if request.user.is_seller %}
+                <h2 class="section-title"><a href="javascript:;">{{request.user.userprofile.dealership_name }}</a></h2>
+                <div class="rating-area">
+                  <div class="rating-number">Company Phone</div>
+                  <div class="slash-list">
+                    <div class="link-text2">{{request.user.phone_no}}</div>
+                  </div>
                 </div>
+                {% else %}
+                <h2 class="section-title"><a href="javascript:;">{{request.user.fullname}}</a></h2>
+                {% endif %}
               </div>
-              {% else %}
-              <h2 class="section-title"><a href="javascript:;">{{request.user.fullname}}</a></h2>
-              {% endif %}
+  
+              <a href="javascript:;"><img
+                  src="{% if request.user.userprofile.profile_display %}{{request.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/160x54_img1.jpg' %}{% endif %}"
+                  height="54" alt=""></a>
+  
             </div>
-
-            <a href="javascript:;"><img
-                src="{% if request.user.userprofile.profile_display %}{{request.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/160x54_img1.jpg' %}{% endif %}"
-                height="54" alt=""></a>
-
+  
           </div>
-
-        </div>
-
-        {% block user_content %}
-        {% endblock user_content %}
+  
+          {% block user_content %}
+          {% endblock user_content %}
+          </div>
       </div>
     </div>
   </div>

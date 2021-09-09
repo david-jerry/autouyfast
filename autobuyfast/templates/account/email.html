@@ -1,14 +1,36 @@
-{% extends "account/base.html" %}
-
+{% extends "users/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Email Account Settings" %}{% endblock %}
-{% block acc_bc %}
-{% trans "Email Account Settings" %}
-{% endblock acc_bc %}
+{% block title %}{% trans "Email Account Settings" %}{% endblock %}
 
-{% block inner %}
+
+{% block user_desc %}
+{% trans "Email Account Settings" %} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{% trans "Email Account Settings" %} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{% trans "Email Account Settings" %} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{% trans "Email Account Settings" %} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
+
+
+{% block user_content %}
 
 <!-- End Action buttons -->
 <div class="col-sm-12">
@@ -42,13 +64,9 @@
 
         <div class="form-group">
           <br>
-          <button class="secondaryAction btn btn-primary" type="submit" name="action_primary">{% trans 'Make Primary'%}</button>
-          <br>
-          <br>
-          <button class="secondaryAction btn btn-success" type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
-          <br>
-          <br>
-          <button class="primaryAction btn btn-default" type="submit" name="action_remove">{% trans 'Remove' %}</button>
+          <button class="secondaryAction btn btn-style-2" style="margin-right: 10px;" type="submit" name="action_primary">{% trans 'Make Primary'%}</button>
+          <button class="secondaryAction btn btn-style-1" style="margin-right: 10px;" type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
+          <button class="primaryAction btn btn-style-3" type="submit" name="action_remove">{% trans 'Remove' %}</button>
         </div>
 
       </fieldset>
@@ -59,16 +77,17 @@
 
     {% endif %}
 
+    <div style="padding-left: 20px;">
+      <h4>{% trans "Add E-mail Address" %}</h4>
 
-    <h4>{% trans "Add E-mail Address" %}</h4>
-
-    <form method="post" action="{% url 'account_email' %}" class="add_email">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <br>
-      <button class="btn btn-primary btn-block" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
-    </form>
-
+      <form method="post" action="{% url 'account_email' %}" class="add_email">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button class="btn btn-style-3 btn-block" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+      </form>
+  
+    </div>
   </div>
 </div>
 

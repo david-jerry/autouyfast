@@ -37,7 +37,7 @@
     {% include "socialaccount/snippets/login_extra.html" %}
     
     {% else %}
-    <h4>}If you have not created an account yet, then please
+    <h4>If you have not created an account yet, then please
     <a href="{% url 'signup_select' %}" class="btn btn-small btn-style-2">sign up</a> first.</h4>
     {% endif %}
     <br>
@@ -62,9 +62,9 @@
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      <a style="margin-bottom:10px" class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "you Forgot Password?" %}</a>
       <br>
-      <button class="primaryAction btn btn-style-3 btn-block" type="submit">{% trans "Sign In" %}</button>
+      <button style="margin-top: 15px;" class="primaryAction btn btn-style-3 btn-block" type="submit">{% trans "Sign In" %}</button>
     </form>
 </div>
 {% endblock %}

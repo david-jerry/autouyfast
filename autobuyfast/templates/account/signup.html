@@ -11,14 +11,16 @@
 
 
 {% block inner %}
-<h1>{% trans "Choose Your Preferred Account Type" %}</h1>
+<div class="col-sm-12">
+    <h1>{% trans "Choose Your Preferred Account Type" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<br>
-<br>
+    <br>
+    <br>
 
-{% include "snippets/buy_or_sell.html" %}
+    {% include "snippets/buy_or_sell.html" %}
+</div>
 <!-- <div class="info-group block-table block-table_md" style="margin-bottom: 2.5rem;">
   <div class="info-group__section col-md-6">
       <section class="b-info b-info_mod-a area-bg area-bg_op_80 area-bg_prim parallax" style="background-image: url(assets/media/content/bg/bg-4.jpg)">

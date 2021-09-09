@@ -9,6 +9,7 @@
 {% endblock acc_bc %}
 
 {% block inner %}
+<div class="col-sm-12">
 <h1>{% trans "Become a Dealer" %}</h1>
 <h4>{% blocktrans %}Already have an account? Then please <a class="btn btn-style-2 btn-small" href="{{ login_url }}">sign in</a>.{% endblocktrans %}</h4>
 
@@ -52,12 +53,13 @@
     </div>
 
     <div class="col-sm-12">
+      <p>By signing up you agree to our <a href="{% url 'terms' %}">terms and conditio</a> as well as <a href="{% url 'privacy' %}">privacy statement</a>, if you have not read these already, kindly take the time to read through before signin up.</p>
       {% if redirect_field_value %}
       <input style="margin-bottom: 10px;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <button class="btn btn-primary btn-block btn-style-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      <button style="margin-top: 15px;" class="btn btn-primary btn-block btn-style-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
     </div>
   </div>
 </form>    
-
+</div>
 {% endblock %}

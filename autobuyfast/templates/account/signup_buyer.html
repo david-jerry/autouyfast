@@ -9,55 +9,59 @@
 {% endblock acc_bc %}
 
 {% block inner %}
-    <h1>{% trans "Become a Buyer" %}</h1>
+<div class="col-sm-12">
+  <h1>{% trans "Become a Buyer" %}</h1>
 
-    <h4>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}" class="btn btn-style-2 btn-small">sign in</a>.{% endblocktrans %}</h4>
+  <h4>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}" class="btn btn-style-2 btn-small">sign in</a>.{% endblocktrans %}</h4>
 
-    <br>
-    <br>
+  <br>
+  <br>
 
-    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-      {% csrf_token %}
-      {{form.non_field_errors}}
-      {{form.source.errors}}
-      {{form.source}}
-    
-      <div class="row">
-        <div class="col-md-4" style="margin-bottom: 10px;">
-          {{form.username}}
-          {{form.username.errors}}
-        </div>
-        <div class="col-md-4" style="margin-bottom: 10px;">
-          {{form.first_name}}
-          {{form.first_name.errors}}
-        </div>
-        <div class="col-md-4" style="margin-bottom: 10px;">
-          {{form.last_name}}
-          {{form.last_name.errors}}
-        </div>
-        <div class="col-md-6" style="margin-bottom: 10px;">
-          {{form.email}}
-          {{form.email.errors}}
-        </div>
-        <div class="col-md-6" style="margin-bottom: 10px;">
-          {{form.phone_no}}
-          {{form.phone_no.errors}}
-        </div>
-        <div class="col-md-6" style="margin-bottom: 10px;">
-          {{form.password1}}
-          {{form.password1.errors}}
-        </div>
-        <div class="col-md-6" style="margin-bottom: 10px;">
-          {{form.password2}}
-          {{form.password2.errors}}
-        </div>
-    
-        <div class="col-sm-12">
-          {% if redirect_field_value %}
-          <input style="margin-bottom: 10px;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <button class="btn btn-primary btn-style-3 btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
-        </div>
+  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{form.non_field_errors}}
+    {{form.source.errors}}
+    {{form.source}}
+  
+    <div class="row">
+      <div class="col-md-4" style="margin-bottom: 10px;">
+        {{form.username}}
+        {{form.username.errors}}
       </div>
-    </form>
+      <div class="col-md-4" style="margin-bottom: 10px;">
+        {{form.first_name}}
+        {{form.first_name.errors}}
+      </div>
+      <div class="col-md-4" style="margin-bottom: 10px;">
+        {{form.last_name}}
+        {{form.last_name.errors}}
+      </div>
+      <div class="col-md-6" style="margin-bottom: 10px;">
+        {{form.email}}
+        {{form.email.errors}}
+      </div>
+      <div class="col-md-6" style="margin-bottom: 10px;">
+        {{form.phone_no}}
+        {{form.phone_no.errors}}
+      </div>
+      <div class="col-md-6" style="margin-bottom: 10px;">
+        {{form.password1}}
+        {{form.password1.errors}}
+      </div>
+      <div class="col-md-6" style="margin-bottom: 10px;">
+        {{form.password2}}
+        {{form.password2.errors}}
+      </div>
+  
+      <div class="col-sm-12">
+        <p>By signing up you agree to our <a href="{% url 'terms' %}">terms and conditio</a> as well as <a href="{% url 'privacy' %}">privacy statement</a>, if you have not read these already, kindly take the time to read through before signin up.</p>
+        {% if redirect_field_value %}
+        <input style="margin-bottom: 10px;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button style="margin-top: 15px;" class="btn btn-primary btn-style-3 btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+      </div>
+    </div>
+  </form>
+
+</div>
 {% endblock %}

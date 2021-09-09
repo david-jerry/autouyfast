@@ -3,43 +3,61 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_title %}{% trans "Dealer Signup" %}{% endblock %}
+{% block acc_bc %}
+{% trans "Become a Dealer" %}
+{% endblock acc_bc %}
 
 {% block inner %}
-<div class="row">
-  <div class="col-md-4">
-    <div class="b-bnr">
-      <div class="b-bnr__label" style="margin-bottom:10px">Best &amp; Low Cost</div>
-      <div class="b-bnr__title">CAR PURCHASE</div>
-      <div class="b-bnr__info">We have Effective and Efficient Vehicles for Car Purchases to meet all your needs!</div>
-      <ul class="b-bnr__list list list-mark-3">
-          <li>Instant Quotes</li>
-          <li>Unlimited Mileage</li>
-          <li>No Hidden Costs</li>
-          <li>Hassle-Free Service</li>
-          <li>Guranteed Reservations</li>
-          <li>Watch List</li>
-          <li>Availability Notifications</li>
-      </ul>
-  </div>
-  </div>
-  <div class="col-md-7">
-    <h1>{% trans "Become a Dealer" %}</h1>
+<h1>{% trans "Become a Dealer" %}</h1>
+<h4>{% blocktrans %}Already have an account? Then please <a class="btn btn-style-2 btn-small" href="{{ login_url }}">sign in</a>.{% endblocktrans %}</h4>
 
-    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<br>
+<br>
 
-    <br>
-    <br>
+<form class="contact-form" id="signup_form" method="post" action="{% url 'seller_signup' %}">
+  {% csrf_token %}
+  {{form.non_field_errors}}
+  {{form.source.errors}}
+  {{form.source}}
 
-    <form class="signup" id="signup_form" method="post" action="{% url 'seller_signup' %}">
-      {% csrf_token %}
-      {{ form|crispy }}
+  <div class="row">
+    <div class="col-md-4" style="margin-bottom: 10px;">
+      {{form.username}}
+      {{form.username.errors}}
+    </div>
+    <div class="col-md-4" style="margin-bottom: 10px;">
+      {{form.first_name}}
+      {{form.first_name.errors}}
+    </div>
+    <div class="col-md-4" style="margin-bottom: 10px;">
+      {{form.last_name}}
+      {{form.last_name.errors}}
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;">
+      {{form.email}}
+      {{form.email.errors}}
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;">
+      {{form.phone_no}}
+      {{form.phone_no.errors}}
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;">
+      {{form.password1}}
+      {{form.password1.errors}}
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px;">
+      {{form.password2}}
+      {{form.password2.errors}}
+    </div>
+
+    <div class="col-sm-12">
       {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      <input style="margin-bottom: 10px;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}
-      <button class="btn btn-primary btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
-    </form>    
+      <button class="btn btn-primary btn-block btn-style-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
+    </div>
   </div>
-</div>
+</form>    
 
 {% endblock %}

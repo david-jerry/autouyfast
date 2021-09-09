@@ -54,10 +54,10 @@ Showing <strong style="color:#ed1c24">{{cars_total}}</strong> results from {{pag
 
             <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
             <figure class="product-image">
-                <a href="{{car.get_absolute_url}}"><img src="{% if car.image_set %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" height="236" alt="{{car.title}} listing cover image"></a>
+                <a href="{{car.get_absolute_url}}"><img src="{% if car.image_set.first.img_url %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" height="236" alt="{{car.title}} listing cover image"></a>
                 <div class="overlay full-width-block">
                     <div class="icon-fancy">
-                        <a href="{% if car.image_set %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" class="fancybox" data-fancybox="group"><i
+                        <a href="{% if car.image_set.first.img_url %}{{car.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" class="fancybox" data-fancybox="group"><i
                                 class="licon-camera2"></i><span>{{car.image_set.all.count}}</span></a>
                         <!-- <a href="#"><i class="licon-camera"></i><span>1</span></a> -->
                     </div>

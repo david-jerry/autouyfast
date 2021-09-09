@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.db import transaction
+from django.forms import widgets
 from django.utils.translation import gettext_lazy as _
 from tinymce.widgets import TinyMCE
 
@@ -35,6 +36,24 @@ class UserCreationForm(admin_forms.UserCreationForm):
             "email",
             "phone_no",
         ]
+        widgets = {
+            'username': forms.TextInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'Username'}),
+            'first_name': forms.TextInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'Surname'}),
+            'email': forms.EmailInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'Email'}),
+            'phone_no': forms.TextInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': '+17384758273'}),
+            'password1': forms.PasswordInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'Password'}),
+            'password2': forms.PasswordInput(attrs={"class":"auto-custom-select mb-3", 'placeholder': 'Confirm Password'}),
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    #     self.fields['username'].widget.attrs.update({'placeholder': 'Username'})
+    #     self.fields['first_name'].widget.attrs.update({'placeholder': 'First Name'})
+    #     self.fields['last_name'].widget.attrs.update({'placeholder': 'Surname'})
+    #     self.fields['email'].widget.attrs.update({'placeholder': 'Email'})
+    #     self.fields['phone_no'].widget.attrs.update({'placeholder': '+17384758273'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm Password'})
 
 
         error_messages = {

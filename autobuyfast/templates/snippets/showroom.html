@@ -21,8 +21,8 @@
 
                         <div class="project-image">
 
-                            <img src="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}"  height="240" alt="{{sr.title}} showroom section image">
-                            <a href="{% if sr.image_set %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" class="project-link project-action fancybox"
+                            <img src="{% if sr.image_set.first.img_url %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}"  height="240" alt="{{sr.title}} showroom section image">
+                            <a href="{% if sr.image_set.first.img_url %}{{sr.get_image_url}}{% else %}{% static 'images/default/360x240_img7.jpg' %}{% endif %}" class="project-link project-action fancybox"
                                 data-fancybox="group"></a>
 
                         </div>

@@ -113,7 +113,7 @@ cars/{{car.slug}}
                                         {% if car.image_set %}
                                             {% for img in car.image_set.all  %}
                                             <div class="item-carousel">
-                                                <a href="{% if img.img_url %}{{img.img_url}}{% else %}{{img.image.url}}{% endif %}" class="fancybox" data-fancybox="group"><img height="380" src="{% if img.img_url %}{{img.img_url}}{% else %}{{img.image.url}}{% endif %}" alt="{{car.title}} detail image"></a>
+                                                <a href="{% if img.img_url %}{{img.img_url}}{% elif img.image.url %}{{img.image.url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" class="fancybox" data-fancybox="group"><img height="380" src="{% if img.img_url %}{{img.img_url}}{% elif img.image.url %}{{img.image.url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="{{car.title}} detail image"></a>
                                             </div>
                                             {% endfor %}
                                         {% endif %}

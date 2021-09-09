@@ -204,69 +204,6 @@ to you anywhere in the world.
 {% endblock slider %}
 
 {% block content %}
-{% comment %}
-<section class="section-filter">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="text-center">
-                    <h2 class="ui-title-block">Find Your Dream Car</h2>
-                    <div class="ui-subtitle-block">Tempor incididunt labore dolore magna aliqua sed ipsum</div>
-                    <div class="ui-decor"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <form class="b-filter" method="GET" action="{% url 'cars:search' %}">
-        <div class="b-filter__inner bg-grey">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9 col-sm-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.title|as_crispy_field}}
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.car_dealer_name|as_crispy_field}}
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.car_mileage|as_crispy_field}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.car_year|as_crispy_field}}
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.car_price|as_crispy_field}}
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        {{form.car_stock|as_crispy_field}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <div class="b-filter__btns" style="margin-top: 30px;">
-                            <div class="text-left" style="padding-left: 20px;">
-                                <p>Search by key filters.</p>
-                                <p style="margin-top: 0;">Stock Type: (used, new, brand certified)</p>
-                            </div>
-                            <button type="submit" class="btn btn-lg btn-primary">search vehicle</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    <!-- end .b-filter-->
-</section>
-{% endcomment %}
 <div class="page-section-bg">
 
     <div class="car-carousel">
@@ -301,7 +238,7 @@ to you anywhere in the world.
                     <div class="product">
 
                         <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
-                        <a href="{{f_car.get_absolute_url}}"><img loading="lazy" height="262" src="{% if f_car.image_set %}{{f_car.get_image_url}}{% else %}{% static 'images/default/289x190_img1.jpg' %}{% endif %}" alt="{{f_car.title}} photo"></a>
+                        <a href="{{f_car.get_absolute_url}}"><img loading="lazy" height="262" src="{% if f_car.image_set.first.img_url %}{{f_car.get_image_url}}{% else %}{% static 'images/default/289x190_img1.jpg' %}{% endif %}" alt="{{f_car.title}} photo"></a>
                         <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
 
                         <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
@@ -356,7 +293,7 @@ to you anywhere in the world.
 
                         <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
                         <a href="#">
-                            <img loading="lazy" height="262" src="{% if sp.image_set %}{{sp.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="">
+                            <img loading="lazy" height="262" src="{% if sp.image_set.first.img_url %}{{sp.get_image_url}}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}" alt="">
 
                         </a>
                         <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->

@@ -1,7 +1,9 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load i18n flatpages %}
 {% load crispy_forms_tags %}
+
+{% get_flatpages as flatpages%}
 
 {% block head_title %}{% trans "Buyer Signup" %}{% endblock %}
 {% block acc_bc %}
@@ -54,7 +56,7 @@
       </div>
   
       <div class="col-sm-12">
-        <p>By signing up you agree to our <a href="{% url 'terms' %}">terms and conditio</a> as well as <a href="{% url 'privacy' %}">privacy statement</a>, if you have not read these already, kindly take the time to read through before signin up.</p>
+        <p>By signing up you agree to our <a href="{% if flatpages %}/flatpage/terms/{% endif %}">terms and condition</a> as well as <a href="{% if flatpages %}/flatpage/privacy/{% endif %}">privacy statement</a>, if you have not read these already, kindly take the time to read through before signin up.</p>
         {% if redirect_field_value %}
         <input style="margin-bottom: 10px;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}

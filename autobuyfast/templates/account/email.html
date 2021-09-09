@@ -27,27 +27,27 @@
         <div class="radio">
           <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
 
-            <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or
-              user.emailaddress_set.count==1 %}checked="checked" {%endif %} value="{{emailaddress.email}}" />
+            <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked" {%endif %} value="{{emailaddress.email}}" />
 
             {{ emailaddress.email }}
             {% if emailaddress.verified %}
             <sup class="verified" style="font-weight:600; color: green; margin-left: 15px;">{% trans "Verified" %}</sup>
             {% else %}
-            <sup class="unverified" style="font-weight:600; color: red; margin-left: 15px;">{% trans "Unverified"
-              %}</sup>
+            <sup class="unverified" style="font-weight:600; color: red; margin-left: 15px;">{% trans "Unverified" %}</sup>
             {% endif %}
-            {% if emailaddress.primary %}<sup class="primary text-primary font-weight-bolder">{% trans "Primary"
-              %}</sup>{% endif %}
+            {% if emailaddress.primary %}<sup class="primary text-primary font-weight-bolder">{% trans "Primary"%}</sup>{% endif %}
           </label>
         </div>
         {% endfor %}
 
         <div class="form-group">
-          <button class="secondaryAction btn btn-primary" type="submit" name="action_primary">{% trans 'Make Primary'
-            %}</button>
-          <button class="secondaryAction btn btn-success" type="submit" name="action_send">{% trans 'Re-send
-            Verification' %}</button>
+          <br>
+          <button class="secondaryAction btn btn-primary" type="submit" name="action_primary">{% trans 'Make Primary'%}</button>
+          <br>
+          <br>
+          <button class="secondaryAction btn btn-success" type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
+          <br>
+          <br>
           <button class="primaryAction btn btn-default" type="submit" name="action_remove">{% trans 'Remove' %}</button>
         </div>
 
@@ -55,8 +55,7 @@
     </form>
 
     {% else %}
-    <p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should
-      really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
+    <p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
 
     {% endif %}
 
@@ -66,6 +65,7 @@
     <form method="post" action="{% url 'account_email' %}" class="add_email">
       {% csrf_token %}
       {{ form|crispy }}
+      <br>
       <button class="btn btn-primary btn-block" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
 

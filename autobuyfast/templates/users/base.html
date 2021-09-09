@@ -1,86 +1,183 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static crispy_forms_tags %}
 
-{% block title %}{{ request.user.username|title }} {% block user_title %}{% endblock user_title %} - {{ block.super }}{% endblock title %}
+
+{% url 'users:detail' request.user.username as dashboard_url %}
+
+{% block title %}
+{{ request.user.username|title }} Dashboard | {{ block.super }}
+{% endblock title %}
+
+{% block description %}
+{% block user_desc %}{% endblock %}
+{% endblock %}
+
+{% block og_author %}
+{{request.user.fullname}}
+{% endblock %}
+
+{% block og_title %}
+{% block user_og_title %}{% endblock %}
+{% endblock %}
+
+{% block og_url %}
+{% block user_og_url %}{% endblock %}
+{% endblock %}
+
+{% block twitter_title %}
+{% block user_tw_title %}{% endblock %}
+{% endblock %}
+
+{% block twitter_desc %}
+{% block user_tw_desc %}{% endblock %}
+{% endblock %}
+
+{% block can_link %}
+{% block user_can_link %}{% endblock %}
+{% endblock %}
+
+{% block bg %}
+{% endblock bg %}
+
+{% block pcw %}class="page-content-wrap"{% endblock pcw %}
+
 
 {% block slider %}
-<div class="section-title-page area-bg area-bg_dark area-bg_op_70" style="z-index: -100 !important;">
-  <div class="area-bg__inner">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h1 class="b-title-page bg-primary_a">{{ request.user.username|upper }} {% block user_page_title %}{% endblock %}</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end .b-title-page-->
-<div class="bg-grey">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <ol class="breadcrumb">
-          <li><a href="{% url 'home' %}"><i class="icon fa fa-home"></i></a>
-          </li>
-          <li class="active"><a href="{% url 'users:detail' request.user.username %}">dashboard</a></li>
-          <li>{% block user_breadcrum %}{% endblock user_breadcrum %}</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end breadcrumb-->
 {% endblock slider %}
+
 
 {% block content %}
 <div class="container">
-  <div class="row">
-
-    <!-- Action buttons -->
-
-    <div class="col-md-2">
-      {% if request.user.username %}
-      <a class="btn btn-primary btn-block" href="{% url 'users:detail' request.user.username %}" role="button">Dashboard</a>
-      {% if not request.user.has_testified %}
-      <a class="btn btn-primary btn-block" href="{% url 'users:create_testimony' %}" role="button">Leave Testimony</a>
-      {% endif %}
-      <a class="btn btn-primary btn-block" href="{% url 'users:watch_list' %}" role="button">Saved Cars</a>
-      <!-- <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Saved Search</a> -->
-      <a class="btn btn-primary btn-block" href="{% url 'account_email' %}" role="button">Update E-Mail</a>
-      {% if request.user.is_seller %}
-      <a class="btn btn-primary btn-block" href="{% url 'users:update_seller' %}" role="button">Profile</a>
-      <a class="btn btn-primary btn-block" href="{% url 'users:ads' %}" role="button">Manage Ads</a>
-      {% elif not request.user.is_seller %}
-      <a class="btn btn-primary btn-block" href="{% url 'users:update_buyer' %}" role="button">Profile</a>
-      {% endif %}
-      <!-- Your Stuff: Custom user template urls -->
-      <a class="btn btn-primary btn-block" href="{% url 'users:update_notification' %}" role="button">Alert Settings</a>
-      <a class="btn btn-primary btn-block" href="{% url 'account_change_password' %}" role="button">Password Settings</a>
-      <a class="btn btn-primary btn-block" href="{% url 'account_logout' %}" role="button">Logout</a>
+  <div class="content-element7">
+    <div class="share-section flex-row flex-justify flex-center">
+      {% if not request.path == dashboard_url %}
+      <a href="{% url 'users:detail' request.user.username %}" class="link-text2"><i class="icon-reply-4"></i>Back</a>
       {% endif %}
     </div>
+  </div>
+  <div class="dealers-page">
+    <div class="row">
+      <div class="sidebar col-md-4 col-sm-12">
+        <div class="bg-sidebar-item">
 
-    <!-- End Action buttons -->
-    <div class="col-md-10">
-      <section class="b-car-details" style="margin-top: 10px;">
-        <div class="b-car-details__header">
-          <h2 class="b-car-details__title">{% block user_section_title %}{% endblock user_section_title %}</h2>
-          <div class="b-car-details__subtitle">{% block user_section_title_desc %}{% endblock user_section_title_desc %}</div>
-          <div class="b-car-details__address"><i class="icon fa fa-map-marker text-primary"></i> {% if request.user.userprofile.address %} {{ request.user.userprofile.address }} {% else %} <a href="{% url 'users:update' %}">Update Your Address</a> {% endif %}</div>
-          <div class="b-car-details__links">
-            {% if request.user.is_seller %}
-            <a class="b-car-details__link" href="{% url 'cars:create' %}"><i class="icon fa fa-exchange text-primary"></i> Create Ad</a>
-            {% endif %}
-            <a class="b-car-details__link" href="{% url 'cars:list' %}"><i class="icon fa fa-car text-primary"></i> Car Brochure</a>
-            <!-- <a class="b-car-details__link" href="car-details.html"><i class="icon fa fa-share-alt text-primary"></i> Share</a> -->
+          <div class="content-element7">
+
+            <h5 class="section-title">Contact Information</h5>
+            <!-- Google map -->
+            <div class="map-section">
+              <div id="googleMap" class="map-container"></div>
+            </div>
+
           </div>
+
+          <div class="content-element7">
+
+            <div class="contact-item">
+              <h6 class="contact-title"><i class="licon-map-marker"></i>Address</h6>
+              <span class="contact-desc">{{request.user.userprofile.address}}, {{request.user.userprofile.city}},
+                {{request.user.userprofile.zipcode}} {{request.user.userprofile.country}} </span>
+              <span class="contact-desc">{{request.user.phone_no}}</span>
+              <span class="contact-desc">{{request.user.email}}</span>
+              <a href="{% url 'contact' %}" class="info-btn">Get Directions</a>
+            </div>
+
+          </div>
+
+          {% if request.user.is_seller %}
+          <a href="{% url 'cars:create' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Create Ads</a>
+          {% endif %}
+          {% if not request.user.has_testified %}
+          <a href="{% url 'users:create_testimony' %}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Leave A Testimony</a>
+          {% endif %}
+          <a href="{% url 'users:watch_list' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Watch
+            List</a>
+          <a href="{% url 'account_email' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Manage
+            Emails</a>
+          {% if request.user.is_seller %}
+          <a href="{% url 'users:update_seller' %}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Profile</a>
+          <a href="{% url 'users:ads' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Manage Car
+            Ads</a>
+          {% else %}
+          <a href="{% url 'users:update_buyer' %}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Profile</a>
+          {% endif %}
+          <a href="{% url 'users:update_notification' %}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Notification Settings</a>
+          <a href="{% url 'account_change_password' %}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Password Settings</a>
+          <a href="{{ request.user.userprofile.website }}" class="btn btn-big sidebar-btn"><i
+              class="licon-select2"></i>Visit Seller Website</a>
+
+          <div class="content-element3">
+
+            <div class="question-form bg-sidebar-item">
+
+              <h5>Contact The Seller</h5>
+              <p>All fields are required.</p>
+
+              <form>
+
+                <textarea rows="4" placeholder="Message"></textarea>
+                <input type="text" placeholder="First Name">
+                <input type="text" placeholder="Last Name">
+                <input type="text" placeholder="Email">
+
+                <div class="form-cols">
+                  <div class="form-collumn col-sm-6">
+                    <input type="text" placeholder="Phone (option)">
+                  </div>
+                  <div class="form-collumn col-sm-6">
+                    <input type="text" placeholder="ZIP">
+                  </div>
+                </div>
+
+              </form>
+
+              <a href="#" class="btn btn-style-3">Send Message</a>
+
+            </div>
+
+          </div>
+
+          <div class="align-center">
+            <a href="#"><img src="{% static 'images/default/300x600_banner1.jpg' %}" alt=""></a>
+          </div>
+
         </div>
+      </div>
+      <div class="col-md-8 col-sm-12">
+        <div class="content-element7">
+
+          <div class="flex-row flex-justify flex-center">
+
+            <div class="dealer-title">
+              {% if request.user.is_seller %}
+              <h2 class="section-title"><a href="javascript:;">{{request.user.userprofile.dealership_name }}</a></h2>
+              <div class="rating-area">
+                <div class="rating-number">Company Phone</div>
+                <div class="slash-list">
+                  <div class="link-text2">{{request.user.phone_no}}</div>
+                </div>
+              </div>
+              {% else %}
+              <h2 class="section-title"><a href="javascript:;">{{request.user.fullname}}</a></h2>
+              {% endif %}
+            </div>
+
+            <a href="javascript:;"><img
+                src="{% if request.user.userprofile.profile_display %}{{request.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/160x54_img1.jpg' %}{% endif %}"
+                height="54" alt=""></a>
+
+          </div>
+
+        </div>
+
         {% block user_content %}
         {% endblock user_content %}
-      </section>
+      </div>
     </div>
-
   </div>
 </div>
 {% endblock content %}

@@ -1,95 +1,823 @@
 {% extends "users/base.html" %}
 {% load static %}
 
-{% block user_title %}Dashboard{% endblock %}
-{% block user_page_title %}Dashboard{% endblock %}
-{% block user_breadcrum %}dashboard{% endblock %}
-{% block user_section_title %}Dashboard{% endblock %}
-{% block user_section_title_desc %}Manage all searches and saved car listings here{% endblock %}
+
+{% block user_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
 
 
 {% block user_content %}
 {% if request.user.is_seller %}
-<div class="b-car-details__section">
-  <h3 class="b-car-details__section-title ui-title-inner">My Ads</h3>
-  <div class="b-car-details__section-subtitle"><a href="">See all ads (4)</a></div>
-  <!-- add ads table below here -->
-  <!-- <div class="rtd typography-page"> -->
-    <div class="typography-section typography-section-border" style="margin-top: -70px;">
-      <div class="table-container">
-          <table class="table table_primary table-type-2 table-striped typography-last-elem">
-              <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Car Name</th>
-                      <th>Car Price</th>
-                      <th>Mark Sold</th>
-                      <th>Delete Ad</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for car in cars %}
-                  <tr>
-                      <td>{{forloop.counter}}</td>
-                      <td>{{car.car.title}}</td>
-                      <td>{{car.car.car_dealer_name}}</td>
-                      <td>{{car.created}}</td>
-                      <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>
-                  </tr>
-                  {% empty %}
-                  <tr>
-                      <td colspan="5" style="text-align: center;">No Saved car</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-  </div>
-<!-- </div> -->
-
+<div class="content-element3">
+    <img src="{% if request.user.userprofile.banner_display %}{{request.user.userprofile.banner_display.url}}{% else %}{% static 'images/default/750x430_img1.jpg' %}{% endif %}"
+        height="430" alt="">
 </div>
+<div class="content-element3">
 
-<br>
-{% endif %}
-
-{% if request.user %}
-<div class="b-car-details__section">
-  <h3 class="b-car-details__section-title ui-title-inner">Saved Cars</h3>
-  <div class="b-car-details__section-subtitle"><a href="{% url 'users:watch_list' %}">See all saved cars ({{cars_count}})</a></div>
-  <!-- add ads table below here -->
-  <!-- <div class="rtd typography-page"> -->
-    <div class="typography-section typography-section-border" style="margin-top: -70px;">
-      <div class="table-container">
-          <table class="table table_primary table-type-2 table-striped typography-last-elem">
-              <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Car Name</th>
-                      <th>Car Dealer</th>
-                      <th>Saved Date</th>
-                      <th>Stop Watching</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for car in cars %}
-                  <tr>
-                      <td>{{forloop.counter}}</td>
-                      <td>{{car.car.title}}</td>
-                      <td>{{car.car.car_dealer_name}}</td>
-                      <td>{{car.created}}</td>
-                      <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>
-                  </tr>
-                  {% empty %}
-                  <tr>
-                      <td colspan="5" style="text-align: center;">No Saved car</td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-  </div>
-<!-- </div> -->
+    <h4><b>About The Seller</b></h4>
+    <p>
+        {% if request.user.userprofile.bio %}
+        {{request.user.userprofile.bio|safe}}
+        {% else %}
+        The above dealer has only been listed and currently hasn't updated their bio yet. Check back in a few days.
+        {% endif %}
+    </p>
 
 </div>
 {% endif %}
+
+<div class="content-element">
+
+    <div class="tabs tabs-section style-2 clearfix">
+        <!--tabs navigation-->
+        <ul class="tabs-nav clearfix">
+            {% if request.user.is_seller %}
+            <li class="">
+                <a href="#tab-1">Car Ads</a>
+            </li>
+            <li class="">
+                <a href="#tab-4">Reviews</a>
+            </li>
+            {% else %}
+            <li class="">
+                <a href="#tab-2">Watched Cars</a>
+            </li>
+            {% endif %}
+            <li class="">
+                <a href="#tab-3">Saved Search</a>
+            </li>
+        </ul>
+        <!--tabs content-->
+        <div class="tabs-content">
+            {% if request.user.is_seller %}
+            <div id="tab-1">
+
+
+                <div class="content-element3">
+
+                    <h4 class="section-title">{% if cars %}{{cars.count}}{% else %}0{% endif %} Cars Posted</h4>
+
+                    <div class="products-holder view-list">
+                        {% for car in cars %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <figure class="product-image">
+                                <a href="{{car.get_absolute_url}}"><img
+                                        src="{% if car.image_set.first %}{{car.image_set.first.img_url }}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}"
+                                        height="236" alt=""></a>
+                                <div class="overlay full-width-block">
+                                    <div class="icon-fancy">
+                                        <a href="{% if car.image_set.first %}{{car.image_set.first.img_url }}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}"
+                                            class="fancybox" data-fancybox="group"><i
+                                                class="licon-camera2"></i><span>7</span></a>
+                                        <a href="#"><i class="licon-camera"></i><span>1</span></a>
+                                    </div>
+                                </div>
+                            </figure>
+                            <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+                            <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                            <div class="product-description">
+
+                                <h5 class="product-name"><a href="{{car.get_absolute_url}}">{{car.title}}</a></h5>
+
+                                <div class="pricing-area">
+
+                                    <div class="product-price">
+                                        ${{car.car_price}}
+                                    </div>
+
+                                </div>
+                                <div class="pricing-area">
+
+                                    <div class="mpg">
+                                        <span>Stock Type</span>
+                                        {{car.car_stock}}
+                                    </div>
+                                    <div class="mpg">
+                                        <span>Mileage</span>
+                                        {{car.car_mileage}}
+                                    </div>
+
+                                </div>
+
+                                <p>{{car.car_ext_color}} (ext), {{car.car_int_color}} (int), {{car.car_transmission}},
+                                    {{car.car_drive_train}}</p>
+
+                                <div class="brends flex-row flex-center">
+                                    <a href="#"><img src="{% static 'images/default/93x41_img1.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'images/default/93x41_img2.jpg' %}" alt=""></a>
+                                </div>
+
+                            </div>
+                            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+                        {% empty %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <div class="container">
+                                No car ads yet
+                            </div>
+                            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+
+                        {% endfor %}
+                    </div>
+
+                    <!-- <ul class="pagination">
+              <li><a href="#" class="prev-page"></a></li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#" class="next-page"></a></li>
+            </ul> -->
+
+                </div>
+
+            </div>
+            <div id="tab-4">
+
+                <div class="content-element">
+
+                    <div class="review-block">
+
+                        <div class="review-sum">
+
+                            <div class="rev-label f-left">
+
+                                <div class="review-numb">
+                                    <h6 class="rev-title">Average Ratings</h6>
+                                    4.5<span>/5.0</span>
+                                </div>
+                                <div class="review-vote">
+                                    <ul class="rating">
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+                                    <div>4 votes</div>
+                                </div>
+
+                            </div>
+
+                            <div class="rev-desc">
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+
+                                        <ul class="progress-list">
+                                            <li>
+
+                                                <div class="progress-rating">
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item"></div>
+                                                </div>
+                                                <span><b>Customer Service</b></span>
+
+                                            </li>
+                                            <li>
+
+                                                <div class="progress-rating">
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item"></div>
+                                                </div>
+                                                <span><b>Buying Process</b></span>
+
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <ul class="progress-list">
+                                            <li>
+
+                                                <div class="progress-rating">
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                </div>
+                                                <span><b>Quality of Repair</b></span>
+
+                                            </li>
+                                            <li>
+
+                                                <div class="progress-rating">
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                    <div class="prat-item fill"></div>
+                                                </div>
+                                                <span><b>Overall Facilities</b></span>
+
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                                <div class="row flex-row flex-center">
+                                    <div class="col-xs-6">
+
+                                        <p><b>Recommend this seller:</b> Yes (2) | No (0)</p>
+
+                                    </div>
+                                    <div class="col-xs-6">
+
+                                        <a href="#" class="btn btn-style-4"><i class="licon-pencil"></i>Write a
+                                            Review</a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="content-element">
+
+                    <h4><b>2 Reviews For “Palmetto Motors”</b></h4>
+                    <div class="reviews-section">
+
+                        <div class="rev-item">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <ul class="progress-list type-2">
+                                        <li>
+                                            <div class="progress-rating type-2">
+                                                <ul class="rating">
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                </ul>
+                                            </div>
+                                            <span class="rat-numb">(4.9)</span>
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item"></div>
+                                            </div>
+                                            <span>Customer Service</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="not-rat">Not Applicable</div>
+                                            </div>
+                                            <span>Buying Process</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                            </div>
+                                            <span>Quality of Repair</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                            </div>
+                                            <span>Overall Facilities</span>
+
+                                        </li>
+                                    </ul>
+                                    <p>Recommend this seller: <b>Yes</b></p>
+
+                                </div>
+                                <div class="col-sm-8">
+
+                                    <article class="comment">
+
+                                        <div class="clearfix">
+                                            <h6 class="f-left"><b>Greate service!</b></h6>
+                                            <a href="#" class="link-text2 f-right"><i class="licon-flag2"></i>Report</a>
+                                        </div>
+
+                                        <!-- - - - - - - - - - - - - - Comment body - - - - - - - - - - - - - - - - -->
+
+                                        <div class="entry-body">
+
+                                            <div class="entry-meta">
+
+                                                <span class="entry-byline">by <a href="#">John Doe</a> from Beach Park,
+                                                    IL</span>
+                                                <time class="entry-date" datetime="2016-01-27">October 28, 2018</time>
+
+
+                                            </div>
+
+                                            <p>Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec
+                                                sit amet eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                                                Mauris fermentum dictum magna. Sed laoreet aliquam leo.Ut tellus dolor,
+                                                dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi
+                                                et urna. <span class="other-content">Ut tellus dolor, dapibus eget,
+                                                    elementum vel, cursus eleifend, elit. Aenean auctor wisi et
+                                                    urna.</span> <a href="#" id="loadmore" class="info-btn type2">Show
+                                                    Full Review</a> </p>
+
+                                        </div>
+                                        <!--/ .comment-body-->
+
+                                        <!-- - - - - - - - - - - - - - End of comment body - - - - - - - - - - - - - - - - -->
+
+                                    </article>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="rev-item">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <ul class="progress-list type-2">
+                                        <li>
+                                            <div class="progress-rating type-2">
+                                                <ul class="rating">
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                    <li><i class="licon-star"></i></li>
+                                                </ul>
+                                            </div>
+                                            <span class="rat-numb">(4.8)</span>
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item"></div>
+                                            </div>
+                                            <span>Customer Service</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item"></div>
+                                                <div class="prat-item"></div>
+                                            </div>
+                                            <span>Buying Process</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                            </div>
+                                            <span>Quality of Repair</span>
+
+                                        </li>
+                                        <li>
+
+                                            <div class="progress-rating type-2">
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                                <div class="prat-item fill"></div>
+                                            </div>
+                                            <span>Overall Facilities</span>
+
+                                        </li>
+                                    </ul>
+                                    <p>Recommend this seller: <b>Yes</b></p>
+
+                                </div>
+                                <div class="col-sm-8">
+
+                                    <article class="comment">
+
+                                        <div class="clearfix">
+                                            <h6 class="f-left"><b>Greate service!</b></h6>
+                                            <a href="#" class="link-text2 f-right"><i class="licon-flag2"></i>Report</a>
+                                        </div>
+
+                                        <!-- - - - - - - - - - - - - - Comment body - - - - - - - - - - - - - - - - -->
+
+                                        <div class="entry-body">
+
+                                            <div class="entry-meta">
+
+                                                <span class="entry-byline">by <a href="#">John Doe</a> from Beach Park,
+                                                    IL</span>
+                                                <time class="entry-date" datetime="2016-01-27">October 28, 2018</time>
+
+
+                                            </div>
+
+                                            <p>Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit.
+                                                Aenean auctor wisi et urna. Aliquam erat volutpat. </p>
+
+                                        </div>
+                                        <!--/ .comment-body-->
+
+                                        <!-- - - - - - - - - - - - - - End of comment body - - - - - - - - - - - - - - - - -->
+
+                                    </article>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="content-element">
+
+                    <div class="question-form bg-sidebar-item">
+
+                        <h5 class="section-title">Add a Review</h5>
+                        <p>Your email address will not be published. All fields are required.</p>
+
+                        <form>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <label>What was the reason for your visit?</label>
+                                    <div class="custom-select">
+                                        <div class="select-title">Shopping for a new car</div>
+                                        <ul id="menu-type15" class="select-list"></ul>
+                                        <select class="hide">
+                                            <option value="menu">1</option>
+                                            <option value="menu">2</option>
+                                            <option value="menu">3</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <label class="required">Title</label>
+                                    <input type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <label>Name</label>
+                                    <input type="text">
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <label>City, State</label>
+                                    <input type="text" placeholder='Example: "Chicago, IL"'>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <label class="required">Email</label>
+                                    <input type="text">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <label>Would you recommend this dealer to a friend?</label>
+                                    <div class="input-wrapper style-2">
+
+                                        <input type="radio" checked="" name="radio-1" id="radio-1">
+                                        <label for="radio-1">Yes</label>
+
+                                        <input type="radio" name="radio-1" id="radio-2">
+                                        <label for="radio-2">No</label>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <label>Did you purchase a vehicle from this dealer?</label>
+                                    <div class="input-wrapper style-2">
+
+                                        <input type="radio" checked="" name="radio-3" id="radio-3">
+                                        <label for="radio-3">Yes</label>
+
+                                        <input type="radio" name="radio-3" id="radio-4">
+                                        <label for="radio-4">No</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <label>Overall</label>
+                                    <ul class="rating">
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <label>Customer Service</label>
+                                    <ul class="rating">
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <label>Buying Process</label>
+                                    <ul class="rating">
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <label>Quality of Repair</label>
+                                    <ul class="rating">
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+
+                                </div>
+                                <div class="col-sm-4">
+
+                                    <label>Overall Facilities</label>
+                                    <ul class="rating">
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                        <li><i class="licon-star-empty"></i></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <label>Your Review</label>
+                                    <textarea rows="5"></textarea>
+
+                                    <div class="input-wrapper style-2">
+
+                                        <input type="checkbox" id="checkbox" class="type-2" name="checkbox">
+                                        <label for="checkbox">I am not a dealer, and I am not employed by a
+                                            dealership.</label>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <a href="#" class="btn btn-style-3">Submit review</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+            {% else %}
+            <div id="tab-2">
+
+                <div class="content-element3">
+
+                    <h4 class="section-title">{% if cars %}{{cars.count}}{% else %}0{% endif %} Cars Watched</h4>
+
+                    <div class="products-holder view-list">
+                        {% for car in cars %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <figure class="product-image">
+                                <a href="{{car.get_absolute_url}}"><img
+                                        src="{% if car.image_set.first %}{{car.image_set.first.img_url }}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}"
+                                        height="236" alt=""></a>
+                                <div class="overlay full-width-block">
+                                    <div class="icon-fancy">
+                                        <a href="{% if car.image_set.first %}{{car.image_set.first.img_url }}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}"
+                                            class="fancybox" data-fancybox="group"><i
+                                                class="licon-camera2"></i><span>7</span></a>
+                                        <a href="#"><i class="licon-camera"></i><span>1</span></a>
+                                    </div>
+                                </div>
+                            </figure>
+                            <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+                            <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                            <div class="product-description">
+
+                                <h5 class="product-name"><a href="{{car.get_absolute_url}}">{{car.title}}</a></h5>
+
+                                <div class="pricing-area">
+
+                                    <div class="product-price">
+                                        ${{car.car_price}}
+                                    </div>
+
+                                </div>
+                                <div class="pricing-area">
+
+                                    <div class="mpg">
+                                        <span>Stock Type</span>
+                                        {{car.car_stock}}
+                                    </div>
+                                    <div class="mpg">
+                                        <span>Mileage</span>
+                                        {{car.car_mileage}}
+                                    </div>
+
+                                </div>
+
+                                <p>{{car.car_ext_color}} (ext), {{car.car_int_color}} (int), {{car.car_transmission}},
+                                    {{car.car_drive_train}}</p>
+
+                                <div class="brends flex-row flex-center">
+                                    <a href="#"><img src="{% static 'images/default/93x41_img1.jpg' %}" alt=""></a>
+                                    <a href="#"><img src="{% static 'images/default/93x41_img2.jpg' %}" alt=""></a>
+                                </div>
+
+                            </div>
+                            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+                        {% empty %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <div class="container">
+                                No car ads added to your watch list
+                            </div>
+                            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </div>
+            {% endif %}
+            <div id="tab-3">
+                <div class="content-element3">
+
+                    <h4 class="section-title">{% if cars %}{{cars.count}}{% else %}0{% endif %} Cars Searches Saved</h4>
+
+                    <div class="products-holder view-list">
+                        {% for car in cars %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <figure class="product-image">
+                                <a href="{{car.get_absolute_url}}"><img
+                                        src="{% if car.image_set.first %}{{car.image_set.first.img_url }}{% else %}{% static 'images/default/360x236_img1.jpg' %}{% endif %}"
+                                        height="236" alt=""></a>
+                            </figure>
+                            <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+                        {% empty %}
+                        <!-- - - - - - - - - - - - - - Product - - - - - - - - - - - - - - - - -->
+                        <div class="product">
+
+                            <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                            <div class="container">
+                                No car search saved yet
+                            </div>
+                            <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+
+                        </div>
+                        <!-- - - - - - - - - - - - - - / Product - - - - - - - - - - - - - - - - -->
+
+                        {% endfor %}
+                    </div>
+
+                    <!-- <ul class="pagination">
+                  <li><a href="#" class="prev-page"></a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#" class="next-page"></a></li>
+                </ul> -->
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
 {% endblock user_content %}

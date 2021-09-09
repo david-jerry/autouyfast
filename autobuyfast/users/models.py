@@ -128,7 +128,7 @@ class Profile(TimeStampedModel):
     bio = HTMLField(_("What services will buyers find appealing from you?"), null=True, blank=True)
     website = URLField(_("Website URI"), null=True, blank=True, unique=True)
     profile_display = ResizedImageField(size=[120, 120], quality=75, crop=['middle', 'center'], upload_to=profile_image, force_format='JPEG', help_text="Image should be squared and sized 120px X 120px", null=True, blank=True)
-    banner_display = ResizedImageField(size=[1280, 300], quality=75, crop=['middle', 'center'], upload_to=banner_image, force_format='JPEG', help_text="Image should be cropped and sized 1280px X 300px", null=True, blank=True)
+    banner_display = ResizedImageField(size=[750, 430], quality=75, crop=['middle', 'center'], upload_to=banner_image, force_format='JPEG', help_text="Image should be cropped and sized 1280px X 300px", null=True, blank=True)
     country = ForeignKey(Country, on_delete=CASCADE, related_name="dealercountry", null=True, blank=True)
     address = CharField(_("Address"), max_length=500, null=True, blank=True)
     city = CharField(_("City"), max_length=500, null=True, blank=True)

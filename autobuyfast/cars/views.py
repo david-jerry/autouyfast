@@ -52,10 +52,18 @@ class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        extra_forms = 3
         if self.request.POST:
-            context["images"] = CarImageFormset(self.request.POST, self.request.FILES)
+            if 'additems' in self.request.POST and self.request.POST['additems'] == 'true':
+                formset_dictionary_copy = self.request.POST.copy()
+                formset_dictionary_copy['form-TOTAL_FORMS'] = int(formset_dictionary_copy['form-TOTAL_FORMS']) + extra_forms
+                formset = CarImageFormset(formset_dictionary_copy)
+                context["images"] = formset
+            else:
+                formset = CarImageFormset(self.request.POST, self.request.FILES)
+                context["images"] = formset
         else:
-            context["images"] = CarImageFormset()
+            context["images"] = CarImageFormset(self.request.GET or None)
         return context
     
     # def get_object(self):
@@ -67,12 +75,15 @@ class CarCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         images = context['images']
         with transaction.atomic():
             form.instance.dealer = self.request.user
-            form.instance.car_dealer_name = self.request.user.full_name
+            form.instance.car_dealer_name = self.request.user.fullname
             form.instance.car_dealer_phone = self.request.user.phone_no
             self.object = form.instance.save()
-            if images.is_valid():
+            if images.is_valid() and form.is_valid():
                 images.instance.car = self.object
                 images.instance.save()
+                images.save()
+            else:
+                CarImageFormset()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -111,7 +122,7 @@ class CarUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         images = context['images']
         with transaction.atomic():
             form.instance.dealer = self.request.user
-            form.instance.car_dealer_name = self.request.user.full_name
+            form.instance.car_dealer_name = self.request.user.fullname
             form.instance.car_dealer_phone = self.request.user.phone_no
             self.object = form.instance.save()
             if images.is_valid():

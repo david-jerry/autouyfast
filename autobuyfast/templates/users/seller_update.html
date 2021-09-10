@@ -37,7 +37,7 @@ users/{{request.user.username}}
     
     </div>
     
-    <form class="form-horizontal" method="post" action="{% url 'users:update_seller' %}">
+    <form class="form-horizontal" method="post" action="{% url 'users:update_seller' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.non_field_errors}}
         {{form.source.errors}}

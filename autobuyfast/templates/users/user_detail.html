@@ -67,6 +67,11 @@ users/{{request.user.username}}
             <li class="">
                 <a href="#tab-3">Saved Search</a>
             </li>
+            {% if request.user and not request.user.has_testified %}
+            <li class="">
+                <a href="#tab-5">Leave a Testimony</a>
+            </li>
+            {% endif %}
         </ul>
         <!--tabs content-->
         <div class="tabs-content">
@@ -247,6 +252,26 @@ users/{{request.user.username}}
 
                 </div>
 
+            </div>
+            {% endif %}
+            {% if request.user and not request.user.has_testified %}
+            <div id="tab-5">
+                <div class="cotent-element3">
+                    <h4 class="sectio-title">Leave a testimony</h4>
+                    
+                    <form class="form-horizontal" method="post" action="{% url 'users:create_testimony' %}">
+                        {% csrf_token %}
+                        {{form.non_field_errors}}
+                        {{form.source.errors}}
+                        {{form.source}}
+                        <div>
+                        {{ testimony_form.testimony }}
+                        {{ testimony_form.testimony.errors }}
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-style-3 btn-block">Create Testimony</button>
+                    </form>    
+                </div>
             </div>
             {% endif %}
             <div id="tab-3">

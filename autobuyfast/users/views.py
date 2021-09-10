@@ -16,6 +16,7 @@ from django.views.generic import (
     RedirectView,
     UpdateView,
 )
+from django.views.generic.edit import FormMixin
 
 from autobuyfast.cars.models import AutoSearch, Image, SaveCarSearch, WatchCars
 from autobuyfast.users.forms import CarRequestForm
@@ -89,18 +90,28 @@ buyer_signup = BuyerCreateView.as_view()
 
 # Default user views for update and detail
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, SuccessMessageMixin, FormMixin, DetailView):
 
     model = User
+    form_class = TestimonyForm
+    success_message = "Thank you for your review of our service, this will enable us improve to serve you even better."
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        User.objects.filter(username=self.request.user.username).update(has_testified=True)
+        form.instance.save()
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        testimonial = get_object_or_404(Testimonial, user=self.request.user, active=True)
         cars = AutoSearch.objects.filter(dealer=self.request.user)
         watched_cars = WatchCars.objects.filter(user=self.request.user)
         saved_search = SaveCarSearch.objects.filter(user=self.request.user, saved=True)
+        context["testimony_form"] = self.form_class
+        context["testimony"] = testimonial
         context["cars"] = cars.order_by("-created")[:5]
         context["watched_cars"] = watched_cars.order_by("-created")[:5]
         context["saved_search"] = saved_search.order_by("-created")[:15]

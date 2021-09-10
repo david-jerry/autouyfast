@@ -19,7 +19,7 @@
 </div>
 
 <div class="b-car-details__section" style="margin-left: 10px;">
-    <form class="form-horizontal" method="post" action="{% url 'users:update_buyer' %}">
+    <form class="form-horizontal" method="post" action="{% url 'users:update_buyer' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{form.non_field_errors}}
         {{form.source.errors}}

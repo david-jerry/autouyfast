@@ -28,7 +28,7 @@ class CarImageForm(forms.ModelForm):
 
 CarImageFormset = inlineformset_factory(
     AutoSearch, Image, form=CarImageForm,
-    fields=['image'], extra=3 #can_delete=True, can_order=True
+    fields=['image'], extra=3, can_delete=True, max_num=20, min_num=1 # can_order=True
 )
 
 
@@ -54,6 +54,22 @@ class AutoSearchForm(forms.ModelForm):
             "car_engine",
             "seller_note",
         ]
+        widgets = {
+            'car_vin': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Vin'}),
+            'title': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Name'}),
+            'car_price': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Main Price'}),
+            'car_sub_price': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Monthly Price'}),
+            'car_transmission': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Transmission'}),
+            'car_ext_color': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Exterior Color'}),
+            'car_int_color': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Interior Color'}),
+            'car_drive_train': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Drive Train'}),
+            'car_fuel_type': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Fuel Type'}),
+            'car_engine': forms.TextInput(attrs={'class':'textinput textInput form-control', 'placeholder': 'Car Engine'}),
+            'car_year': forms.Select(attrs={'class':'auto-custom-select', 'placeholder': 'Model Year'}),
+            'car_stock': forms.Select(attrs={'class':'auto-custom-select', 'placeholder': 'Used or New'}),
+            'car_body': forms.Select(attrs={'class':'auto-custom-select', 'placeholder': 'Used or New'}),
+            'car_door': forms.Select(attrs={'class':'auto-custom-select', 'placeholder': 'Used or New'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,6 +84,8 @@ class AutoSearchForm(forms.ModelForm):
                 Field('car_def_image'),
                 Field('car_vin'),
                 Field('car_stock'),
+                Field('car_door'),
+                Field('car_body'),
                 Field('car_year'),
                 Field('car_price'),
                 Field('car_sub_price'),

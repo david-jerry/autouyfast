@@ -46,7 +46,8 @@
 <style>
   input[type="text"],
   input[type="email"],
-  input[type="url"] {
+  input[type="url"],
+  input[type="number"] {
     background-color: #f2f3f3;
   }
   input[type="file"] {
@@ -93,6 +94,7 @@
     <div class="row">
       <div class="col-md-8 col-sm-12">
         <div class="dealer-single">
+          {% if not request.path == '/cars/create/' %}
           <div class="content-element7">
 
             <div class="flex-row flex-justify flex-center">
@@ -118,7 +120,7 @@
             </div>
   
           </div>
-  
+          {% endif %}
           {% block user_content %}
           {% endblock user_content %}
           </div>
@@ -151,10 +153,6 @@
 
           {% if request.user.is_seller %}
           <a href="{% url 'cars:create' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Create Ads</a>
-          {% endif %}
-          {% if not request.user.has_testified %}
-          <a href="{% url 'users:create_testimony' %}" class="btn btn-big sidebar-btn"><i
-              class="licon-select2"></i>Leave A Testimony</a>
           {% endif %}
           <a href="{% url 'users:watch_list' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Watch
             List</a>

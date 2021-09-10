@@ -53,6 +53,7 @@
   <link rel="dns-prefetch" href="https://autobuyfast-bucket.s3.amazonaws.com/">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|verpass:300,400,600,700,800,900|Hind:300,400,500,600,700|Poppins:100,200,300,400,500,600,700&display=swap">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Your stuff: Third-party CSS libraries go here -->
   <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
@@ -76,7 +77,6 @@
 
   <!-- Your stuff: Third-party javascript libraries go here -->
   {% include "snippets/js.html" %}
-  <script async src="{% static 'js/iziToast.min.js' %}"></script>
   <!-- place project specific Javascript in this file -->
   {% compress js inline %}
   {% endcompress %}
@@ -129,6 +129,7 @@
 
   {% block modal %}{% endblock modal %}
   {# izi message signals for django #}
+  <script src="{% static 'js/iziToast.min.js' %}"></script>
   {% for message in messages %}
   <script type=text/javascript>
     iziToast.settings({

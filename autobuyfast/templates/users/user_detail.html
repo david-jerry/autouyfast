@@ -277,7 +277,7 @@ users/{{request.user.username}}
             <div id="tab-3">
                 <div class="content-element3">
 
-                    <h4 class="section-title">{% if saved_search_count %}{{saved_search_count}}{% else %}0{% endif %} Cars Searches Saved</h4>
+                    <h4 class="section-title">{% if saved_search %}{{saved_search_count}}{% else %}0{% endif %} Cars Searches Saved</h4>
 
                     <div class="products-holder view-list">
                         {% for car in saved_search %}

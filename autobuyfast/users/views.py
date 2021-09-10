@@ -106,7 +106,7 @@ class UserDetailView(LoginRequiredMixin, SuccessMessageMixin, FormMixin, DetailV
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        testimonial = get_object_or_404(Testimonial, user=self.request.user, active=True)
+        testimonial = Testimonial.objects.filter(user=self.request.user, active=True).exists()
         cars = AutoSearch.objects.filter(dealer=self.request.user)
         watched_cars = WatchCars.objects.filter(user=self.request.user)
         saved_search = SaveCarSearch.objects.filter(user=self.request.user, saved=True)

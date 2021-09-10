@@ -17,7 +17,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from autobuyfast.cars.models import AutoSearch, Image, WatchCars
+from autobuyfast.cars.models import AutoSearch, Image, SaveCarSearch, WatchCars
 from autobuyfast.users.forms import CarRequestForm
 
 from .forms import (
@@ -98,9 +98,15 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cars = WatchCars.objects.all().filter(user=self.request.user)
+        cars = AutoSearch.objects.filter(dealer=self.request.user)
+        watched_cars = WatchCars.objects.filter(user=self.request.user)
+        saved_search = SaveCarSearch.objects.filter(user=self.request.user, saved=True)
         context["cars"] = cars.order_by("-created")[:5]
+        context["watched_cars"] = watched_cars.order_by("-created")[:5]
+        context["saved_search"] = saved_search.order_by("-created")[:15]
         context["cars_count"] = cars.count()
+        context["watched_cars_count"] = watched_cars.count()
+        context["saved_search_count"] = saved_search.count()
         return context
     
 
@@ -114,7 +120,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _("Your personal information successfully updated")
 
     def get_success_url(self):
-        return self.request.user.get_absolute_url()  # type: ignore [union-attr]
+        return reverse("users:detail", kwargs={"username": self.request.user.username})  # type: ignore [union-attr]
 
     def get_object(self):
         return self.request.user
@@ -154,7 +160,7 @@ class UserSellerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return self.request.user.get_absolute_url()  # type: ignore [union-attr]
+        return reverse("users:detail", kwargs={"username": self.request.user.username})  # type: ignore [union-attr]
 
 
 seller_update_view = UserSellerUpdateView.as_view()
@@ -192,7 +198,7 @@ class UserBuyerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return self.request.user.get_absolute_url()  # type: ignore [union-attr]
+        return reverse("users:detail", kwargs={"username": self.request.user.username})  # type: ignore [union-attr]
 
 
 buyer_update_view = UserBuyerUpdateView.as_view()

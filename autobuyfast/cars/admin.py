@@ -3,7 +3,13 @@ from django.utils.safestring import mark_safe
 
 from autobuyfast.utils.export_as_csv import ExportCsvMixin
 
-from .models import AutoSearch, CarCompare, Image, WatchCars  # , Stock, Year
+from .models import (  # , Stock, Year
+    AutoSearch,
+    CarCompare,
+    Image,
+    SaveCarSearch,
+    WatchCars,
+)
 
 
 # Register your models here.
@@ -74,3 +80,4 @@ class AutoSearchAdmin(admin.ModelAdmin, ExportCsvMixin):
 admin.site.register(WatchCars)
 # admin.site.register(Stock)
 admin.site.register(CarCompare)
+admin.site.register(SaveCarSearch)

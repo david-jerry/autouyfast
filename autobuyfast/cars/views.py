@@ -15,7 +15,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormMixin, UpdateV
 
 from .filters import CarFilter, CarSearchFilter, HomeSearchFilter
 from .forms import AutoSearchForm, CarImageFormset, ContactCarDealerForm
-from .models import AutoSearch, CarCompare, WatchCars
+from .models import AutoSearch, CarCompare, SaveCarSearch, WatchCars
 
 User = get_user_model()
 
@@ -199,6 +199,11 @@ class CarsSearchListview(ListView):
         context = super().get_context_data(**kwargs)
         context["cars_total"] = self.get_queryset().count()
         context["filter"] = CarSearchFilter(request.GET, queryset=self.get_queryset())
+        if self.request.user.is_authenticated:
+            url = request.get_full_path()
+            request.session["url"] = url
+            search = SaveCarSearch.objects.filter(user=request.user, search_link=url, saved=True).exists()
+            context['search'] = search
         return context
     
 filter_car_search_view = CarsSearchListview.as_view()
@@ -222,6 +227,11 @@ class CarsHomeSearchListview(ListView):
         context = super().get_context_data(**kwargs)
         context["cars_total"] = self.get_queryset().count()
         context["filter"] = CarSearchFilter(request.GET, queryset=self.get_queryset())
+        if self.request.user.is_authenticated:
+            url = request.get_full_path()
+            request.session["url"] = url
+            search = SaveCarSearch.objects.filter(user=request.user, search_link=url, saved=True).exists()
+            context['search'] = search
         return context
     
 filter_home_car_search_view = CarsHomeSearchListview.as_view()
@@ -275,6 +285,36 @@ def unwatch_car(request, slug):
     return HttpResponseRedirect(reverse('users:watch_list'))
 
 
+
+
+
+@login_required
+def save_search(request):
+    user = request.user
+    url = request.session.get('url')
+    print(url)
+    search = SaveCarSearch.objects.filter(user=user, search_link=url, saved=True)
+    if not search.exists():
+        SaveCarSearch.objects.create(user=user, search_link=url, saved=True)
+        if SaveCarSearch.objects.filter(user=user, search_link=url, saved=True).exists():
+            messages.success(request, f"{url} saved")
+            return HttpResponseRedirect(url)
+        else:
+            messages.error(request, f"{url} could not be saved")
+
+@login_required
+def unsave_search(request, pk):
+    search = get_object_or_404(SaveCarSearch, pk=pk)
+    if search:
+        search.delete()
+        messages.success(request, f"{search.search_link} deleted")
+    return HttpResponseRedirect(reverse("cars:search_list"))
+
+class AllSearchView(LoginRequiredMixin, ListView):
+    model = SaveCarSearch
+    template_name = "users/search_saved_list.html"
+    ordering = ["-created"]
+    context_object_name = "searches"
 class CarDetailView(FormMixin, SuccessMessageMixin, DetailView):
     model = AutoSearch
     template_name='cars/detail.html'
@@ -313,3 +353,5 @@ class CarDetailView(FormMixin, SuccessMessageMixin, DetailView):
 
 
 car_detail_view = CarDetailView.as_view()
+
+

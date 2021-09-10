@@ -45,6 +45,9 @@ page-section-bg
     <div class="row">
         <aside id="sidebar" class="sbl style-2 col-md-3 col-sm-12">
             <div class="filter-section">
+                {% if not search %}
+                <a class="btn btn-style-2" style="margin-bottom: 21px;" href="{% url 'cars:save_search' %}">Save Search Link</a>
+                {% endif %}
                 <form action="{% url 'cars:search' %}" method="GET">
                     {{filter.form.non_field_errors}}
                     {{filter.form.source.errors}}
@@ -141,11 +144,9 @@ page-section-bg
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary btn-block">filter vehicle</button>
+                        <button type="submit" class="btn btn-style-3 btn-block">filter vehicle</button>
                     </div>
                 </form>
-
-
             </div>
         </aside>
 

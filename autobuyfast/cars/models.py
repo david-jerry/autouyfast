@@ -541,3 +541,17 @@ class CarCompare(TimeStampedModel):
         verbose_name_plural = "Cars Compared"
         ordering = ["-created"]
 
+class SaveCarSearch(TimeStampedModel):
+    user = ForeignKey(User, on_delete=CASCADE)
+    search_link = URLField(blank=True, null=True)
+    saved = BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.fullname} saved this link {self.search_link}"
+
+    class Meta:
+        managed = True
+        verbose_name = "Cat Search"
+        verbose_name_plural = "Car Searches"
+        ordering = ["-created"]
+    

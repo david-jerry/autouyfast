@@ -76,7 +76,7 @@
 
   <!-- Your stuff: Third-party javascript libraries go here -->
   {% include "snippets/js.html" %}
-
+  <script async src="{% static 'js/iziToast.min.js' %}"></script>
   <!-- place project specific Javascript in this file -->
   {% compress js inline %}
   {% endcompress %}
@@ -129,9 +129,8 @@
 
   {% block modal %}{% endblock modal %}
   {# izi message signals for django #}
-  <script async src="{% static 'js/iziToast.min.js' %}"></script>
+  {% for message in messages %}
   <script type=text/javascript>
-    {% for message in messages %}
     iziToast.settings({
       timeout: 9000,
       position: 'topRight',
@@ -154,12 +153,15 @@
       title: '{{ message.tags|capfirst }}',
       message: '{{ message }}',
     });
-    {% endfor %}
   </script>
+  {% endfor %}
 
   
   {% block inline_javascript %}
   {% endblock inline_javascript %}
+
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyBN4XjYeIQbUspEkxCV2dhVPSoScBkIoic"></script>
+
 </body>
 
 </html>

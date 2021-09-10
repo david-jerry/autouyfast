@@ -91,6 +91,38 @@
   </div>
   <div class="dealers-page">
     <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <div class="dealer-single">
+          <div class="content-element7">
+
+            <div class="flex-row flex-justify flex-center">
+  
+              <div class="dealer-title">
+                {% if request.user.is_seller %}
+                <h2 class="section-title"><a href="javascript:;">{{request.user.userprofile.dealership_name }}</a></h2>
+                <div class="rating-area">
+                  <div class="rating-number">Company Phone</div>
+                  <div class="slash-list">
+                    <div class="link-text2">{{request.user.phone_no}}</div>
+                  </div>
+                </div>
+                {% else %}
+                <h2 class="section-title"><a href="javascript:;">{{request.user.fullname}}</a></h2>
+                {% endif %}
+              </div>
+  
+              <a href="javascript:;"><img
+                  src="{% if request.user.userprofile.profile_display %}{{request.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/160x54_img1.jpg' %}{% endif %}"
+                  height="54" alt=""></a>
+  
+            </div>
+  
+          </div>
+  
+          {% block user_content %}
+          {% endblock user_content %}
+          </div>
+      </div>
       <div class="sidebar col-md-4 col-sm-12">
         <div class="bg-sidebar-item">
 
@@ -126,7 +158,9 @@
           {% endif %}
           <a href="{% url 'users:watch_list' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Watch
             List</a>
-          <a href="{% url 'account_email' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Manage
+          <a href="{% url 'cars:search_list' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Search
+            List</a>
+            <a href="{% url 'account_email' %}" class="btn btn-big sidebar-btn"><i class="licon-select2"></i>Manage
             Emails</a>
           {% if request.user.is_seller %}
           <a href="{% url 'users:update_seller' %}" class="btn btn-big sidebar-btn"><i
@@ -144,74 +178,11 @@
           <a href="{{ request.user.userprofile.website }}" class="btn btn-big sidebar-btn"><i
               class="licon-select2"></i>Visit Seller Website</a>
 
-          <div class="content-element3">
-
-            <div class="question-form bg-sidebar-item">
-
-              <h5>Contact The Seller</h5>
-              <p>All fields are required.</p>
-
-              <form>
-
-                <textarea rows="4" placeholder="Message"></textarea>
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Last Name">
-                <input type="text" placeholder="Email">
-
-                <div class="form-cols">
-                  <div class="form-collumn col-sm-6">
-                    <input type="text" placeholder="Phone (option)">
-                  </div>
-                  <div class="form-collumn col-sm-6">
-                    <input type="text" placeholder="ZIP">
-                  </div>
-                </div>
-
-              </form>
-
-              <a href="#" class="btn btn-style-3">Send Message</a>
-
-            </div>
-
-          </div>
-
           <div class="align-center">
             <a href="#"><img src="{% static 'images/default/300x600_banner1.jpg' %}" alt=""></a>
           </div>
 
         </div>
-      </div>
-      <div class="col-md-8 col-sm-12">
-        <div class="dealer-single">
-          <div class="content-element7">
-
-            <div class="flex-row flex-justify flex-center">
-  
-              <div class="dealer-title">
-                {% if request.user.is_seller %}
-                <h2 class="section-title"><a href="javascript:;">{{request.user.userprofile.dealership_name }}</a></h2>
-                <div class="rating-area">
-                  <div class="rating-number">Company Phone</div>
-                  <div class="slash-list">
-                    <div class="link-text2">{{request.user.phone_no}}</div>
-                  </div>
-                </div>
-                {% else %}
-                <h2 class="section-title"><a href="javascript:;">{{request.user.fullname}}</a></h2>
-                {% endif %}
-              </div>
-  
-              <a href="javascript:;"><img
-                  src="{% if request.user.userprofile.profile_display %}{{request.user.userprofile.profile_display.url}}{% else %}{% static 'images/default/160x54_img1.jpg' %}{% endif %}"
-                  height="54" alt=""></a>
-  
-            </div>
-  
-          </div>
-  
-          {% block user_content %}
-          {% endblock user_content %}
-          </div>
       </div>
     </div>
   </div>

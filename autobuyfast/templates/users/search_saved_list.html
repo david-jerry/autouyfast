@@ -1,0 +1,67 @@
+{% extends "users/base.html" %}
+{% load static crispy_forms_tags humanize %}
+
+
+{% block user_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
+
+{% block user_content %}
+{% if request.user %}
+<!-- <div class="rtd typography-page"> -->
+<div class="content-element6" style="margin-top: 70px;">
+    <div class="table-type1 recent-order table-striped responsive-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Link</th>
+                    <th>Created</th>
+                    <th>Delete Ad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in searches %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{{car.search_link}}">{{car.search_link}}</a></td>
+                    <td>{{car.created|naturalday}}</td>
+                    <td>{% if car.saved %}
+                        <a class="b-car-details__link" href="{% url 'cars:unsave_search' car.pk %}">
+                            <i class="icon fa fa-trash text-primary"></i>
+                        </a>
+                        {% endif  %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No Saved car</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- </div> -->
+{% endif %}
+{% endblock %}

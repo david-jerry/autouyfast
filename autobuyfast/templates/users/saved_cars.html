@@ -1,23 +1,42 @@
 {% extends "users/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block user_title %}Saved Car List{% endblock %}
-{% block user_page_title %}Saved Car List{% endblock %}
-{% block user_breadcrum %}Saved Car List{% endblock %}
-{% block user_section_title %}Saved Car List{% endblock %}
-{% block user_section_title_desc %}Saved Car List{% endblock %}
+{% block user_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
 
 
 {% block user_content %}
 {% if request.user %}
 <!-- <div class="rtd typography-page"> -->
-    <div class="typography-section typography-section-border" style="margin-top: -70px;">
-        <div class="table-container">
-            <table class="table table_primary table-type-2 table-striped typography-last-elem">
+    <div class="content-element6" style="margin-top: 70px;">
+        <div class="table-type1 recent-order table-striped responsive-table">
+            <table>
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Car Name</th>
+                        <th>Car Photo</th>
                         <th>Car Dealer</th>
                         <th>Saved Date</th>
                         <th>Stop Watching</th>
@@ -28,6 +47,7 @@
                     <tr>
                         <td>{{forloop.counter}}</td>
                         <td>{{car.car.title}}</td>
+                        <td><img src="{{car.car.image_set.first.img_url}}" height="auto" alt="{{car.car.title}}"></td>
                         <td>{{car.car.car_dealer_name}}</td>
                         <td>{{car.created}}</td>
                         <td><a class="b-car-details__link" href="{% url 'cars:watch_remove' car.car.slug %}"><i class="icon fa fa-trash text-primary"></i></a></td>

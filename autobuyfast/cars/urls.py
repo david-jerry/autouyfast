@@ -2,6 +2,7 @@ from django.urls import path
 from django_filters.views import FilterView
 
 from autobuyfast.cars.views import (  # CarLikeFunc,
+    AllSearchView,
     CarCreateView,
     CarDeleteView,
     CarSold,
@@ -12,6 +13,8 @@ from autobuyfast.cars.views import (  # CarLikeFunc,
     cars_list_view,
     filter_car_search_view,
     filter_home_car_search_view,
+    save_search,
+    unsave_search,
     unwatch_car,
     watch_car,
 )
@@ -28,6 +31,9 @@ urlpatterns = [
     path("detail/<slug>/", view=car_detail_view, name="detail"),
     path("search/", view=filter_car_search_view, name="search"),
     path("search/alt/", view=filter_home_car_search_view, name="home_search"),
-    path("cars/watch/<slug>/", view=watch_car, name="watch_add"),
-    path("cars/unwatch/<slug>/", view=unwatch_car, name="watch_remove"),
+    path("watch/<slug>/", view=watch_car, name="watch_add"),
+    path("unwatch/<slug>/", view=unwatch_car, name="watch_remove"),
+    path("save/search/", view=save_search, name="save_search"),
+    path("save/search/<int:pk>/", view=unsave_search, name="unsave_search"),
+    path("search/list/", view=AllSearchView.as_view(), name="search_list"),
 ]

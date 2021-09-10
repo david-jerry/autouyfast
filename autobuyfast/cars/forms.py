@@ -18,7 +18,7 @@ from tinymce.widgets import TinyMCE
 User = get_user_model()
 
 from .crispy_layout_object import *
-from .models import CAR_BODY, CAR_DOOR, CAR_MAKE, AutoSearch, Image
+from .models import CAR_BODY, CAR_DOOR, CAR_MAKE, AutoSearch, Image, SaveCarSearch
 
 
 class CarImageForm(forms.ModelForm):
@@ -98,3 +98,10 @@ class ContactCarDealerForm(forms.Form):
     last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"placeholder":"Last Name"}))
     question = forms.ChoiceField(choices=SELLER_CONTACT_REASON)
     message = forms.CharField(widget=TinyMCE(attrs={'cols': 40, 'row': 40, "placeholder":"I will like to know is this car is still available."}))
+
+
+
+class SaveCarSearchForm(forms.ModelForm):
+    class Meta:
+        model = SaveCarSearch
+        fields = []

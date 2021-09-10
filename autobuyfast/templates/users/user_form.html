@@ -1,11 +1,30 @@
 {% extends "users/base.html" %}
 {% load static crispy_forms_tags %}
 
-{% block user_title %}Profile{% endblock %}
-{% block user_page_title %}Profile{% endblock %}
-{% block user_breadcrum %}profile{% endblock %}
-{% block user_section_title %}Profile{% endblock %}
-{% block user_section_title_desc %}View and edit your profile informations{% endblock %}
+
+{% block user_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_og_url %}
+{{request.user.get_absolute_url}}
+{% endblock %}
+
+{% block user_tw_title %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_tw_desc %}
+{{request.user.fullname}} Dashboard
+{% endblock %}
+
+{% block user_can_link %}
+users/{{request.user.username}}
+{% endblock %}
 
 
 {% block user_content %}

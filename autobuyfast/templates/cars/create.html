@@ -173,8 +173,8 @@ Create Car Ad - {{ block.super }}
                         </div>
                     </div>
                     {% endfor %}
-                    <input type="hidden" name="additems" id="additems" value="false">
-                    <button class="btn btn-small btn-style-3" id="additemsbutton">Add More Images</button>
+                    <!-- <input type="hidden" name="additems" id="additems" value="false">
+                    <button class="btn btn-small btn-style-3" id="additemsbutton">Add More Images</button> -->
                 </div>
             </div>
         </div>
@@ -186,9 +186,9 @@ Create Car Ad - {{ block.super }}
 
 {% block inline_javascript %}
 $(document).ready(function() {
-    $("#additemsbutton").on("click", function(event) {
-        event.preventDefault();
-        event$("#additems").val("true");
+    $("#additemsbutton").on("click", function(e) {
+        e.preventDefault();
+        $("#additems").val("true");
         return false;
     });
 });

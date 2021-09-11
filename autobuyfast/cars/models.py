@@ -542,7 +542,7 @@ class CarCompare(TimeStampedModel):
         ordering = ["-created"]
 
 class SaveCarSearch(TimeStampedModel):
-    user = ForeignKey(User, on_delete=CASCADE)
+    user = ForeignKey(User, on_delete=CASCADE, related_name="savecarsearch")
     search_link = URLField(blank=True, null=True)
     saved = BooleanField(default=False)
 

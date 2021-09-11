@@ -113,11 +113,13 @@ class UserDetailView(LoginRequiredMixin, SuccessMessageMixin, FormMixin, DetailV
         context["testimony_form"] = self.form_class
         context["testimony"] = testimonial
         context["cars"] = cars.order_by("-created")[:5]
-        context["watched_cars"] = watched_cars.order_by("-created")[:5]
-        context["saved_search"] = saved_search.order_by("-created")[:15]
         context["cars_count"] = cars.count()
-        context["watched_cars_count"] = watched_cars.count()
-        context["saved_search_count"] = saved_search.count()
+        if watched_cars.exists():
+            context["watched_cars"] = watched_cars.order_by("-created")[:5]
+            context["watched_cars_count"] = watched_cars.count()
+        if saved_search.exists():
+            context["saved_search"] = saved_search.order_by("-created")[:15]
+            context["saved_search_count"] = saved_search.count()
         return context
     
 

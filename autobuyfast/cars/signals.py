@@ -17,25 +17,27 @@ def create_post_slug(sender, instance, *args, **kwargs):
 		instance.slug = unique_slug_generator(instance)
 
 
-# @receiver(post_save, sender=AutoSearch)
-# def send_car_watch_price_notification(sender, instance, created, *args, **kwargs):
-# 	if created and instance.exists():
-# 		obj = get_object_or_404(WatchCars, car=instance, active=True)
-# 		obj.send_price_change_mail()
+@receiver(post_save, sender=AutoSearch)
+def send_car_watch_price_notification(sender, instance, created, *args, **kwargs):
+	if created and instance.exists():
+		obj = WatchCars.objects.filter(car=instance, active=True).exists()
+		obj.send_price_change_mail()
 		
-# @receiver(post_save, sender=AutoSearch)
-# def send_car_sold_notification(sender, instance, created, *args, **kwargs):
-# 	if created and not instance.available:
-# 		obj = get_object_or_404(WatchCars, car=instance, active=True)
-		# obj.send_sold_change_mail()
+@receiver(post_save, sender=AutoSearch)
+def send_car_sold_notification(sender, instance, created, *args, **kwargs):
+	if created and not instance.available:
+		obj = WatchCars.objects.filter(car=instance, active=True)/exists()
+		obj.send_sold_change_mail()
 
 
-# @receiver(pre_save, sender=Image)
-# def convert_img_url_to_image_path(sender, instance, *args, **kwargs):
-# 	if instance.img_url and not instance.image:
-# 		result = request.urlretrieve(instance.img_url)
-# 		instance.image.save(
-# 			os.path.basename(instance.img_url),
-# 			File(open(result[0], 'rb'))
-# 			)
-# 		instance.save()
+@receiver(pre_save, sender=Image)
+def get_img_url_from_image_path(sender, instance, *args, **kwargs):
+	# if instance.img_url and not instance.image:
+	# 	result = request.urlretrieve(instance.img_url)
+	# 	instance.image.save(
+	# 		os.path.basename(instance.img_url),
+	# 		File(open(result[0], 'rb'))
+	# 		)
+	# 	instance.save()
+	if instance.image:
+		instance.img_url = instance.image.url

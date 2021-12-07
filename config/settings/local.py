@@ -48,6 +48,10 @@ if env("USE_DOCKER") == "yes":
 
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+# WhiteNoise
+# ------------------------------------------------------------------------------
+# http://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
+INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa F405
 
 # django-extensions
 # ------------------------------------------------------------------------------
@@ -57,6 +61,8 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 # ------------------------------------------------------------------------------
 
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-eager-propagates
-# CELERY_TASK_EAGER_PROPAGATES = True
+# http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-always-eager
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------

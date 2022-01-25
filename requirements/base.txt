@@ -1,11 +1,11 @@
 pytz==2021.1  # https://github.com/stub42/pytz
 python-slugify==5.0.2  # https://github.com/un33k/python-slugify
 Pillow==8.2.0  # https://github.com/python-pillow/Pillow
-rcssmin==1.0.6  # https://github.com/ndparker/rcssmin
+# rcssmin==1.0.6  # https://github.com/ndparker/rcssmin
 argon2-cffi==20.1.0  # https://github.com/hynek/argon2_cffi
 redis==3.5.3  # https://github.com/andymccurdy/redis-py
 whitenoise==5.3.0  # https://github.com/evansd/whitenoise
-hiredis==1.1.0  # https://github.com/redis/hiredis-py
+# hiredis==1.1.0  # https://github.com/redis/hiredis-py
 celery==4.4.6  # pyup: < 5.0,!=4.4.7  # https://github.com/celery/celery
 django-celery-beat==2.2.0  # https://github.com/celery/django-celery-beat
 flower==0.9.7  # https://github.com/mher/flower
@@ -24,7 +24,7 @@ django-redis==5.0.0  # https://github.com/jazzband/django-redis
 # Developer Installed Packages #
 # ------------------------------------------------------------------------------
 beautifulsoup4==4.9.3
-cssutils==2.3.0 
+cssutils==2.3.0
 
 # SEARCH INDEX IMPORTS & PLUGINS
 # ------------------------------------------------------------------------------
@@ -81,27 +81,27 @@ readtime==1.1.1
 
 # Dynamic Scraper for django
 # ------------------------------------------------------------------------------
-# Django Dynamic Scraper (DDS) is an app for Django which builds on 
-# top of the scraping framework Scrapy and lets you create and manage 
-# Scrapy spiders via the Django admin interface. It was originally 
-# developed for german webtv program site 
+# Django Dynamic Scraper (DDS) is an app for Django which builds on
+# top of the scraping framework Scrapy and lets you create and manage
+# Scrapy spiders via the Django admin interface. It was originally
+# developed for german webtv program site
 # ------------------------------------------------------------------------------
-# django-dynamic-scraper==0.13.3 
+# django-dynamic-scraper==0.13.3
 
 
 # Dynamic Scraper for django
 # ------------------------------------------------------------------------------
-# Scrapy is a fast high-level web crawling and web scraping framework, 
-# used to crawl websites and extract structured data from their pages. 
-# It can be used for a wide range of purposes, from data mining to 
+# Scrapy is a fast high-level web crawling and web scraping framework,
+# used to crawl websites and extract structured data from their pages.
+# It can be used for a wide range of purposes, from data mining to
 # monitoring and automated testing.
 # ------------------------------------------------------------------------------
-Scrapy==2.5.0 
-lxml==4.6.3 
+Scrapy==2.5.0
+lxml==4.6.3
 scrapy-djangoitem==1.1.1
-word2word==1.0.0 
+word2word==1.0.0
 requests-html==0.10.0
-django-filter==2.4.0 
+django-filter==2.4.0
 
 #Todo: Django Filter Search, Ajax Commenting, Language Integration, Cookie Consent
 # --extra-index-url https://dl.fontawesome.com/TOKEN/fontawesome-pro/python/simple/

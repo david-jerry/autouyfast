@@ -91,33 +91,33 @@ class Command(BaseCommand):
                     engine = detail_cars.find("dt",text="Engine").findNext("dd").string
                     transmission = detail_cars.find("dt",text="Transmission").findNext("dd").string
 
-                try:
-                    AutoSearch.objects.create(
-                        title = car_title,
-                        slug = car_slug,
-                        car_url = car_url,
-                        car_vin = vin,
-                        car_stock = car_stock,
-                        dealer = User(id=2),
-                        car_year = car_year,
-                        car_mileage = format(int(car_mileage), ".2f"),
-                        car_price = format(int(car_price), ".2f"),
-                        car_sub_price = 0.00,
-                        car_door = "",
-                        car_body = "",
-                        car_history = car_history_report_url,
-                        car_dealer_name = car_dealer_name,
-                        car_dealer_phone = car_dealer_phone,
-                        car_transmission = transmission,
-                        car_ext_color = ext_color,
-                        car_int_color = int_color,
-                        car_drive_train = drive_train,
-                        car_fuel_type = fuel_type,
-                        car_engine = engine,
-                    )
-                    print(f'{car_title} was added')
-                except:
-                    print(f'{car_title} already exists')
+                # try:
+                AutoSearch.objects.create(
+                    title = car_title,
+                    slug = car_slug,
+                    car_url = car_url,
+                    car_vin = vin,
+                    car_stock = car_stock,
+                    dealer = User(id=2),
+                    car_year = car_year,
+                    car_mileage = format(int(car_mileage), ".2f"),
+                    car_price = format(int(car_price), ".2f"),
+                    car_sub_price = 0.00,
+                    car_door = "",
+                    car_body = "",
+                    car_history = car_history_report_url,
+                    car_dealer_name = car_dealer_name,
+                    car_dealer_phone = car_dealer_phone,
+                    car_transmission = transmission,
+                    car_ext_color = ext_color,
+                    car_int_color = int_color,
+                    car_drive_train = drive_train,
+                    car_fuel_type = fuel_type,
+                    car_engine = engine,
+                )
+                print(f'{car_title} was added')
+                # except:
+                print(f'{car_title} already exists')
 
 
         self.stdout.write("Car Scraping Completed Successfully.")

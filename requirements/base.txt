@@ -96,7 +96,7 @@ readtime==1.1.1
 # It can be used for a wide range of purposes, from data mining to
 # monitoring and automated testing.
 # ------------------------------------------------------------------------------
-Scrapy==2.5.0
+Scrapy==2.6.1
 lxml==4.6.3
 scrapy-djangoitem==1.1.1
 word2word==1.0.0
